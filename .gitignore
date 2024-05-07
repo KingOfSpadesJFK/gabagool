@@ -1,0 +1,8 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Where finished builds are
+.build/
+
+# Anything you don't want in the git
+.ignore/
