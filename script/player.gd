@@ -14,9 +14,8 @@ const JUMP_VELOCITY = -400.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-# Current state of the player
 var player_state = PlayerState.IDLE
+var direction = Vector2(0,0)
 
 
 func _physics_process(delta):
@@ -35,7 +34,7 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("player_left", "player_right")
+	direction = Input.get_axis("player_left", "player_right")
 	
 	if player_can_walk():
 		if direction:
