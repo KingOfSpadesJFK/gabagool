@@ -13,7 +13,9 @@ layer_0/tile_data = PackedInt32Array(458739, 0, 0, 458740, 0, 0, 458741, 0, 0, 4
 [node name="Player" parent="." instance=ExtResource("2_hlypw")]
 position = Vector2(-8, 67)
 tilemap_path = NodePath("../Foreground")
+walking_speed_weight = 4.0
 jump_velocity = 150.0
+jump_velocity_weight = 0.275
 gravity_weight = 0.185
 
 [node name="Camera2D" type="Camera2D" parent="."]

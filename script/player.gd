@@ -68,14 +68,12 @@ func _process(_delta):
 		else:
 			# Handle jump.
 			if player_can_jump():
-				velocity.y = -jump_velocity
+				velocity.y = -jump_velocity * jump_velocity_weight
 				player_state = PlayerState.JUMP
 			else:
 				player_state = PlayerState.IDLE
 		if player_can_walk() and direction:
 			player_state = PlayerState.WALK
-	
-	pass
 
 
 # Handle physics and collision
@@ -86,15 +84,15 @@ func _physics_process(delta):
 	
 	if player_state == PlayerState.CLIMB:
 		if direction:
-			velocity = direction * walking_speed
+			velocity = direction * walking_speed * walking_speed_weight
 		else:
-			velocity.x = move_toward(velocity.x, 0, walking_speed)
-			velocity.y = move_toward(velocity.y, 0, walking_speed)
+			velocity.x = move_toward(velocity.x, 0, walking_speed * walking_speed_weight)
+			velocity.y = move_toward(velocity.y, 0, walking_speed * walking_speed_weight)
 	elif player_can_walk():
 		if direction.x:
-			velocity.x = direction.x * walking_speed
+			velocity.x = direction.x * walking_speed * walking_speed_weight
 		else:
-			velocity.x = move_toward(velocity.x, 0, walking_speed)
+			velocity.x = move_toward(velocity.x, 0, walking_speed * walking_speed_weight)
 
 	move_and_slide()
 
