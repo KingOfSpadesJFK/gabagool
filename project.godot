@@ -11,16 +11,15 @@ config_version=5
 [application]
 
 config/name="gabagool"
-run/main_scene="res://Test Scene.tscn"
+run/main_scene="res://scene/game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=400
-window/size/viewport_height=224
+window/size/viewport_width=480
+window/size/viewport_height=360
 window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
 
 [dotnet]
 
