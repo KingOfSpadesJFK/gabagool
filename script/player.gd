@@ -6,14 +6,24 @@ enum PlayerState { IDLE, WALK, JUMP, FALL, CLIMB }
 const SPEED = 100.0
 const JUMP_VELOCITY = -400.0
 
+
+# The path to the foreground tilemap
+@export var tilemap_path: NodePath
+
 # The walking speed of the player
 @export var walking_speed = 100.0
+
+# Multiplier for the walking speed
+@export var walking_speed_weight = 1.0
 
 # The jump veloctiy of the player
 @export var jump_velocity = 400.0
 
-# The path to the foreground tilemap
-@export var tilemap_path: NodePath
+# Multiplier for the jump velocity
+@export var jump_velocity_weight = 1.0
+
+# Multiplier for the gravity
+@export var gravity_weight = 1.0
 
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")	# Get gravity from project settings
@@ -72,7 +82,7 @@ func _process(_delta):
 func _physics_process(delta):
 	# Add the gravity.
 	if player_state != PlayerState.CLIMB and not is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += gravity * gravity_weight * delta
 	
 	if player_state == PlayerState.CLIMB:
 		if direction:

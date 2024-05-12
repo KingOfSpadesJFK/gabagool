@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfwr2l4r4pref"]
+
+[ext_resource type="Script" path="res://script/player.gd" id="1_kgimv"]
+[ext_resource type="Texture2D" uid="uid://b8ulkaxw2e7wf" path="res://assets/temp-player.png" id="2_m32qu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqdm7"]
+size = Vector2(18, 50)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_kgimv")
+jump_velocity = 300.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, 0)
+texture = ExtResource("2_m32qu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_gqdm7")
+
+[node name="TileTest" type="Node2D" parent="."]
+
+[node name="Left" type="Marker2D" parent="TileTest"]
+position = Vector2(-10, 0)
+
+[node name="Center" type="Marker2D" parent="TileTest"]
+position = Vector2(10, 0)
+
+[node name="Right" type="Marker2D" parent="TileTest"]
+position = Vector2(10, 0)
+
+[node name="Bottom" type="Marker2D" parent="TileTest"]
+position = Vector2(0, 29)
+
+[node name="Top" type="Marker2D" parent="TileTest"]
+position = Vector2(0, -25)

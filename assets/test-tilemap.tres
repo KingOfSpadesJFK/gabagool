@@ -22,6 +22,7 @@ texture = ExtResource("1_bnrqi")
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_0/angular_velocity = 0.0
 3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 6.77208, -6.06337, -7, -6.125)
+3:0/0/physics_layer_0/polygon_0/one_way = true
 3:0/0/custom_data_1 = Vector2i(0, 1)
 4:0/0 = 0
 4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
