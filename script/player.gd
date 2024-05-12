@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-enum PlayerState { IDLE, WALK, JUMP, FALL }
+enum PlayerState { IDLE, WALK, JUMP, FALL, CLIMB }
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -400.0
@@ -12,37 +12,85 @@ const JUMP_VELOCITY = -400.0
 # The jump veloctiy of the player
 @export var jump_velocity = 400.0
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+# The path to the foreground tilemap
+@export var tilemap_path: NodePath
+
+
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")	# Get gravity from project settings
 var player_state = PlayerState.IDLE
 var direction = Vector2(0,0)
+var tilemap: TileMap
+
+func _ready():
+	tilemap = get_node(tilemap_path)
 
 
-func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta
-		if player_state != PlayerState.JUMP:
+# Handles inputs and player state
+func _process(_delta):
+	# Get the input direction and handle the movement/deceleration.
+	direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
+	
+	# Check for what tiles the player is on
+	#   This part checks for the markers in $TileTest to see if a tile on those 
+	#   markers are climbables
+	var can_climb = false
+	for child in $TileTest.get_children():
+		# Get the tile data of the cell the player is on
+		var pos = tilemap.to_local(child.global_position)
+		var posTile = tilemap.local_to_map(pos)
+		var tiledata = tilemap.get_cell_tile_data(0, posTile)
+		if tiledata:
+			# Check for climbables
+			can_climb = can_climb or tiledata.get_custom_data("Climbable")
+			if can_climb: 
+				if Input.is_action_pressed("player_up"):
+					player_state = PlayerState.CLIMB
+		
+	if player_state == PlayerState.CLIMB:
+		if is_on_floor() and !can_climb:
+			player_state = PlayerState.IDLE
+		elif not is_on_floor() and !can_climb:
 			player_state = PlayerState.FALL
 	else:
-		player_state = PlayerState.IDLE
-
-	# Handle jump.
-	if Input.is_action_just_pressed("player_jump") and is_on_floor():
-		player_state = PlayerState.JUMP
-		velocity.y = -jump_velocity
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	direction = Input.get_axis("player_left", "player_right")
+		if not is_on_floor():
+			if player_state != PlayerState.JUMP:
+				player_state = PlayerState.FALL
+		else:
+			# Handle jump.
+			if player_can_jump():
+				velocity.y = -jump_velocity
+				player_state = PlayerState.JUMP
+			else:
+				player_state = PlayerState.IDLE
+		if player_can_walk() and direction:
+			player_state = PlayerState.WALK
 	
-	if player_can_walk():
+	pass
+
+
+# Handle physics and collision
+func _physics_process(delta):
+	# Add the gravity.
+	if player_state != PlayerState.CLIMB and not is_on_floor():
+		velocity.y += gravity * delta
+	
+	if player_state == PlayerState.CLIMB:
 		if direction:
-			velocity.x = direction * walking_speed
+			velocity = direction * walking_speed
+		else:
+			velocity.x = move_toward(velocity.x, 0, walking_speed)
+			velocity.y = move_toward(velocity.y, 0, walking_speed)
+	elif player_can_walk():
+		if direction.x:
+			velocity.x = direction.x * walking_speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, walking_speed)
 
 	move_and_slide()
+
+
+func player_can_jump():
+	return Input.is_action_just_pressed("player_jump") and is_on_floor()
 
 
 func player_can_walk():

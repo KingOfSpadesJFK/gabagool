@@ -6,3 +6,6 @@
 
 # Anything you don't want in the git
 .ignore/
+
+# GdUnit4
+addons/gdUnit4
