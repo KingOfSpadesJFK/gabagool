@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cg5hxcq5rc4bt"]
+[gd_scene load_steps=5 format=3 uid="uid://cg5hxcq5rc4bt"]
 
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_nh3oh"]
 [ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="2_hlypw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8nyy"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_qnt4m"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -11,9 +15,20 @@
 position = Vector2(-8, 67)
 tilemap_path = NodePath("../../Tilemaps/Interactables")
 gravity_weight = 0.2
+jump_delay = 0.25
 
 [node name="Camera2D" type="Camera2D" parent="Entities/Player"]
 position = Vector2(8, -67)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Entities"]
+position = Vector2(36, 82)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/RigidBody2D"]
+shape = SubResource("RectangleShape2D_e8nyy")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Entities/RigidBody2D"]
+scale = Vector2(20, 20)
+mesh = SubResource("QuadMesh_qnt4m")
 
 [node name="Tilemaps" type="Node" parent="."]
 
@@ -25,4 +40,5 @@ layer_0/tile_data = PackedInt32Array(458739, 0, 0, 458740, 0, 0, 458741, 0, 0, 4
 [node name="Interactables" type="TileMap" parent="Tilemaps"]
 tile_set = ExtResource("1_nh3oh")
 format = 2
+layer_0/z_index = -1
 layer_0/tile_data = PackedInt32Array(131061, 196608, 1, 131062, 196608, 1, 196598, 196608, 1, 262134, 196608, 1, 327670, 196608, 1, 393206, 196608, 1, 393205, 196608, 1, 327669, 196608, 1, 262133, 196608, 1, 196597, 196608, 1)

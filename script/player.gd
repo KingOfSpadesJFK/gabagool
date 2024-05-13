@@ -25,8 +25,11 @@ const JUMP_VELOCITY = -400.0
 # Multiplier for the gravity
 @export var gravity_weight = 1.0
 
-# Timer for jump delay
+# Timer for jump delay. If 0, then player will jump instantly
 @export var jump_delay = 0.1
+
+# How much the player weighs
+@export var mass = 1.0
 
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")	# Get gravity from project settings
@@ -35,6 +38,7 @@ var direction = Vector2(0,0)
 var tilemap: TileMap
 var jump_timer_start = false
 var jump_direction = Vector2(0,0)
+
 
 func _ready():
 	tilemap = get_node(tilemap_path)
@@ -64,24 +68,33 @@ func _process(_delta):
 		
 	# Player state things
 	if player_state == PlayerState.CLIMB:
+		# Player state when climbing
 		if is_on_floor() and !can_climb:
 			player_state = PlayerState.IDLE
 		elif not is_on_floor() and !can_climb:
 			player_state = PlayerState.FALL
 	else:
 		if not is_on_floor():
-			if player_state != PlayerState.JUMP:
+			# Mid-air player state
+			if player_state != PlayerState.JUMP or (player_state == PlayerState.JUMP and velocity.y > 0.0):
 				player_state = PlayerState.FALL
 		else:
-			# Handle jump.
-			if player_can_jump():
-				player_state = PlayerState.JUMP_INIT
-				$JumpTimer.start(jump_delay)
-				jump_timer_start = true
+			if can_jump():
+				# Jumping
 				jump_direction = direction
-			elif player_state != PlayerState.JUMP_INIT:
+				if jump_delay:
+					# Delayed jump
+					player_state = PlayerState.JUMP_INIT
+					$JumpTimer.start(jump_delay)
+					jump_timer_start = true
+				else:
+					# Instant jump
+					jump_impulse()
+			elif !is_jumping():
+				# At leaset idle if not jumping
 				player_state = PlayerState.IDLE
-		if  player_can_walk() and direction and player_state != PlayerState.JUMP_INIT:
+		if  can_walk() and direction:
+			# Walking
 			player_state = PlayerState.WALK
 
 
@@ -103,25 +116,40 @@ func _physics_process(delta):
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			velocity.y = move_toward(velocity.y, 0, speed)
-	elif player_can_walk():
+	elif can_walk() or player_state == PlayerState.JUMP_INIT:
 		if direction.x:
 			velocity.x = direction.x * speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 
+	for i in get_slide_collision_count():
+		var col = get_slide_collision(i)
+		var body = col.get_collider()
+		if body is RigidBody2D:
+			var force = mass * velocity.length_squared() / 2.0
+			body.apply_force(-force*col.get_normal())
+			
 	move_and_slide()
 
 
-func player_can_jump():
-	return player_state != PlayerState.JUMP and Input.is_action_just_pressed("player_jump") and is_on_floor() and player_state != PlayerState.JUMP_INIT
+func is_jumping():
+	return player_state == PlayerState.JUMP or player_state == PlayerState.JUMP_INIT
 
 
-func player_can_walk():
-	return player_state == PlayerState.IDLE or player_state == PlayerState.WALK or player_state == PlayerState.JUMP_INIT
+func can_jump():
+	return not is_jumping() and Input.is_action_just_pressed("player_jump") and is_on_floor()
 
 
-func _on_jump_timer_timeout():
+func can_walk():
+	return (player_state == PlayerState.IDLE or player_state == PlayerState.WALK) and not is_jumping()
+
+
+func jump_impulse():
 	velocity.x = jump_direction.x * walking_speed * walking_speed_weight
 	velocity.y = -jump_velocity * jump_velocity_weight
 	player_state = PlayerState.JUMP
 	jump_timer_start = false
+
+
+func _on_jump_timer_timeout():
+	jump_impulse()

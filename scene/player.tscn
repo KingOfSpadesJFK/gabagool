@@ -36,7 +36,6 @@ position = Vector2(0, -25)
 
 [node name="JumpTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 0.342
 one_shot = true
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
