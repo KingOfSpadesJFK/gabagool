@@ -90,7 +90,7 @@ func _process(_delta):
 				else:
 					# Instant jump
 					jump_impulse()
-			elif !is_jumping():
+			elif player_state != PlayerState.JUMP_INIT:
 				# At leaset idle if not jumping
 				player_state = PlayerState.IDLE
 		if  can_walk() and direction:
@@ -107,8 +107,9 @@ func _physics_process(delta):
 	var speed = walking_speed * walking_speed_weight / _jump_init_divisor
 	
 	# Add the gravity.
+	var grav = gravity * gravity_weight
 	if player_state != PlayerState.CLIMB and not is_on_floor():
-		velocity.y += gravity * gravity_weight * delta
+		velocity.y += grav * delta
 	
 	if player_state == PlayerState.CLIMB:
 		if direction:
@@ -126,10 +127,16 @@ func _physics_process(delta):
 		var col = get_slide_collision(i)
 		var body = col.get_collider()
 		if body is RigidBody2D:
-			var force = mass * velocity.length_squared() / 2.0
-			body.apply_force(-force*col.get_normal())
+			var force = mass * velocity*velocity / 2.0
+			force.y *= -1
+			var gravForce = mass * Vector2(0,100)
+			body.apply_force(-(force+gravForce)*col.get_normal())
 			
 	move_and_slide()
+
+
+func is_midair():
+	return player_state == PlayerState.JUMP or player_state == PlayerState.FALL
 
 
 func is_jumping():
@@ -149,6 +156,7 @@ func jump_impulse():
 	velocity.y = -jump_velocity * jump_velocity_weight
 	player_state = PlayerState.JUMP
 	jump_timer_start = false
+	move_and_slide()
 
 
 func _on_jump_timer_timeout():

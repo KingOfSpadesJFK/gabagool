@@ -3,11 +3,14 @@
 [ext_resource type="Script" path="res://script/player.gd" id="1_kgimv"]
 [ext_resource type="Texture2D" uid="uid://b8ulkaxw2e7wf" path="res://assets/temp-player.png" id="2_m32qu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqdm7"]
-size = Vector2(18, 50)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2fl3"]
+size = Vector2(20, 50)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_kgimv")
+mass = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2, 0)
@@ -15,7 +18,7 @@ texture = ExtResource("2_m32qu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_gqdm7")
+shape = SubResource("RectangleShape2D_o2fl3")
 
 [node name="TileTest" type="Node2D" parent="."]
 

@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://tvrxqccgpjcf"]
+
+[ext_resource type="Script" path="res://script/pressure_plate.gd" id="1_vhv4s"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tfdr0"]
+size = Vector2(16, 16)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qt247"]
+friction = 30.55
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6g73p"]
+size = Vector2(48, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ei6hj"]
+size = Vector2(48, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oo0bb"]
+size = Vector2(32, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jr47d"]
+size = Vector2(32, 7)
+
+[node name="PressurePlate" type="Node2D"]
+script = ExtResource("1_vhv4s")
+
+[node name="Plate" type="RigidBody2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 8
+collision_mask = 8388610
+mass = 10.0
+gravity_scale = 0.0
+lock_rotation = true
+freeze_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Plate"]
+texture = SubResource("PlaceholderTexture2D_tfdr0")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Plate"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 16, 0, 8, 8, -8, 8, -16, 0)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 10)
+collision_layer = 8388608
+collision_mask = 8
+physics_material_override = SubResource("PhysicsMaterial_qt247")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_6g73p")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 10.5)
+shape = SubResource("RectangleShape2D_ei6hj")
+
+[node name="ReleaseThreshold" type="Area2D" parent="."]
+collision_layer = 8388608
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ReleaseThreshold"]
+position = Vector2(0, 10.5)
+shape = SubResource("RectangleShape2D_oo0bb")
+
+[node name="PressThreshold" type="Area2D" parent="."]
+collision_layer = 8388608
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PressThreshold"]
+position = Vector2(0, 12.5)
+shape = SubResource("RectangleShape2D_jr47d")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("../Plate")
+node_b = NodePath("../StaticBody2D")
+disable_collision = false
+softness = 2.75
+
+[node name="CheckTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_exited" from="ReleaseThreshold" to="." method="_on_threshold_body_exited"]
+[connection signal="body_entered" from="PressThreshold" to="." method="_on_threshold_body_entered"]
+[connection signal="timeout" from="CheckTimer" to="." method="_on_check_timer_timeout"]
