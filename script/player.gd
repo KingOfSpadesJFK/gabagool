@@ -47,7 +47,7 @@ func _ready():
 # Handles inputs and player state
 func _process(_delta):
 	# Get the input direction and handle the movement/deceleration.
-	if player_state != PlayerState.JUMP_INIT:
+	if !is_jumping() and !is_midair():
 		direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
 	
 	# Check for what tiles the player is on
@@ -81,7 +81,6 @@ func _process(_delta):
 		else:
 			if can_jump():
 				# Jumping
-				jump_direction = direction
 				if jump_delay:
 					# Delayed jump
 					player_state = PlayerState.JUMP_INIT
@@ -117,11 +116,13 @@ func _physics_process(delta):
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			velocity.y = move_toward(velocity.y, 0, speed)
-	elif can_walk() or player_state == PlayerState.JUMP_INIT:
+	elif can_walk():
 		if direction.x:
 			velocity.x = direction.x * speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
+	elif is_jumping() or is_midair():
+		velocity.x = direction.x * speed
 
 	for i in get_slide_collision_count():
 		var col = get_slide_collision(i)
