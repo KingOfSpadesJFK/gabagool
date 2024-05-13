@@ -40,13 +40,11 @@ func _on_threshold_body_exited(body):
 			run_timer = false
 			$CheckTimer.stop()
 		elif pressed:
-			print("Unpressed.")
-			plate_pressed.emit()
+			plate_unpressed.emit()
 			pressed = false
 
 
 func _on_check_timer_timeout():
-	print("Pressed!")
 	plate_pressed.emit()
 	run_timer = false
 	pressed = true

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cg5hxcq5rc4bt"]
+[gd_scene load_steps=7 format=3 uid="uid://cg5hxcq5rc4bt"]
 
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_nh3oh"]
 [ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="2_hlypw"]
 [ext_resource type="PackedScene" uid="uid://tvrxqccgpjcf" path="res://scene/entity/pressure_plate.tscn" id="2_mxjja"]
+[ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="3_8jndc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e8nyy"]
 
@@ -38,6 +39,10 @@ mesh = SubResource("QuadMesh_qnt4m")
 [node name="PressurePlate" parent="Entities" instance=ExtResource("2_mxjja")]
 position = Vector2(69, 105)
 
+[node name="Door" parent="Entities" instance=ExtResource("3_8jndc")]
+position = Vector2(-76, 32)
+scale = Vector2(1, 1.2)
+
 [node name="Tilemaps" type="Node" parent="."]
 
 [node name="Foreground" type="TileMap" parent="Tilemaps"]
@@ -50,3 +55,6 @@ tile_set = ExtResource("1_nh3oh")
 format = 2
 layer_0/z_index = -1
 layer_0/tile_data = PackedInt32Array(131061, 196608, 1, 131062, 196608, 1, 196598, 196608, 1, 262134, 196608, 1, 327670, 196608, 1, 393206, 196608, 1, 393205, 196608, 1, 327669, 196608, 1, 262133, 196608, 1, 196597, 196608, 1)
+
+[connection signal="plate_pressed" from="Entities/PressurePlate" to="Entities/Door" method="_on_door_open"]
+[connection signal="plate_unpressed" from="Entities/PressurePlate" to="Entities/Door" method="_on_door_close"]
