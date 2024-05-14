@@ -31,6 +31,8 @@ colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.651673, 0.767033, 
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1cbuw"]
 gradient = SubResource("Gradient_3nokh")
+width = 100
+height = 100
 fill_from = Vector2(1, 1)
 
 [node name="Node2D" type="Node2D"]
@@ -137,11 +139,12 @@ render_target_update_mode = 4
 [node name="Camera3D" type="Camera3D" parent="BackgroundViewport/BackgroundContainer/SubViewport"]
 
 [node name="Sprite3D" type="Sprite3D" parent="BackgroundViewport/BackgroundContainer/SubViewport"]
-transform = Transform3D(67.2027, 0, 0, 0, 2.49476e-06, 0.999999, 0, -83.7102, 2.98023e-08, 0, -5, -25.5019)
+transform = Transform3D(67.2027, 0, 0, 0, 2.49476e-06, 0.999999, 0, -83.7102, 2.98023e-08, 0, -5, -33.5804)
+visible = false
 texture = SubResource("GradientTexture2D_b78xy")
 
 [node name="Sprite3D2" type="Sprite3D" parent="BackgroundViewport/BackgroundContainer/SubViewport"]
-transform = Transform3D(67.2027, 0, 0, 0, 2.49476e-06, 0.999999, 0, -83.7102, 2.98023e-08, -0.279, 0, -25.5309)
+transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, -1.25, -52.312)
 texture = SubResource("GradientTexture2D_1cbuw")
 
 [connection signal="plate_pressed" from="Entities/PressurePlate" to="Entities/Door" method="_on_door_open"]

@@ -107,6 +107,26 @@ func _process(_delta):
 			player_state = PlayerState.WALK
 
 
+# Handle shooting things
+func _input(event):
+	if event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot"):
+		# Get the shooting direction
+		var event_position = event.position
+		var shoot_dir = (event_position - get_viewport().get_visible_rect().size / 2).normalized()
+		
+		# Load the scene and set the stuff
+		var harpoon = preload("res://scene/entity/projectile_harpoon.tscn")
+		var speed = 400.0
+		var instance = harpoon.instantiate()
+		var angle = atan2(shoot_dir.y, shoot_dir.x)
+		instance.rotation = angle
+		instance.velocity = speed * shoot_dir
+		instance.position += 45.0 * shoot_dir
+		
+		# Instantiate
+		add_child(instance)
+
+
 # Handle physics and collision
 func _physics_process(delta):
 	var _jump_init_divisor = 1.0

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://b254fkba4j6sc"]
+
+[ext_resource type="Script" path="res://script/projectile.gd" id="1_jjiap"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3pcoh"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_66ico"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_jjiap")
+lifetime = 0.0
+destroy_on_impact = true
+
+[node name="RigidBody2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_3pcoh")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(-6.54726, 0.445952)
+rotation = -1.5708
+scale = Vector2(7.93925, 14.0516)
+mesh = SubResource("PrismMesh_66ico")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="RigidBody2D" to="." method="_on_body_entered"]
