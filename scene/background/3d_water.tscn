@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj2r2u2pi33o6"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_mftx0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7s27g"]
+
+[sub_resource type="Sky" id="Sky_wym1u"]
+sky_material = SubResource("ProceduralSkyMaterial_7s27g")
+
+[sub_resource type="Environment" id="Environment_qdqjf"]
+background_mode = 2
+background_energy_multiplier = 2.1
+sky = SubResource("Sky_wym1u")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.597004, 0)
+mesh = SubResource("QuadMesh_mftx0")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qdqjf")

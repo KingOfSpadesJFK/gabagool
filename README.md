@@ -17,4 +17,5 @@ An entry for the Pixel Game Jam 2024 about underwater exploration, hence the 'aq
   * 3: Projectiles
   * 4: Triggers (Buttons, pressure plates)
   * 5: Areas
+  * 9: Camera boundaries
   * 24: Miscellaneous
