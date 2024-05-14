@@ -14,5 +14,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	text = Player.PlayerState.keys()[player.player_state]
+	text = Player.PlayerState.keys()[player.player_state] + '\n'
+	text += str(player.velocity) + '\n'
 	pass

@@ -18,7 +18,7 @@ size = Vector2(48, 9)
 size = Vector2(32, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jr47d"]
-size = Vector2(32, 7)
+size = Vector2(32, 8.5)
 
 [node name="PressurePlate" type="Node2D"]
 script = ExtResource("1_vhv4s")
@@ -65,7 +65,7 @@ collision_layer = 8388608
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PressThreshold"]
-position = Vector2(0, 12.5)
+position = Vector2(0, 12.25)
 shape = SubResource("RectangleShape2D_jr47d")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]

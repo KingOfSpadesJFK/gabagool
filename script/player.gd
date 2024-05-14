@@ -31,13 +31,22 @@ const JUMP_VELOCITY = -400.0
 # How much the player weighs
 @export var mass = 1.0
 
+@export var terminal_velocity = 10.0
+
+@export var terminal_velocity_weight = 1.0
+
+@export var horizontal_jump_weight = 0.5
+
+
+signal player_died
+
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")	# Get gravity from project settings
 var player_state = PlayerState.IDLE
 var direction = Vector2(0,0)
 var tilemap: TileMap
 var jump_timer_start = false
-var jump_direction = Vector2(0,0)
+var jump_weight_add = horizontal_jump_weight
 
 
 func _ready():
@@ -54,17 +63,18 @@ func _process(_delta):
 	#   This part checks for the markers in $TileTest to see if a tile on those 
 	#   markers are climbables
 	var can_climb = false
-	for child in $TileTest.get_children():
-		# Get the tile data of the cell the player is on
-		var pos = tilemap.to_local(child.global_position)
-		var posTile = tilemap.local_to_map(pos)
-		var tiledata = tilemap.get_cell_tile_data(0, posTile)
-		if tiledata:
-			# Check for climbables
-			can_climb = can_climb or tiledata.get_custom_data("Climbable")
-			if can_climb: 
-				if Input.is_action_pressed("player_up"):
-					player_state = PlayerState.CLIMB
+	if tilemap:
+		for child in $TileTest.get_children():
+			# Get the tile data of the cell the player is on
+			var pos = tilemap.to_local(child.global_position)
+			var posTile = tilemap.local_to_map(pos)
+			var tiledata = tilemap.get_cell_tile_data(0, posTile)
+			if tiledata:
+				# Check for climbables
+				can_climb = can_climb or tiledata.get_custom_data("Climbable")
+				if can_climb: 
+					if Input.is_action_pressed("player_up"):
+						player_state = PlayerState.CLIMB
 		
 	# Player state things
 	if player_state == PlayerState.CLIMB:
@@ -122,8 +132,18 @@ func _physics_process(delta):
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 	elif is_jumping() or is_midair():
-		velocity.x = direction.x * speed
+		velocity.x = direction.x * speed * (walking_speed_weight + jump_weight_add)
 
+	# Terminal velocity
+	var tv = terminal_velocity * terminal_velocity_weight
+	if abs(velocity.x) > tv:
+		var signn = -1 if velocity.x < 0 else 1
+		velocity.x = signn * lerp(abs(velocity.x), tv, 5.0 * delta)
+	if abs(velocity.y) > tv:
+		var signn = -1 if velocity.y < 0 else 1
+		velocity.y = signn * lerp(abs(velocity.y), tv, 5.0 * delta)
+
+	# Push any rigid bodies in the way
 	for i in get_slide_collision_count():
 		var col = get_slide_collision(i)
 		var body = col.get_collider()
@@ -132,7 +152,6 @@ func _physics_process(delta):
 			force.y *= -1
 			var gravForce = mass * Vector2(0,100)
 			body.apply_force(-(force+gravForce)*col.get_normal())
-			
 	move_and_slide()
 
 
@@ -153,7 +172,6 @@ func can_walk():
 
 
 func jump_impulse():
-	velocity.x = jump_direction.x * walking_speed * walking_speed_weight
 	velocity.y = -jump_velocity * jump_velocity_weight
 	player_state = PlayerState.JUMP
 	jump_timer_start = false
