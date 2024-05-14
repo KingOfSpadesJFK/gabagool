@@ -53,7 +53,6 @@ scale = Vector2(1, 1.2)
 
 [node name="WaterBody" parent="Area" instance=ExtResource("5_2gdb4")]
 position = Vector2(301, 198)
-player_terminal_velocity = 50.0
 
 [node name="CollisionShape2D" parent="Area/WaterBody/Area2D" index="0"]
 position = Vector2(14.5, 5.5)
