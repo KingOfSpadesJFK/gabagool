@@ -1,10 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://cg5hxcq5rc4bt"]
+[gd_scene load_steps=23 format=3 uid="uid://cg5hxcq5rc4bt"]
 
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_nh3oh"]
 [ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="2_hlypw"]
 [ext_resource type="PackedScene" uid="uid://tvrxqccgpjcf" path="res://scene/entity/pressure_plate.tscn" id="2_mxjja"]
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="3_8jndc"]
-[ext_resource type="Script" path="res://script/camera.gd" id="4_vboc7"]
+[ext_resource type="PackedScene" uid="uid://cljphvcwvmnpr" path="res://scene/entity/camera.tscn" id="4_5kdh7"]
 [ext_resource type="PackedScene" uid="uid://c6ehnsd6kywbd" path="res://scene/area/water_body.tscn" id="5_2gdb4"]
 [ext_resource type="PackedScene" uid="uid://dubuuvslhiao" path="res://scene/entity/key.tscn" id="5_hymi7"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="6_ogtyu"]
@@ -13,9 +13,6 @@
 
 [sub_resource type="QuadMesh" id="QuadMesh_qnt4m"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_me6wh"]
-radius = 138.033
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4yjn"]
 size = Vector2(255, 153)
 
@@ -23,7 +20,7 @@ size = Vector2(255, 153)
 friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbxqx"]
-size = Vector2(290, 31)
+size = Vector2(431, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khv53"]
 size = Vector2(63, 419)
@@ -44,20 +41,20 @@ b = Vector2(65, 193)
 a = Vector2(529, 382)
 b = Vector2(-7, 382)
 
-[sub_resource type="Gradient" id="Gradient_pnavk"]
+[sub_resource type="Gradient" id="Gradient_3hj01"]
 offsets = PackedFloat32Array(0, 0.484979)
 colors = PackedColorArray(0.676821, 0.527615, 0.230234, 1, 0.198048, 0.324511, 0.503367, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_b78xy"]
-gradient = SubResource("Gradient_pnavk")
+gradient = SubResource("Gradient_3hj01")
 fill_from = Vector2(1, 1)
 
-[sub_resource type="Gradient" id="Gradient_3nokh"]
+[sub_resource type="Gradient" id="Gradient_uw3il"]
 offsets = PackedFloat32Array(0, 0.613734)
 colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.651673, 0.767033, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1cbuw"]
-gradient = SubResource("Gradient_3nokh")
+gradient = SubResource("Gradient_uw3il")
 width = 100
 height = 100
 fill_from = Vector2(1, 1)
@@ -97,22 +94,10 @@ weight = 1.0
 position = Vector2(-76, 32)
 scale = Vector2(1, 1.2)
 
-[node name="Camera" type="StaticBody2D" parent="Entities"]
-position = Vector2(-2, -18)
-collision_layer = 256
-collision_mask = 256
-script = ExtResource("4_vboc7")
-target_node = NodePath("../Player")
-background_camera = NodePath("../../BackgroundViewport/BackgroundContainer/SubViewport/Camera3D")
-background_scroll_divisor = Vector2(100, 100)
+[node name="Camera" parent="Entities" instance=ExtResource("4_5kdh7")]
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Entities/Camera"]
 remote_path = NodePath("../../../BackgroundViewport")
-
-[node name="Camera2D" type="Camera2D" parent="Entities/Camera"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Camera"]
-shape = SubResource("CircleShape2D_me6wh")
 
 [node name="Key" parent="Entities" instance=ExtResource("5_hymi7")]
 position = Vector2(-162, -18)
@@ -155,7 +140,7 @@ collision_mask = 256
 physics_material_override = SubResource("PhysicsMaterial_jnfy0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBoundaries/StaticBody2D"]
-position = Vector2(-154, 177.5)
+position = Vector2(-83.5, 177.5)
 shape = SubResource("RectangleShape2D_gbxqx")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CameraBoundaries/StaticBody2D"]
@@ -169,7 +154,7 @@ shape = SubResource("SegmentShape2D_lvpt5")
 shape = SubResource("SegmentShape2D_pe6nq")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="CameraBoundaries/StaticBody2D"]
-position = Vector2(-72, 0)
+position = Vector2(69, 0)
 shape = SubResource("SegmentShape2D_j34po")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="CameraBoundaries/StaticBody2D"]

@@ -9,14 +9,16 @@ signal treasure_collected
 @export var worth = 1000.00
 
 var collected = false
+var opened = false
 
 
 func _on_key_collected():
 	$AnimatedSprite2D.play("open")
+	opened = true
 
 
 func _on_area_2d_body_entered(body):
-	if not collected:
+	if opened and not collected:
 		if body is Player:
 			body.add_money(worth)
 			treasure_collected.emit()

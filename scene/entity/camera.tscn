@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cljphvcwvmnpr"]
+
+[ext_resource type="Script" path="res://script/camera.gd" id="1_g5di6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_me6wh"]
+radius = 142.0
+
+[node name="Camera" type="CharacterBody2D"]
+position = Vector2(-2, -18)
+collision_layer = 256
+collision_mask = 256
+motion_mode = 1
+script = ExtResource("1_g5di6")
+target_node = NodePath("../Player")
+follow_weight = 250.0
+background_camera = NodePath("../../BackgroundViewport/BackgroundContainer/SubViewport/Camera3D")
+background_scroll_divisor = Vector2(100, 100)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_me6wh")

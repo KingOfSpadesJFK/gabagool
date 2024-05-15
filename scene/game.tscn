@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bl0anfyn67h3h"]
 
-[ext_resource type="PackedScene" uid="uid://cg5hxcq5rc4bt" path="res://Test Scene.tscn" id="1_qaaic"]
+[ext_resource type="PackedScene" uid="uid://cqmh34c36ur5f" path="res://scene/level/level1.tscn" id="1_v6v5u"]
 [ext_resource type="FontFile" uid="uid://dx3kfat1r5mox" path="res://assets/m3x6.ttf" id="2_yp3lr"]
 [ext_resource type="Script" path="res://script/debug_hud.gd" id="3_6e44m"]
 
@@ -30,7 +30,7 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(480, 360)
 render_target_update_mode = 4
 
-[node name="Node2D" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_qaaic")]
+[node name="Level" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_v6v5u")]
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -42,4 +42,4 @@ theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 text = "adgasdgadsghasgd"
 script = ExtResource("3_6e44m")
-level_root = NodePath("../SubViewportContainer/SubViewport/Node2D")
+level_root = NodePath("../SubViewportContainer/SubViewport/Level")
