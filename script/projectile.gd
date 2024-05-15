@@ -7,6 +7,7 @@ class_name Projectile
 @export var stop_on_impact: bool = false
 
 signal impact
+signal dead
 
 var impacted = false
 var tilemap_positions = []
@@ -30,6 +31,7 @@ func _on_body_entered(_body: Node) -> void:
 	impacted = true
 	impact.emit()
 	if destroy_on_impact:
+		dead.emit()
 		queue_free()
 	elif _body is TileMap:
 		for child in $TileTest.get_children():
@@ -40,6 +42,7 @@ func _on_body_entered(_body: Node) -> void:
 
 
 func _on_timer_timeout() -> void:
+	dead.emit()
 	queue_free()
 
 

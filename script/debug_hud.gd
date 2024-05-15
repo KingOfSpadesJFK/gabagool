@@ -16,5 +16,6 @@ func _ready():
 func _process(delta):
 	text = Player.PlayerState.keys()[player.player_state] + '\n'
 	text += str(player.velocity) + '\n'
-	text += str(floor(player.global_position / 16.0))
+	text += str(floor(player.global_position / 16.0)) + '\n'
+	text += '$' + str(player.money) + '\n'
 	pass

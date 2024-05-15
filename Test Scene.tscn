@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cg5hxcq5rc4bt"]
+[gd_scene load_steps=24 format=3 uid="uid://cg5hxcq5rc4bt"]
 
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_nh3oh"]
 [ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="2_hlypw"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="3_8jndc"]
 [ext_resource type="Script" path="res://script/camera.gd" id="4_vboc7"]
 [ext_resource type="PackedScene" uid="uid://c6ehnsd6kywbd" path="res://scene/area/water_body.tscn" id="5_2gdb4"]
+[ext_resource type="PackedScene" uid="uid://dubuuvslhiao" path="res://scene/entity/key.tscn" id="5_hymi7"]
+[ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="6_ogtyu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e8nyy"]
 
@@ -112,6 +114,12 @@ remote_path = NodePath("../../../BackgroundViewport")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Camera"]
 shape = SubResource("CircleShape2D_me6wh")
 
+[node name="Key" parent="Entities" instance=ExtResource("5_hymi7")]
+position = Vector2(-162, -18)
+
+[node name="Chest" parent="Entities" instance=ExtResource("6_ogtyu")]
+position = Vector2(-127, 83)
+
 [node name="Area" type="Node" parent="."]
 
 [node name="WaterBody" parent="Area" instance=ExtResource("5_2gdb4")]
@@ -194,5 +202,6 @@ texture = SubResource("GradientTexture2D_1cbuw")
 
 [connection signal="plate_pressed" from="Entities/PressurePlate" to="Entities/Door" method="_on_door_open"]
 [connection signal="plate_unpressed" from="Entities/PressurePlate" to="Entities/Door" method="_on_door_close"]
+[connection signal="collected" from="Entities/Key" to="Entities/Chest" method="_on_key_collected" flags=6]
 
 [editable path="Area/WaterBody"]

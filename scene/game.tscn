@@ -35,7 +35,7 @@ render_target_update_mode = 4
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_right = 114.0
-offset_bottom = 48.0
+offset_bottom = 102.0
 theme = SubResource("Theme_sweoh")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 1

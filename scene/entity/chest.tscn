@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://crl7k4nium8mn"]
+
+[ext_resource type="Script" path="res://script/chest.gd" id="1_o3jbk"]
+[ext_resource type="Texture2D" uid="uid://dseal73vfyanu" path="res://assets/treasure-close.png" id="2_u43ac"]
+[ext_resource type="Texture2D" uid="uid://cc33a4urfsoo6" path="res://assets/treasure-collected.png" id="3_6bydp"]
+[ext_resource type="Texture2D" uid="uid://cmy1syueej26a" path="res://assets/treasure-open.png" id="3_qei51"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_67eua"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7i8ge"]
+size = Vector2(32, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ep404"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u43ac")
+}],
+"loop": true,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6bydp")
+}],
+"loop": true,
+"name": &"collected",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qei51")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="Chest" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 3
+mass = 1000.0
+lock_rotation = true
+script = ExtResource("1_o3jbk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_67eua")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_7i8ge")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ep404")
+animation = &"close"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

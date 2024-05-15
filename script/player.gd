@@ -18,7 +18,7 @@ const SPEED = 100.0
 const JUMP_VELOCITY = -400.0
 
 
-# The path to the foreground tilemap
+# The path to the interactibles tilemap
 @export var tilemap_path: NodePath
 
 # The walking speed of the player
@@ -82,7 +82,7 @@ func _process(_delta):
 	var can_climb = false
 	if tilemap:
 		for child in $TileTest.get_children():
-			var tilepos = Gabagool.global_position_to_tile(global_position, tilemap)
+			var tilepos = Gabagool.global_position_to_tile(child.global_position, tilemap)
 			var tiledata = tilemap.get_cell_tile_data(0, tilepos)
 
 			# Check the tile data of the cell the player is on
@@ -234,15 +234,18 @@ func _on_shoot_timeout():
 	# Instantiate
 	add_sibling(instance)
 	instance.impact.connect(_on_harpoon_impact)
+	instance.dead.connect(_on_harpoon_death)
 	harpoon_projectile = instance
 	
+
+func _on_harpoon_death():
+	player_state = PlayerState.IDLE
+	harpoon_projectile = null
+
 	
-func _on_harpoon_impact():	
-	# Set the player state
-	if tilemap:
-		
-		pass
+func _on_harpoon_impact():
 	player_state = PlayerState.HARPOON_GLIDE
+	harpoon_projectile.get_node("Timer").stop()
 
 
 func jump_impulse():
@@ -250,6 +253,11 @@ func jump_impulse():
 	player_state = PlayerState.JUMP
 	jump_timer_start = false
 	move_and_slide()
+
+
+# Call this to add money to the player
+func add_money(worth):
+	money += worth
 
 
 func _on_jump_timer_timeout():

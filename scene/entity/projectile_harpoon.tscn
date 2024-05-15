@@ -9,7 +9,6 @@ radius = 3.16228
 
 [node name="Harpoon" type="Node2D"]
 script = ExtResource("1_jjiap")
-lifetime = 0.0
 stop_on_impact = true
 
 [node name="RigidBody2D" type="Area2D" parent="."]
@@ -42,3 +41,4 @@ position = Vector2(4, 0)
 [node name="Center" type="Marker2D" parent="TileTest"]
 
 [connection signal="body_entered" from="RigidBody2D" to="." method="_on_body_entered" flags=6]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
