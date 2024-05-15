@@ -6,7 +6,7 @@ extends Node2D
 # How much the water should push up on a object
 @export var float_force = 100.0
 
-@export var damp = 10.0
+@export var damp = 1.0
 
 @export var player_terminal_velocity = 5.0
 
@@ -14,6 +14,7 @@ extends Node2D
 
 
 var restore_gravity = 1.0
+
 
 func _on_area_2d_body_entered(body):
 	change_gravity(body, gravity_weight, true)
