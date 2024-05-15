@@ -3,22 +3,31 @@ extends Node
 
 const scene_root = "/root/Control/SubViewportContainer/SubViewport"
 var current_scene = null
+var current_scene_path = ProjectSettings.get_setting("application/run/main_scene")
 var player = null
+var checkpoint_player_position: Vector2
 
 
 func _ready():
 	if get_node(scene_root):
 		current_scene = get_node(scene_root).get_child(0)
-		player = current_scene.get_node("Entities/Player")
+	else:
+		current_scene = get_tree().root.get_child(1)
+	player = current_scene.get_node("Entities/Player")
 
 
 # A function to get the tilemap position Vector2.
 func global_position_to_tile(position: Vector2, tilemap: TileMap) -> Vector2i:
 	var local_pos = tilemap.to_local(position)
 	return tilemap.local_to_map(local_pos)
+	
+func reload_scene():
+	call_deferred("_deferred_goto_scene", current_scene_path)
+	pass
+	
 
 func goto_scene(path):
-	call_deferred("_deferred_goto_level", path)
+	call_deferred("_deferred_goto_scene", path)
 	pass
 	
 func _deferred_goto_scene(path):

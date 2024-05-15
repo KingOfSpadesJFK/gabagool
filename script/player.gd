@@ -12,6 +12,7 @@ enum PlayerState {
 	SHOOT_END, 
 	HARPOON_GLIDE, 
 	HARPOON_GLIDE_END,
+	DEATH
 }
 
 const SPEED = 100.0
@@ -51,6 +52,7 @@ const JUMP_VELOCITY = -400.0
 @export var money = 0
 
 
+# Emitted when the player dies
 signal player_died
 
 
@@ -62,14 +64,19 @@ var jump_timer_start = false
 var jump_weight_add = horizontal_jump_weight
 var shoot_dir = Vector2(0,0)
 var harpoon_projectile
+var knockback_dir = Vector2(0,0)
 
 
 func _ready():
 	tilemap = get_node(tilemap_path)
+	#player_died.connect(Gabagool.reload_scene)
 
 
 # Handles inputs and player state
 func _process(_delta):
+	if player_state == PlayerState.DEATH:
+		return
+	
 	# Get the input direction and handle the movement/deceleration.
 	if (!is_jumping() and !is_midair()) or player_state == PlayerState.HARPOON_GLIDE_END:
 		direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
@@ -94,13 +101,12 @@ func _process(_delta):
 						player_state = PlayerState.CLIMB
 
 	# Check if the player is on the harpoon tile
-	if player_state == PlayerState.HARPOON_GLIDE:
-		if get_node("../../Tilemaps"):
-			for tm in get_node("../../Tilemaps").get_children():
-				for marker in $TileTest.get_children():
-					var tilepos = Gabagool.global_position_to_tile(marker.global_position, tm)
-					if harpoon_tile_check(tilepos):
-						player_state = PlayerState.HARPOON_GLIDE_END
+	if player_state == PlayerState.HARPOON_GLIDE and harpoon_projectile:
+		for child in $TileTest.get_children():
+			var dist = (harpoon_projectile.global_position - child.global_position).length()
+			if dist < 40.0 and (is_on_floor() or is_on_wall() or is_on_ceiling()):
+				player_state = PlayerState.HARPOON_GLIDE_END
+				break
 			
 	# Player state things
 	if player_state == PlayerState.CLIMB:
@@ -140,19 +146,9 @@ func _process(_delta):
 			player_state = PlayerState.WALK
 
 
-# Loop through the tiles surrounding tilepos
-func harpoon_tile_check(tilepos: Vector2i):
-	for harpTilepos in harpoon_projectile.get_tilemap_positions():
-		for x in range(-1, 2):
-			for y in range(-1, 2):
-				if tilepos + Vector2i(x,y) == harpTilepos:
-					return true
-	return false
-
-
 # Handle shooting things
 func _input(event):
-	if event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
+	if !is_dead() and event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
 		if !harpoon_projectile or harpoon_projectile.is_queued_for_deletion():
 			# Get the shooting direction
 			var event_position = event.position
@@ -199,6 +195,8 @@ func _physics_process(delta):
 		velocity = p - position
 	elif player_state == PlayerState.HARPOON_GLIDE_END:
 		velocity = Vector2(0,0)
+	elif is_dead():
+		velocity = knockback_dir * 10.0
 
 	# Terminal velocity
 	var tv = terminal_velocity * terminal_velocity_weight
@@ -219,6 +217,22 @@ func _physics_process(delta):
 			var gravForce = mass * Vector2(0,100)
 			body.apply_force(-(force+gravForce)*col.get_normal())
 	move_and_slide()
+
+
+# Call this to add money to the player
+func add_money(worth):
+	money += worth
+
+
+# Call this to handle player hurting. This reloads the scene, by the way
+func hurt():
+	print("Ouch..")
+	knockback_dir = -velocity.normalized()
+	player_died.emit()
+	player_state = PlayerState.DEATH
+	velocity = Vector2(0,0)
+	await get_tree().create_timer(1).timeout
+	Gabagool.reload_scene()
 		
 		
 func _on_shoot_timeout():
@@ -229,7 +243,7 @@ func _on_shoot_timeout():
 	var angle = atan2(shoot_dir.y, shoot_dir.x)
 	instance.rotation = angle
 	instance.velocity = speed * shoot_dir
-	instance.global_position = global_position + 45.0 * shoot_dir
+	instance.global_position = global_position
 	
 	# Instantiate
 	add_sibling(instance)
@@ -255,11 +269,6 @@ func jump_impulse():
 	move_and_slide()
 
 
-# Call this to add money to the player
-func add_money(worth):
-	money += worth
-
-
 func _on_jump_timer_timeout():
 	jump_impulse()
 	
@@ -271,6 +280,8 @@ func is_midair(): return player_state == PlayerState.JUMP or player_state == Pla
 func is_jumping(): return player_state == PlayerState.JUMP or player_state == PlayerState.JUMP_INIT
 
 func is_interacting(): return Input.is_action_just_pressed("player_up")
+
+func is_dead(): return player_state == PlayerState.DEATH
 
 func at_harpoon_end(): return player_state == PlayerState.HARPOON_GLIDE_END
 

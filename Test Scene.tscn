@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cg5hxcq5rc4bt"]
+[gd_scene load_steps=23 format=3 uid="uid://cg5hxcq5rc4bt"]
 
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_nh3oh"]
 [ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="2_hlypw"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dubuuvslhiao" path="res://scene/entity/key.tscn" id="5_hymi7"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="6_ogtyu"]
 [ext_resource type="PackedScene" uid="uid://0vnqwh5bwg6x" path="res://scene/entity/switch.tscn" id="7_s11yi"]
+[ext_resource type="PackedScene" uid="uid://ccytxf3mditks" path="res://scene/entity/urchin.tscn" id="8_roh5t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4yjn"]
 size = Vector2(255, 153)
@@ -90,6 +91,9 @@ position = Vector2(-162, -18)
 position = Vector2(-127, 83)
 
 [node name="Switch" parent="Entities" instance=ExtResource("7_s11yi")]
+
+[node name="Urchin" parent="Entities" instance=ExtResource("8_roh5t")]
+position = Vector2(-4, 34)
 
 [node name="Area" type="Node" parent="."]
 

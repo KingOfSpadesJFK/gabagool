@@ -14,7 +14,7 @@ stop_on_impact = true
 [node name="RigidBody2D" type="Area2D" parent="."]
 position = Vector2(-3, 0)
 collision_layer = 4
-collision_mask = 3
+collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("CircleShape2D_3pcoh")
@@ -26,19 +26,6 @@ scale = Vector2(7.93925, 14.0516)
 mesh = SubResource("PrismMesh_66ico")
 
 [node name="Timer" type="Timer" parent="."]
-
-[node name="TileTest" type="Node2D" parent="."]
-
-[node name="Up" type="Marker2D" parent="TileTest"]
-position = Vector2(0, -4)
-
-[node name="Down" type="Marker2D" parent="TileTest"]
-position = Vector2(0, 4)
-
-[node name="Right" type="Marker2D" parent="TileTest"]
-position = Vector2(4, 0)
-
-[node name="Center" type="Marker2D" parent="TileTest"]
 
 [connection signal="body_entered" from="RigidBody2D" to="." method="_on_body_entered" flags=6]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

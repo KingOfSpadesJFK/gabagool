@@ -16,11 +16,18 @@ var target: Node2D
 var bgcam: Node3D
 var bgdiv: Vector3
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	target = get_node(target_node)
 	bgdiv = Vector3(background_scroll_divisor.x, background_scroll_divisor.y, 1.0)
 	bgcam = get_node(background_camera)
+	if target is Player:
+		target.player_died.connect(_on_player_death)
+
+
+func _on_player_death():
+	target = null
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

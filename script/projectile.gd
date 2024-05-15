@@ -33,12 +33,6 @@ func _on_body_entered(_body: Node) -> void:
 	if destroy_on_impact:
 		dead.emit()
 		queue_free()
-	elif _body is TileMap:
-		for child in $TileTest.get_children():
-			var tilepos = Gabagool.global_position_to_tile(child.global_position, _body)
-			var tiledata = _body.get_cell_tile_data(0, tilepos)
-			if tiledata:
-				tilemap_positions.append(tilepos)
 
 
 func _on_timer_timeout() -> void:

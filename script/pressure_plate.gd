@@ -20,7 +20,7 @@ func _ready():
 
 
 # This just locks the plate's x position
-func _physics_process(delta):
+func _physics_process(_delta):
 	$Plate.global_position.x = position.x
 	$Plate.linear_velocity.x = 0.0
 	pass

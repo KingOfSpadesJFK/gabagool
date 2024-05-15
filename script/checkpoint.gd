@@ -1,11 +1,7 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+# Gives the spawn point to the singleton. If a scene needs to reload, then spawn here
+func _on_area_2d_body_entered(body):
+	if body is Player:
+		Gabagool.checkpoint_player_position = $SpawnPoint.global_position
