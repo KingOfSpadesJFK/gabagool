@@ -3,15 +3,17 @@
 [ext_resource type="Script" path="res://script/projectile.gd" id="1_jjiap"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3pcoh"]
+radius = 3.16228
 
 [sub_resource type="PrismMesh" id="PrismMesh_66ico"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Harpoon" type="Node2D"]
 script = ExtResource("1_jjiap")
 lifetime = 0.0
-destroy_on_impact = true
+stop_on_impact = true
 
 [node name="RigidBody2D" type="Area2D" parent="."]
+position = Vector2(-3, 0)
 collision_layer = 4
 collision_mask = 3
 
@@ -26,4 +28,17 @@ mesh = SubResource("PrismMesh_66ico")
 
 [node name="Timer" type="Timer" parent="."]
 
-[connection signal="body_entered" from="RigidBody2D" to="." method="_on_body_entered"]
+[node name="TileTest" type="Node2D" parent="."]
+
+[node name="Up" type="Marker2D" parent="TileTest"]
+position = Vector2(0, -4)
+
+[node name="Down" type="Marker2D" parent="TileTest"]
+position = Vector2(0, 4)
+
+[node name="Right" type="Marker2D" parent="TileTest"]
+position = Vector2(4, 0)
+
+[node name="Center" type="Marker2D" parent="TileTest"]
+
+[connection signal="body_entered" from="RigidBody2D" to="." method="_on_body_entered" flags=6]

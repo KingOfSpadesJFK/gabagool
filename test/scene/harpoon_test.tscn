@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2poocpbg06h"]
+
+[ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_s74is"]
+[ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="2_6vpik"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Entities" type="Node" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("2_6vpik")]
+position = Vector2(0, 21)
+
+[node name="Tilemaps" type="Node" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Tilemaps"]
+tile_set = ExtResource("1_s74is")
+format = 2
+layer_0/tile_data = PackedInt32Array(262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 262141, 0, 0, 196605, 0, 0, 131069, 0, 0, 65533, 0, 0, -3, 0, 0, -65539, 0, 0, -131075, 0, 0, -196611, 0, 0, -262147, 0, 0, -327683, 0, 0, -393219, 0, 0, -458755, 0, 0, -524291, 0, 0, -524290, 0, 0, -524289, 0, 0, -589824, 0, 0, -589823, 0, 0, -589822, 0, 0, -524286, 0, 0, -458750, 0, 0, -393214, 0, 0, -327678, 0, 0, -262142, 0, 0, -196606, 0, 0, -131070, 0, 0, -65534, 0, 0, 2, 0, 0, 65538, 0, 0, 131074, 0, 0)

@@ -34,13 +34,30 @@ position = Vector2(10, 0)
 position = Vector2(10, 0)
 
 [node name="Bottom" type="Marker2D" parent="TileTest"]
-position = Vector2(0, 29)
+position = Vector2(0, 27)
 
 [node name="Top" type="Marker2D" parent="TileTest"]
-position = Vector2(0, -25)
+position = Vector2(0, -23)
+
+[node name="TopLeft" type="Marker2D" parent="TileTest"]
+position = Vector2(-10, -23)
+
+[node name="TopRight" type="Marker2D" parent="TileTest"]
+position = Vector2(10, -23)
+
+[node name="BottomLeft" type="Marker2D" parent="TileTest"]
+position = Vector2(-10, 27)
+
+[node name="BottomRight" type="Marker2D" parent="TileTest"]
+position = Vector2(10, 27)
 
 [node name="JumpTimer" type="Timer" parent="."]
 process_callback = 0
 one_shot = true
 
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.213
+one_shot = true
+
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timeout"]

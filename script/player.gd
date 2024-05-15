@@ -1,7 +1,18 @@
 extends CharacterBody2D
 class_name Player
 
-enum PlayerState { IDLE, WALK, JUMP, JUMP_INIT, FALL, CLIMB }
+enum PlayerState { 
+	IDLE, 
+	WALK, 
+	JUMP, 
+	JUMP_INIT, 
+	FALL, 
+	CLIMB, 
+	SHOOT, 
+	SHOOT_END, 
+	HARPOON_GLIDE, 
+	HARPOON_GLIDE_END,
+}
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -400.0
@@ -37,6 +48,8 @@ const JUMP_VELOCITY = -400.0
 
 @export var horizontal_jump_weight = 0.5
 
+@export var money = 0
+
 
 signal player_died
 
@@ -47,6 +60,8 @@ var direction = Vector2(0,0)
 var tilemap: TileMap
 var jump_timer_start = false
 var jump_weight_add = horizontal_jump_weight
+var shoot_dir = Vector2(0,0)
+var harpoon_projectile
 
 
 func _ready():
@@ -56,8 +71,10 @@ func _ready():
 # Handles inputs and player state
 func _process(_delta):
 	# Get the input direction and handle the movement/deceleration.
-	if !is_jumping() and !is_midair():
+	if (!is_jumping() and !is_midair()) or player_state == PlayerState.HARPOON_GLIDE_END:
 		direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
+	elif is_shooting():
+		direction = Vector2(0,0)
 	
 	# Check for what tiles the player is on
 	#   This part checks for the markers in $TileTest to see if a tile on those 
@@ -65,17 +82,26 @@ func _process(_delta):
 	var can_climb = false
 	if tilemap:
 		for child in $TileTest.get_children():
-			# Get the tile data of the cell the player is on
-			var pos = tilemap.to_local(child.global_position)
-			var posTile = tilemap.local_to_map(pos)
-			var tiledata = tilemap.get_cell_tile_data(0, posTile)
+			var tilepos = Gabagool.global_position_to_tile(global_position, tilemap)
+			var tiledata = tilemap.get_cell_tile_data(0, tilepos)
+
+			# Check the tile data of the cell the player is on
 			if tiledata:
 				# Check for climbables
 				can_climb = can_climb or tiledata.get_custom_data("Climbable")
 				if can_climb: 
 					if Input.is_action_pressed("player_up"):
 						player_state = PlayerState.CLIMB
-		
+
+	# Check if the player is on the harpoon tile
+	if player_state == PlayerState.HARPOON_GLIDE:
+		if get_node("../../Tilemaps"):
+			for tm in get_node("../../Tilemaps").get_children():
+				for marker in $TileTest.get_children():
+					var tilepos = Gabagool.global_position_to_tile(marker.global_position, tm)
+					if harpoon_tile_check(tilepos):
+						player_state = PlayerState.HARPOON_GLIDE_END
+			
 	# Player state things
 	if player_state == PlayerState.CLIMB:
 		# Player state when climbing
@@ -83,7 +109,14 @@ func _process(_delta):
 			player_state = PlayerState.IDLE
 		elif not is_on_floor() and !can_climb:
 			player_state = PlayerState.FALL
-	else:
+	elif player_state == PlayerState.HARPOON_GLIDE_END:
+		if Input.is_action_just_pressed("player_jump"):
+			# Instant jump at the end of the hookshot
+			jump_impulse()
+			harpoon_projectile.queue_free()
+			harpoon_projectile = null
+		return
+	elif player_state != PlayerState.HARPOON_GLIDE:
 		if not is_on_floor():
 			# Mid-air player state
 			if player_state != PlayerState.JUMP or (player_state == PlayerState.JUMP and velocity.y > 0.0):
@@ -99,7 +132,7 @@ func _process(_delta):
 				else:
 					# Instant jump
 					jump_impulse()
-			elif player_state != PlayerState.JUMP_INIT:
+			elif player_state != PlayerState.JUMP_INIT and !is_shooting():
 				# At leaset idle if not jumping
 				player_state = PlayerState.IDLE
 		if  can_walk() and direction:
@@ -107,24 +140,28 @@ func _process(_delta):
 			player_state = PlayerState.WALK
 
 
+# Loop through the tiles surrounding tilepos
+func harpoon_tile_check(tilepos: Vector2i):
+	for harpTilepos in harpoon_projectile.get_tilemap_positions():
+		for x in range(-1, 2):
+			for y in range(-1, 2):
+				if tilepos + Vector2i(x,y) == harpTilepos:
+					return true
+	return false
+
+
 # Handle shooting things
 func _input(event):
-	if event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot"):
-		# Get the shooting direction
-		var event_position = event.position
-		var shoot_dir = (event_position - get_viewport().get_visible_rect().size / 2).normalized()
-		
-		# Load the scene and set the stuff
-		var harpoon = preload("res://scene/entity/projectile_harpoon.tscn")
-		var speed = 400.0
-		var instance = harpoon.instantiate()
-		var angle = atan2(shoot_dir.y, shoot_dir.x)
-		instance.rotation = angle
-		instance.velocity = speed * shoot_dir
-		instance.position += 45.0 * shoot_dir
-		
-		# Instantiate
-		add_child(instance)
+	if event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
+		if !harpoon_projectile or harpoon_projectile.is_queued_for_deletion():
+			# Get the shooting direction
+			var event_position = event.position
+			shoot_dir = (event_position - get_viewport().get_visible_rect().size / 2).normalized()
+			
+			# Set player state
+			player_state = PlayerState.SHOOT
+			velocity.x = 0
+			$ShootTimer.start()
 
 
 # Handle physics and collision
@@ -137,22 +174,31 @@ func _physics_process(delta):
 	
 	# Add the gravity.
 	var grav = gravity * gravity_weight
-	if player_state != PlayerState.CLIMB and not is_on_floor():
+	if player_state != PlayerState.CLIMB and player_state != PlayerState.HARPOON_GLIDE and not is_on_floor():
 		velocity.y += grav * delta
 	
+	# Movement
 	if player_state == PlayerState.CLIMB:
+		# Climbing movement
 		if direction:
 			velocity = direction * speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			velocity.y = move_toward(velocity.y, 0, speed)
 	elif can_walk():
+		# Normal walking movement
 		if direction.x:
 			velocity.x = direction.x * speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 	elif is_jumping() or is_midair():
+		# Midair movement
 		velocity.x = direction.x * speed * (walking_speed_weight + jump_weight_add)
+	elif player_state == PlayerState.HARPOON_GLIDE:
+		var p = lerp(position, harpoon_projectile.position, 200.0 * delta)
+		velocity = p - position
+	elif player_state == PlayerState.HARPOON_GLIDE_END:
+		velocity = Vector2(0,0)
 
 	# Terminal velocity
 	var tv = terminal_velocity * terminal_velocity_weight
@@ -173,22 +219,30 @@ func _physics_process(delta):
 			var gravForce = mass * Vector2(0,100)
 			body.apply_force(-(force+gravForce)*col.get_normal())
 	move_and_slide()
-
-
-func is_midair():
-	return player_state == PlayerState.JUMP or player_state == PlayerState.FALL
-
-
-func is_jumping():
-	return player_state == PlayerState.JUMP or player_state == PlayerState.JUMP_INIT
-
-
-func can_jump():
-	return not is_jumping() and Input.is_action_just_pressed("player_jump") and is_on_floor()
-
-
-func can_walk():
-	return (player_state == PlayerState.IDLE or player_state == PlayerState.WALK) and not is_jumping()
+		
+		
+func _on_shoot_timeout():
+	# Load the scene and set the stuff
+	var harpoon = preload("res://scene/entity/projectile_harpoon.tscn")
+	var speed = 400.0
+	var instance = harpoon.instantiate()
+	var angle = atan2(shoot_dir.y, shoot_dir.x)
+	instance.rotation = angle
+	instance.velocity = speed * shoot_dir
+	instance.global_position = global_position + 45.0 * shoot_dir
+	
+	# Instantiate
+	add_sibling(instance)
+	instance.impact.connect(_on_harpoon_impact)
+	harpoon_projectile = instance
+	
+	
+func _on_harpoon_impact():	
+	# Set the player state
+	if tilemap:
+		
+		pass
+	player_state = PlayerState.HARPOON_GLIDE
 
 
 func jump_impulse():
@@ -200,3 +254,16 @@ func jump_impulse():
 
 func _on_jump_timer_timeout():
 	jump_impulse()
+	
+	
+func is_shooting(): return player_state == PlayerState.SHOOT or player_state == PlayerState.HARPOON_GLIDE
+
+func is_midair(): return player_state == PlayerState.JUMP or player_state == PlayerState.FALL
+
+func is_jumping(): return player_state == PlayerState.JUMP or player_state == PlayerState.JUMP_INIT
+
+func at_harpoon_end(): return player_state == PlayerState.HARPOON_GLIDE_END
+
+func can_jump(): return not is_jumping() and Input.is_action_just_pressed("player_jump") and is_on_floor()
+
+func can_walk(): return (player_state == PlayerState.IDLE or player_state == PlayerState.WALK) and not is_jumping() and not is_shooting()
