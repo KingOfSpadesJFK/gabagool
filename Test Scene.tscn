@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cg5hxcq5rc4bt"]
+[gd_scene load_steps=22 format=3 uid="uid://cg5hxcq5rc4bt"]
 
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_nh3oh"]
 [ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="2_hlypw"]
@@ -8,10 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c6ehnsd6kywbd" path="res://scene/area/water_body.tscn" id="5_2gdb4"]
 [ext_resource type="PackedScene" uid="uid://dubuuvslhiao" path="res://scene/entity/key.tscn" id="5_hymi7"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="6_ogtyu"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8nyy"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_qnt4m"]
+[ext_resource type="PackedScene" uid="uid://0vnqwh5bwg6x" path="res://scene/entity/switch.tscn" id="7_s11yi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4yjn"]
 size = Vector2(255, 153)
@@ -68,33 +65,20 @@ z_index = 1
 position = Vector2(0, -20)
 collision_mask = 15
 tilemap_path = NodePath("../../Tilemaps/Interactables")
-jump_delay = 0.25
 mass = 20.0
 terminal_velocity = 200.0
-
-[node name="RigidBody2D" type="RigidBody2D" parent="Entities"]
-position = Vector2(195, 44)
-scale = Vector2(0.415, 0.415)
-collision_layer = 2
-collision_mask = 15
-mass = 5.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/RigidBody2D"]
-shape = SubResource("RectangleShape2D_e8nyy")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Entities/RigidBody2D"]
-scale = Vector2(20, 20)
-mesh = SubResource("QuadMesh_qnt4m")
 
 [node name="PressurePlate" parent="Entities" instance=ExtResource("2_mxjja")]
 position = Vector2(69, 104)
 weight = 1.0
 
 [node name="Door" parent="Entities" instance=ExtResource("3_8jndc")]
-position = Vector2(-76, 32)
+position = Vector2(-76, 27)
 scale = Vector2(1, 1.2)
+opened = true
 
 [node name="Camera" parent="Entities" instance=ExtResource("4_5kdh7")]
+visible = false
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Entities/Camera"]
 remote_path = NodePath("../../../BackgroundViewport")
@@ -104,6 +88,8 @@ position = Vector2(-162, -18)
 
 [node name="Chest" parent="Entities" instance=ExtResource("6_ogtyu")]
 position = Vector2(-127, 83)
+
+[node name="Switch" parent="Entities" instance=ExtResource("7_s11yi")]
 
 [node name="Area" type="Node" parent="."]
 
@@ -188,5 +174,7 @@ texture = SubResource("GradientTexture2D_1cbuw")
 [connection signal="plate_pressed" from="Entities/PressurePlate" to="Entities/Door" method="_on_door_open"]
 [connection signal="plate_unpressed" from="Entities/PressurePlate" to="Entities/Door" method="_on_door_close"]
 [connection signal="collected" from="Entities/Key" to="Entities/Chest" method="_on_key_collected" flags=6]
+[connection signal="switch_off" from="Entities/Switch" to="Entities/Door" method="_on_door_toggle"]
+[connection signal="switch_on" from="Entities/Switch" to="Entities/Door" method="_on_door_toggle"]
 
 [editable path="Area/WaterBody"]

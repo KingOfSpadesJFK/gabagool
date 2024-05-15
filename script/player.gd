@@ -135,7 +135,7 @@ func _process(_delta):
 			elif player_state != PlayerState.JUMP_INIT and !is_shooting():
 				# At leaset idle if not jumping
 				player_state = PlayerState.IDLE
-		if  can_walk() and direction:
+		if  can_walk() and direction.x:
 			# Walking
 			player_state = PlayerState.WALK
 
@@ -269,6 +269,8 @@ func is_shooting(): return player_state == PlayerState.SHOOT or player_state == 
 func is_midair(): return player_state == PlayerState.JUMP or player_state == PlayerState.FALL
 
 func is_jumping(): return player_state == PlayerState.JUMP or player_state == PlayerState.JUMP_INIT
+
+func is_interacting(): return Input.is_action_just_pressed("player_up")
 
 func at_harpoon_end(): return player_state == PlayerState.HARPOON_GLIDE_END
 

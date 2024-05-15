@@ -12,6 +12,7 @@ collision_mask = 7
 script = ExtResource("1_kgimv")
 walking_speed = 30.0
 jump_velocity = 200.0
+jump_delay = 0.3
 mass = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
