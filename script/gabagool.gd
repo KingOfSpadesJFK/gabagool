@@ -5,8 +5,12 @@ var current_scene_path = "res://scene/level/level1.tscn"
 const scene_root = "/root/Control/SubViewportContainer/SubViewport"
 var current_scene = null
 var player = null
-var checkpoint_player_position = Vector2(0,0)
+var checkpoint_player_info: PlayerInfo
 var checkpoint_enabled = false
+
+
+# Emited upon level load
+signal level_load
 
 
 func _ready():
@@ -23,8 +27,8 @@ func global_position_to_tile(position: Vector2, tilemap: TileMap) -> Vector2i:
 	return tilemap.local_to_map(local_pos)
 	
 	
-func set_respawn_info(global_position: Vector2):
-	checkpoint_player_position = global_position
+func set_respawn_info(player_info: PlayerInfo):
+	checkpoint_player_info = player_info
 	checkpoint_enabled = true
 	
 	
@@ -52,8 +56,9 @@ func _deferred_goto_scene(path):
 
 	# Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
 	#get_tree().current_scene = current_scene
+	level_load.emit()
 	
 	# Set checkpoint info to the player and camera
 	if checkpoint_enabled:
-		current_scene.get_node("Entities/Player").position = checkpoint_player_position
-		current_scene.get_node("Entities/Camera").position = checkpoint_player_position
+		current_scene.get_node("Entities/Player").position = checkpoint_player_info.checkpoint_position
+		current_scene.get_node("Entities/Camera").position = checkpoint_player_info.checkpoint_position

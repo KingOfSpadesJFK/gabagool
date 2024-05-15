@@ -49,7 +49,7 @@ const JUMP_VELOCITY = -400.0
 
 @export var horizontal_jump_weight = 0.5
 
-@export var money = 0
+@export var player_info: PlayerInfo
 
 
 # Emitted when the player dies
@@ -148,7 +148,7 @@ func _process(_delta):
 
 # Handle shooting things
 func _input(event):
-	if !is_dead() and event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
+	if player_info.harpoon_ammo > 0 or player_info.harpoon_ammo < 0 and !is_dead() and event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
 		if !harpoon_projectile or harpoon_projectile.is_queued_for_deletion():
 			# Get the shooting direction
 			var event_position = event.position
@@ -221,7 +221,7 @@ func _physics_process(delta):
 
 # Call this to add money to the player
 func add_money(worth):
-	money += worth
+	player_info.money += worth
 
 
 # Call this to handle player hurting. This reloads the scene, by the way
@@ -244,6 +244,11 @@ func _on_shoot_timeout():
 	instance.rotation = angle
 	instance.velocity = speed * shoot_dir
 	instance.global_position = global_position
+	
+	# Decrease the harpoon ammo
+	#  For debugging purposes, negative ammo is means infinite ammo
+	if player_info.harpoon_ammo > 0:
+		player_info.harpoon_ammo -= 1
 	
 	# Instantiate
 	add_sibling(instance)
