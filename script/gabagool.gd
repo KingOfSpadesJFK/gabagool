@@ -1,11 +1,12 @@
 extends Node
 
-
+# Start with this level
+var current_scene_path = "res://scene/level/level1.tscn"
 const scene_root = "/root/Control/SubViewportContainer/SubViewport"
 var current_scene = null
-var current_scene_path = ProjectSettings.get_setting("application/run/main_scene")
 var player = null
-var checkpoint_player_position: Vector2
+var checkpoint_player_position = Vector2(0,0)
+var checkpoint_enabled = false
 
 
 func _ready():
@@ -21,15 +22,21 @@ func global_position_to_tile(position: Vector2, tilemap: TileMap) -> Vector2i:
 	var local_pos = tilemap.to_local(position)
 	return tilemap.local_to_map(local_pos)
 	
+	
+func set_respawn_info(global_position: Vector2):
+	checkpoint_player_position = global_position
+	checkpoint_enabled = true
+	
+	
 func reload_scene():
 	call_deferred("_deferred_goto_scene", current_scene_path)
-	pass
-	
+
 
 func goto_scene(path):
+	checkpoint_enabled = false
 	call_deferred("_deferred_goto_scene", path)
-	pass
-	
+
+
 func _deferred_goto_scene(path):
 	# It is now safe to remove the current scene.
 	current_scene.free()
@@ -41,7 +48,12 @@ func _deferred_goto_scene(path):
 	current_scene = s.instantiate()
 
 	# Add it to the active scene, as child of root.
-	get_tree().root.add_child(current_scene)
+	get_node("/root/Control/SubViewportContainer/SubViewport").add_child(current_scene)
 
 	# Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
-	get_tree().current_scene = current_scene
+	#get_tree().current_scene = current_scene
+	
+	# Set checkpoint info to the player and camera
+	if checkpoint_enabled:
+		current_scene.get_node("Entities/Player").position = checkpoint_player_position
+		current_scene.get_node("Entities/Camera").position = checkpoint_player_position

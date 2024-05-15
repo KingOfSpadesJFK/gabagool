@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cqmh34c36ur5f"]
+[gd_scene load_steps=19 format=3 uid="uid://cqmh34c36ur5f"]
 
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="1_6pjhq"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="1_cdmto"]
@@ -8,8 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c6ehnsd6kywbd" path="res://scene/area/water_body.tscn" id="3_clwql"]
 [ext_resource type="PackedScene" uid="uid://cljphvcwvmnpr" path="res://scene/entity/camera.tscn" id="5_1y065"]
 [ext_resource type="Texture2D" uid="uid://l5w0eqofhlap" path="res://assets/test-tilemap.png" id="6_ksufe"]
-[ext_resource type="Script" path="res://script/checkpoint.gd" id="8_fwt75"]
-[ext_resource type="PackedScene" uid="uid://ccytxf3mditks" path="res://scene/entity/urchin.tscn" id="10_pg46q"]
+[ext_resource type="PackedScene" uid="uid://cmanhsgkvodo" path="res://scene/area/checkpoint.tscn" id="9_w38qd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mpt4i"]
 size = Vector2(19, 138)
@@ -179,10 +178,11 @@ physics_layer_0/collision_layer = 128
 physics_layer_0/collision_mask = 128
 sources/0 = SubResource("TileSetAtlasSource_jnlwh")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2yosy"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pe60x"]
 size = Vector2(2421, 960)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4swvc"]
+size = Vector2(466, 190)
 
 [sub_resource type="Gradient" id="Gradient_pnavk"]
 offsets = PackedFloat32Array(0, 0.484979)
@@ -260,16 +260,6 @@ layer_0/tile_data = PackedInt32Array(1114149, 196608, 1, 1179685, 196608, 1, 124
 
 [node name="Area" type="Node" parent="."]
 
-[node name="Checkpoint" type="Node2D" parent="Area"]
-script = ExtResource("8_fwt75")
-
-[node name="Area2D" type="Area2D" parent="Area/Checkpoint"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area/Checkpoint/Area2D"]
-shape = SubResource("RectangleShape2D_2yosy")
-
-[node name="Marker2D" type="Marker2D" parent="Area/Checkpoint"]
-
 [node name="WaterBody" parent="Area" instance=ExtResource("3_clwql")]
 position = Vector2(-33, 36)
 
@@ -281,6 +271,16 @@ shape = SubResource("RectangleShape2D_pe60x")
 [node name="MeshInstance2D" parent="Area/WaterBody" index="1"]
 position = Vector2(569, 477)
 scale = Vector2(170.125, 60.9375)
+
+[node name="Checkpoint" parent="Area" instance=ExtResource("9_w38qd")]
+position = Vector2(71, 110)
+
+[node name="CollisionShape2D" parent="Area/Checkpoint/Area2D" index="0"]
+position = Vector2(-3, 141)
+shape = SubResource("RectangleShape2D_4swvc")
+
+[node name="SpawnPoint" parent="Area/Checkpoint" index="1"]
+position = Vector2(-10, 192)
 
 [node name="Labels" type="Node" parent="."]
 
@@ -333,12 +333,9 @@ texture = SubResource("GradientTexture2D_wwlmj")
 transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, -0.25, -52.312)
 texture = SubResource("GradientTexture2D_r44xx")
 
-[node name="RigidBody2D" parent="." instance=ExtResource("10_pg46q")]
-position = Vector2(-218, -16)
-
 [connection signal="collected" from="Entities/Key" to="Entities/Chest" method="_on_key_collected"]
 [connection signal="treasure_collected" from="Entities/Chest" to="Entities/Door" method="_on_door_open"]
-[connection signal="body_entered" from="Area/Checkpoint/Area2D" to="Entities/Door" method="_on_area_2d_body_entered"]
 
 [editable path="Entities/Camera"]
 [editable path="Area/WaterBody"]
+[editable path="Area/Checkpoint"]
