@@ -231,6 +231,8 @@ func hurt():
 	player_died.emit()
 	player_state = PlayerState.DEATH
 	velocity = Vector2(0,0)
+	$JumpTimer.stop()
+	$ShootTimer.stop()
 	await get_tree().create_timer(1).timeout
 	Gabagool.reload_scene()
 		

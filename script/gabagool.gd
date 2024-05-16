@@ -2,7 +2,7 @@ extends Node
 
 # Start with this level
 var current_scene_path = "res://scene/level/level1.tscn"
-const scene_root = "/root/Control/SubViewportContainer/SubViewport"
+const scene_root = "/root/Control/LevelRoot"
 var current_scene = null
 var player = null
 var checkpoint_player_info: PlayerInfo
