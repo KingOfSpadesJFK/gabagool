@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://drn187hrun1qa"]
+
+[ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_mls5g"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_mls5g")
+format = 2
