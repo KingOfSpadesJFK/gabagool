@@ -1,8 +1,8 @@
 extends Node
 
 # Start with this level
-var current_scene_path = "res://scene/level/level1.tscn"
-const scene_root = "/root/Control/LevelRoot"
+const current_scene_path = "res://scene/level/level1.tscn"
+const scene_root = "/root/Control/SubViewportContainer/SubViewport"
 var current_scene = null
 var player = null
 var checkpoint_player_info: PlayerInfo
@@ -52,7 +52,7 @@ func _deferred_goto_scene(path):
 	current_scene = s.instantiate()
 
 	# Add it to the active scene, as child of root.
-	get_node("/root/Control/SubViewportContainer/SubViewport").add_child(current_scene)
+	get_node(scene_root).add_child(current_scene)
 
 	# Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
 	#get_tree().current_scene = current_scene

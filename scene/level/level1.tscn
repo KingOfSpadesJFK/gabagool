@@ -387,6 +387,7 @@ shape = SubResource("RectangleShape2D_pe60x")
 
 [node name="MeshInstance2D" parent="Area/WaterBody" index="1"]
 modulate = Color(0.262745, 0.521569, 0.741176, 0.580392)
+visibility_layer = 2
 material = SubResource("ShaderMaterial_l4ns4")
 position = Vector2(1984, 493)
 scale = Vector2(321.5, 62.875)
@@ -438,20 +439,30 @@ text = "Level 1: Jumps"
 
 [node name="BackgroundViewport" type="Node2D" parent="World"]
 z_index = -2
+texture_filter = 1
 position = Vector2(-160, -743)
 
 [node name="SubviewportContainer" type="SubViewportContainer" parent="World/BackgroundViewport"]
-offset_left = -240.0
-offset_top = -180.0
-offset_right = 240.0
-offset_bottom = 180.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
 
 [node name="SubViewport" type="SubViewport" parent="World/BackgroundViewport/SubviewportContainer"]
 handle_input_locally = false
-size = Vector2i(480, 360)
+canvas_item_default_texture_filter = 0
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.80457)
 
 [node name="Sprite3D" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
 transform = Transform3D(67.2027, 0, 0, 0, 2.49476e-06, 0.999999, 0, -83.7102, 2.98023e-08, 0, -5, -33.5804)
@@ -459,7 +470,7 @@ visible = false
 texture = SubResource("GradientTexture2D_wwlmj")
 
 [node name="Sprite3D2" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
-transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, -0.25, -52.312)
+transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, -0.25, -53.2826)
 texture = SubResource("GradientTexture2D_r44xx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
