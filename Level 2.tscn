@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://c6ehnsd6kywbd" path="res://scene/area/water_body.tscn" id="2_unui3"]
 [ext_resource type="PackedScene" uid="uid://c23q66216a1g7" path="res://scene/entity/crab.tscn" id="3_6b5i8"]
 [ext_resource type="Shader" path="res://shader/game.gdshader" id="3_83tv8"]
-[ext_resource type="Script" path="res://scene/player.gd" id="3_pw8no"]
 [ext_resource type="PackedScene" uid="uid://cemcrr1cgwxa3" path="res://scene/entity/coin.tscn" id="4_7y40f"]
 [ext_resource type="PackedScene" uid="uid://d0j6g8gxjowkc" path="res://scene/entity/big_coin.tscn" id="5_ro76u"]
 [ext_resource type="PackedScene" uid="uid://ccytxf3mditks" path="res://scene/entity/urchin.tscn" id="6_bpwys"]
 [ext_resource type="PackedScene" uid="uid://dubuuvslhiao" path="res://scene/entity/key.tscn" id="8_lnt5l"]
+[ext_resource type="PackedScene" uid="uid://cljphvcwvmnpr" path="res://scene/entity/camera.tscn" id="8_rpe2s"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="9_6umia"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1gax"]
@@ -20,6 +20,150 @@ shader = ExtResource("3_83tv8")
 shader_parameter/size = Vector2(32, 28)
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Entities" type="Node" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("2_pv0o6")]
+position = Vector2(80, 208)
+collision_mask = 39
+tilemap_path = NodePath("../../TileMap")
+
+[node name="Crab" parent="Entities" instance=ExtResource("3_6b5i8")]
+position = Vector2(504, 152)
+
+[node name="Coin" parent="Entities" instance=ExtResource("4_7y40f")]
+position = Vector2(168, 200)
+
+[node name="Coin2" parent="Entities" instance=ExtResource("4_7y40f")]
+position = Vector2(232, 184)
+
+[node name="Coin3" parent="Entities" instance=ExtResource("4_7y40f")]
+position = Vector2(296, 160)
+
+[node name="Coin4" parent="Entities" instance=ExtResource("4_7y40f")]
+position = Vector2(360, 144)
+
+[node name="BigCoin" parent="Entities" instance=ExtResource("5_ro76u")]
+position = Vector2(64, 32)
+
+[node name="Urchin" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(680, 256)
+
+[node name="Urchin2" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(712, 256)
+
+[node name="Urchin3" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(744, 256)
+
+[node name="Urchin4" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(960, 256)
+
+[node name="Urchin5" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(992, 256)
+
+[node name="Urchin6" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1024, 256)
+
+[node name="Urchin7" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1056, 256)
+
+[node name="Urchin8" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1088, 256)
+
+[node name="Urchin9" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1120, 256)
+
+[node name="Urchin10" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1152, 256)
+
+[node name="Urchin11" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1184, 256)
+
+[node name="Urchin12" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1216, 256)
+
+[node name="Urchin13" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1248, 256)
+
+[node name="Urchin14" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1280, 256)
+
+[node name="Urchin15" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1312, 256)
+
+[node name="Urchin16" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1344, 256)
+
+[node name="Urchin17" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1376, 256)
+
+[node name="Urchin18" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1408, 256)
+
+[node name="Urchin19" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1440, 256)
+
+[node name="Urchin20" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1472, 256)
+
+[node name="Urchin21" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1504, 256)
+
+[node name="Urchin22" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1536, 256)
+
+[node name="Urchin23" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1568, 256)
+
+[node name="Urchin24" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1600, 256)
+
+[node name="Urchin25" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1632, 256)
+
+[node name="Urchin26" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1664, 256)
+
+[node name="Urchin27" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1696, 256)
+
+[node name="Urchin28" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1728, 256)
+
+[node name="Urchin29" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1760, 256)
+
+[node name="Urchin30" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1792, 256)
+
+[node name="Urchin31" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1824, 256)
+
+[node name="Urchin32" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1856, 256)
+
+[node name="Urchin33" parent="Entities" instance=ExtResource("6_bpwys")]
+position = Vector2(1896, 256)
+
+[node name="Key" parent="Entities" instance=ExtResource("8_lnt5l")]
+position = Vector2(1464, 24)
+
+[node name="Chest" parent="Entities" instance=ExtResource("9_6umia")]
+position = Vector2(2232, 128)
+
+[node name="Coin5" parent="Entities" instance=ExtResource("4_7y40f")]
+position = Vector2(1960, 24)
+
+[node name="Coin6" parent="Entities" instance=ExtResource("4_7y40f")]
+position = Vector2(2032, 40)
+
+[node name="Coin7" parent="Entities" instance=ExtResource("4_7y40f")]
+position = Vector2(2088, 56)
+
+[node name="Coin8" parent="Entities" instance=ExtResource("4_7y40f")]
+position = Vector2(2152, 72)
+
+[node name="Camera" parent="Entities" instance=ExtResource("8_rpe2s")]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_mls5g")
@@ -35,147 +179,9 @@ shape = SubResource("RectangleShape2D_t1gax")
 
 [node name="MeshInstance2D" parent="TileMap/WaterBody" index="1"]
 modulate = Color(0.262745, 0.521569, 0.741176, 0.580392)
+z_index = 3
 material = SubResource("ShaderMaterial_j67d7")
 position = Vector2(1984, 493)
 scale = Vector2(321.5, 62.875)
-
-[node name="Player" parent="." instance=ExtResource("2_pv0o6")]
-position = Vector2(80, 208)
-script = ExtResource("3_pw8no")
-
-[node name="Crab" parent="." instance=ExtResource("3_6b5i8")]
-position = Vector2(504, 152)
-
-[node name="Coin" parent="." instance=ExtResource("4_7y40f")]
-position = Vector2(168, 200)
-
-[node name="Coin2" parent="." instance=ExtResource("4_7y40f")]
-position = Vector2(232, 184)
-
-[node name="Coin3" parent="." instance=ExtResource("4_7y40f")]
-position = Vector2(296, 160)
-
-[node name="Coin4" parent="." instance=ExtResource("4_7y40f")]
-position = Vector2(360, 144)
-
-[node name="BigCoin" parent="." instance=ExtResource("5_ro76u")]
-position = Vector2(64, 32)
-
-[node name="Urchin" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(680, 256)
-
-[node name="Urchin2" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(712, 256)
-
-[node name="Urchin3" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(744, 256)
-
-[node name="Urchin4" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(960, 256)
-
-[node name="Urchin5" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(992, 256)
-
-[node name="Urchin6" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1024, 256)
-
-[node name="Urchin7" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1056, 256)
-
-[node name="Urchin8" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1088, 256)
-
-[node name="Urchin9" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1120, 256)
-
-[node name="Urchin10" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1152, 256)
-
-[node name="Urchin11" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1184, 256)
-
-[node name="Urchin12" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1216, 256)
-
-[node name="Urchin13" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1248, 256)
-
-[node name="Urchin14" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1280, 256)
-
-[node name="Urchin15" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1312, 256)
-
-[node name="Urchin16" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1344, 256)
-
-[node name="Urchin17" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1376, 256)
-
-[node name="Urchin18" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1408, 256)
-
-[node name="Urchin19" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1440, 256)
-
-[node name="Urchin20" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1472, 256)
-
-[node name="Urchin21" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1504, 256)
-
-[node name="Urchin22" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1536, 256)
-
-[node name="Urchin23" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1568, 256)
-
-[node name="Urchin24" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1600, 256)
-
-[node name="Urchin25" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1632, 256)
-
-[node name="Urchin26" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1664, 256)
-
-[node name="Urchin27" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1696, 256)
-
-[node name="Urchin28" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1728, 256)
-
-[node name="Urchin29" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1760, 256)
-
-[node name="Urchin30" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1792, 256)
-
-[node name="Urchin31" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1824, 256)
-
-[node name="Urchin32" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1856, 256)
-
-[node name="Urchin33" parent="." instance=ExtResource("6_bpwys")]
-position = Vector2(1896, 256)
-
-[node name="Key" parent="." instance=ExtResource("8_lnt5l")]
-position = Vector2(1464, 24)
-
-[node name="Chest" parent="." instance=ExtResource("9_6umia")]
-position = Vector2(2232, 128)
-
-[node name="Coin5" parent="." instance=ExtResource("4_7y40f")]
-position = Vector2(1960, 24)
-
-[node name="Coin6" parent="." instance=ExtResource("4_7y40f")]
-position = Vector2(2032, 40)
-
-[node name="Coin7" parent="." instance=ExtResource("4_7y40f")]
-position = Vector2(2088, 56)
-
-[node name="Coin8" parent="." instance=ExtResource("4_7y40f")]
-position = Vector2(2152, 72)
 
 [editable path="TileMap/WaterBody"]
