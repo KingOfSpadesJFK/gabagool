@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccytxf3mditks"]
 
 [ext_resource type="Script" path="res://script/urchin.gd" id="1_verqf"]
-[ext_resource type="Texture2D" uid="uid://60vddldt6o61" path="res://assets/temp-urchin.png" id="2_ll5mw"]
+[ext_resource type="Texture2D" uid="uid://b6jmb1c10ptj" path="res://assets/sprite/urchin.png" id="2_2in5n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7gjvg"]
 radius = 17.0294
@@ -15,7 +15,7 @@ collision_mask = 53
 script = ExtResource("1_verqf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ll5mw")
+texture = ExtResource("2_2in5n")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

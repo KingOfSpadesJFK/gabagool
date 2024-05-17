@@ -30,6 +30,10 @@ window/stretch/scale_mode="integer"
 
 project/assembly_name="gabagool"
 
+[editor_plugins]
+
+enabled=PackedStringArray()
+
 [input]
 
 player_up={

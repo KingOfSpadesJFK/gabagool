@@ -20,7 +20,7 @@ const JUMP_VELOCITY = -400.0
 
 
 # The path to the interactibles tilemap
-@export var tilemap_path: NodePath
+@export var collision_tilemap_path: NodePath
 
 # The walking speed of the player
 @export var walking_speed = 50.0
@@ -59,7 +59,7 @@ signal player_died
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")	# Get gravity from project settings
 var player_state = PlayerState.IDLE
 var direction = Vector2(0,0)
-var tilemap: TileMap
+var collision_tilemap: TileMap
 var jump_timer_start = false
 var jump_weight_add = horizontal_jump_weight
 var shoot_dir = Vector2(0,0)
@@ -68,7 +68,7 @@ var knockback_dir = Vector2(0,0)
 
 
 func _ready():
-	tilemap = get_node(tilemap_path)
+	collision_tilemap = get_node(collision_tilemap_path)
 	#player_died.connect(Gabagool.reload_scene)
 
 
@@ -83,14 +83,14 @@ func _process(_delta):
 	elif is_shooting():
 		direction = Vector2(0,0)
 	
-	# Check for what tiles the player is on
+	# Check for what interactible tiles the player is on
 	#   This part checks for the markers in $TileTest to see if a tile on those 
 	#   markers are climbables
 	var can_climb = false
-	if tilemap:
+	if collision_tilemap:
 		for child in $TileTest.get_children():
-			var tilepos = Gabagool.global_position_to_tile(child.global_position, tilemap)
-			var tiledata = tilemap.get_cell_tile_data(0, tilepos)
+			var tilepos = Gabagool.global_position_to_tile(child.global_position, collision_tilemap)
+			var tiledata = collision_tilemap.get_cell_tile_data(1, tilepos)
 
 			# Check the tile data of the cell the player is on
 			if tiledata:

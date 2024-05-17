@@ -14,8 +14,8 @@ var used: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Sprite2D.flip_h = on
 	if on:
+		$AnimatedSprite2D.play("on")
 		switch_on.emit()	# Emit switch_on since it's starting as on
 
 
@@ -31,10 +31,11 @@ func _process(_delta):
 func flip_switch():
 	if not used:
 		if on:
+			$AnimatedSprite2D.play("off")
 			switch_off.emit()
 		else:
+			$AnimatedSprite2D.play("on")
 			switch_on.emit()
 		on = not on
-		$Sprite2D.flip_h = on
 		if one_shot:
 			used = true

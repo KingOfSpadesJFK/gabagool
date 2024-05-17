@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://crl7k4nium8mn"]
 
 [ext_resource type="Script" path="res://script/chest.gd" id="1_o3jbk"]
-[ext_resource type="Texture2D" uid="uid://dseal73vfyanu" path="res://assets/treasure-close.png" id="2_u43ac"]
-[ext_resource type="Texture2D" uid="uid://cc33a4urfsoo6" path="res://assets/treasure-collected.png" id="3_6bydp"]
-[ext_resource type="Texture2D" uid="uid://cmy1syueej26a" path="res://assets/treasure-open.png" id="3_qei51"]
+[ext_resource type="Texture2D" uid="uid://drgmpa6a1rpwk" path="res://assets/sprite/chest-close.png" id="2_25l21"]
+[ext_resource type="Texture2D" uid="uid://x1a7qwm6crc1" path="res://assets/sprite/chest-collected.png" id="3_xslxv"]
+[ext_resource type="Texture2D" uid="uid://hg2fbooj13sa" path="res://assets/sprite/chest-open.png" id="4_fi5eh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_67eua"]
-size = Vector2(20, 18)
+size = Vector2(28, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7i8ge"]
 size = Vector2(32, 30)
@@ -15,7 +15,7 @@ size = Vector2(32, 30)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_u43ac")
+"texture": ExtResource("2_25l21")
 }],
 "loop": true,
 "name": &"close",
@@ -23,7 +23,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_6bydp")
+"texture": ExtResource("3_xslxv")
 }],
 "loop": true,
 "name": &"collected",
@@ -31,7 +31,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_qei51")
+"texture": ExtResource("4_fi5eh")
 }],
 "loop": true,
 "name": &"open",
@@ -45,7 +45,7 @@ lock_rotation = true
 script = ExtResource("1_o3jbk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_67eua")
 
 [node name="Area2D" type="Area2D" parent="."]

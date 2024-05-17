@@ -1,10 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://0vnqwh5bwg6x"]
+[gd_scene load_steps=6 format=3 uid="uid://0vnqwh5bwg6x"]
 
 [ext_resource type="Script" path="res://script/switch.gd" id="1_exap6"]
-[ext_resource type="Texture2D" uid="uid://2uojsl4esogq" path="res://assets/temp-switch.png" id="2_i63l0"]
+[ext_resource type="Texture2D" uid="uid://b8nof82q24u4k" path="res://assets/sprite/lever.png" id="2_fyjad"]
+[ext_resource type="Texture2D" uid="uid://dn3k605u56842" path="res://assets/sprite/lever-2.png" id="3_tv8mr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxmio"]
 size = Vector2(26, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4jvk1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fyjad")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tv8mr")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
 
 [node name="Switch" type="Area2D"]
 collision_layer = 8
@@ -15,6 +35,7 @@ script = ExtResource("1_exap6")
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_yxmio")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -16)
-texture = ExtResource("2_i63l0")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -9)
+sprite_frames = SubResource("SpriteFrames_4jvk1")
+animation = &"off"

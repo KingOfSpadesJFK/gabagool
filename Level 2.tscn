@@ -26,7 +26,6 @@ shader_parameter/size = Vector2(32, 28)
 [node name="Player" parent="Entities" instance=ExtResource("2_pv0o6")]
 position = Vector2(80, 208)
 collision_mask = 39
-tilemap_path = NodePath("../../TileMap")
 
 [node name="Crab" parent="Entities" instance=ExtResource("3_6b5i8")]
 position = Vector2(504, 152)
