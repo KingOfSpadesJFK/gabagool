@@ -34,7 +34,10 @@ func _on_player_death():
 func _process(delta):
 	if target:
 		var p = lerp(position, target.position, follow_weight * delta)
-		velocity = p - position
+		var diff = p - position
+		var direction = diff.normalized()
+		var length = diff.length()
+		velocity = direction * length
 		move_and_slide()
 
 	if bgcam:

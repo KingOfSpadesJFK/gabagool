@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cqmh34c36ur5f"]
+[gd_scene load_steps=36 format=3 uid="uid://cqmh34c36ur5f"]
 
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="1_6pjhq"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="1_cdmto"]
@@ -15,9 +15,13 @@
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="11_ggxem"]
 [ext_resource type="PackedScene" uid="uid://d0j6g8gxjowkc" path="res://scene/entity/big_coin.tscn" id="12_iwm1h"]
 [ext_resource type="Shader" path="res://shader/game.gdshader" id="13_ugl2f"]
+[ext_resource type="Texture2D" uid="uid://ctdsgq8yug122" path="res://assets/sprite/sand-texture.png" id="16_fnpiw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mpt4i"]
 size = Vector2(19, 138)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xfei2"]
+friction = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jnlwh"]
 texture = ExtResource("6_ksufe")
@@ -182,6 +186,7 @@ texture = ExtResource("6_ksufe")
 [sub_resource type="TileSet" id="TileSet_8skxb"]
 physics_layer_0/collision_layer = 128
 physics_layer_0/collision_mask = 128
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_xfei2")
 sources/0 = SubResource("TileSetAtlasSource_jnlwh")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pe60x"]
@@ -197,23 +202,39 @@ size = Vector2(466, 190)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vm5ok"]
 size = Vector2(91, 116)
 
-[sub_resource type="Gradient" id="Gradient_pnavk"]
-offsets = PackedFloat32Array(0, 0.484979)
-colors = PackedColorArray(0.676821, 0.527615, 0.230234, 1, 0.198048, 0.324511, 0.503367, 1)
+[sub_resource type="Gradient" id="Gradient_k1jtk"]
+colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.713859, 0.877646, 0.990788, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wwlmj"]
-gradient = SubResource("Gradient_pnavk")
-fill_from = Vector2(1, 1)
-
-[sub_resource type="Gradient" id="Gradient_3nokh"]
-offsets = PackedFloat32Array(0, 0.613734)
-colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.651673, 0.767033, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_r44xx"]
-gradient = SubResource("Gradient_3nokh")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_04m52"]
+gradient = SubResource("Gradient_k1jtk")
 width = 100
 height = 100
 fill_from = Vector2(1, 1)
+fill_to = Vector2(1, 0.422018)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2obli"]
+albedo_texture = ExtResource("16_fnpiw")
+uv1_scale = Vector3(200, 10, 10)
+texture_filter = 0
+distance_fade_mode = 1
+distance_fade_min_distance = 82.67
+
+[sub_resource type="QuadMesh" id="QuadMesh_1g2ts"]
+material = SubResource("StandardMaterial3D_2obli")
+
+[sub_resource type="Gradient" id="Gradient_041ea"]
+offsets = PackedFloat32Array(0, 0.634921, 0.980519)
+colors = PackedColorArray(0, 0, 0, 1, 0.184314, 0.345098, 1, 1, 0.635294, 0.827451, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_klnxt"]
+gradient = SubResource("Gradient_041ea")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0p58w"]
+diffuse_mode = 2
+albedo_texture = SubResource("GradientTexture1D_klnxt")
+
+[sub_resource type="QuadMesh" id="QuadMesh_aslce"]
+material = SubResource("StandardMaterial3D_0p58w")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hjesf"]
 
@@ -224,7 +245,7 @@ sky_material = SubResource("ProceduralSkyMaterial_hjesf")
 background_mode = 2
 sky = SubResource("Sky_yd7rm")
 ambient_light_source = 3
-ambient_light_color = Color(0.466667, 0.588235, 0.823529, 1)
+ambient_light_color = Color(1, 1, 1, 1)
 glow_enabled = true
 glow_intensity = 3.0
 
@@ -476,21 +497,20 @@ render_target_update_mode = 4
 [node name="Camera3D" type="Camera3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.80457)
 
-[node name="Sprite3D" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
-transform = Transform3D(67.2027, 0, 0, 0, 2.49476e-06, 0.999999, 0, -83.7102, 2.98023e-08, 0, -5, -33.5804)
-visible = false
-texture = SubResource("GradientTexture2D_wwlmj")
+[node name="Water" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
+transform = Transform3D(11007.3, 0, 0, 0, -4.38092e-06, 100.224, 0, -100.224, -4.38092e-06, 0, -0.25, -53.2826)
+texture = SubResource("GradientTexture2D_04m52")
 
-[node name="Sprite3D2" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
-transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, -0.25, -53.2826)
-texture = SubResource("GradientTexture2D_r44xx")
+[node name="Seabed" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
+transform = Transform3D(-6633.79, 0, 0, 0, 1.60816e-05, 0.999995, 0, 367.904, -4.37112e-08, 0, -11, -186)
+mesh = SubResource("QuadMesh_1g2ts")
+
+[node name="Bacgkround" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
+transform = Transform3D(-1.03648e-05, -17191.7, 0, 237.119, -0.000751474, 0, 0, 0, 100, 0, -118.809, -101.195)
+mesh = SubResource("QuadMesh_aslce")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_qdleh")
-
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="World"]
-visible = false
-position = Vector2(-32, -6)
 
 [node name="Markers" type="Node" parent="."]
 
