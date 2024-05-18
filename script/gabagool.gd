@@ -3,9 +3,10 @@ extends Node
 # Where to put the level scenes
 const main_scene_root = "/root/Control/SubViewportContainer/SubViewport/MainLevel"
 const trans_scene_root = "/root/Control/SubViewportContainer/SubViewport/TransitionLevel"
+const control_path = "res://scene/game.tscn"
 
 var main_scene = null
-var main_scene_path = "res://scene/level/transition_test1.tscn" # Start with this level
+var main_scene_path = "res://scene/level/level1.tscn" # Start with this level
 var transition_scene = null
 var transition_scene_path = ""
 var player = null
@@ -33,7 +34,7 @@ func _ready():
 	player = main_scene.get_node("Entities/Player")
 	camera = main_scene.get_node("Entities/Camera")
 
-
+# 
 # A function to get the tilemap position Vector2.
 func global_position_to_tile(position: Vector2, tilemap: TileMap) -> Vector2i:
 	var local_pos = tilemap.to_local(position)
@@ -57,6 +58,7 @@ func instantiate_transition_scene():
 	if loaded:	
 		# Instantiate the transition scene
 		transition_scene = ResourceLoader.load_threaded_get(transition_scene_path).instantiate()
+		transition_scene.visible = false
 
 		# Get the old player and camera
 		var transPlayer = transition_scene.get_node("Entities/Player")
@@ -66,6 +68,10 @@ func instantiate_transition_scene():
 			player.interactibles_layer = transPlayer.interactibles_layer
 			transPlayer.free()
 		if transCamera:
+			camera.target_node = transCamera.target_node
+			camera.follow_weight = transCamera.follow_weight
+			camera.background_camera = transCamera.background_camera
+			camera.background_scroll_divisor = transCamera.background_scroll_divisor
 			transCamera.free()
 		
 		# Reparent the player and camera
@@ -85,6 +91,9 @@ func instantiate_transition_scene():
 func transition_scene_to_main():
 	main_scene.queue_free()
 	transition_scene.reparent(get_node(main_scene_root))
+	main_scene = transition_scene
+	main_scene_path = transition_scene_path
+	transition_scene.visible = true
 	print("Old main discarded. Transition to ", transition_scene_path, " completed!")
 
 

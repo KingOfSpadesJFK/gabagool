@@ -29,9 +29,14 @@ func _physics_process(_delta):
 func _on_threshold_body_entered(body):
 	if body is RigidBody2D:
 		# Run the timer when the pressure plate is pressed
-		if not run_timer:
-			run_timer = true
-			$CheckTimer.start(check_time)
+		if check_time:
+			if not run_timer:
+				run_timer = true
+				$CheckTimer.start(check_time)
+		else:
+			plate_pressed.emit()
+			pressed = true
+			
 
 
 func _on_threshold_body_exited(body):
