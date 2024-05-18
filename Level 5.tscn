@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://5mhvxilxomav"]
+[gd_scene load_steps=8 format=3 uid="uid://cj3vjmk1newd3"]
 
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_xccix"]
 [ext_resource type="PackedScene" uid="uid://c23q66216a1g7" path="res://scene/entity/crab.tscn" id="2_iwa4c"]
