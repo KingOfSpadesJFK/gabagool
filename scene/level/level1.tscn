@@ -202,17 +202,17 @@ size = Vector2(466, 190)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vm5ok"]
 size = Vector2(91, 116)
 
-[sub_resource type="Gradient" id="Gradient_k1jtk"]
+[sub_resource type="Gradient" id="Gradient_engyg"]
 colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.713859, 0.877646, 0.990788, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_04m52"]
-gradient = SubResource("Gradient_k1jtk")
+gradient = SubResource("Gradient_engyg")
 width = 100
 height = 100
 fill_from = Vector2(1, 1)
 fill_to = Vector2(1, 0.422018)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2obli"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qe52h"]
 albedo_texture = ExtResource("16_fnpiw")
 uv1_scale = Vector3(200, 10, 10)
 texture_filter = 0
@@ -220,21 +220,21 @@ distance_fade_mode = 1
 distance_fade_min_distance = 82.67
 
 [sub_resource type="QuadMesh" id="QuadMesh_1g2ts"]
-material = SubResource("StandardMaterial3D_2obli")
+material = SubResource("StandardMaterial3D_qe52h")
 
-[sub_resource type="Gradient" id="Gradient_041ea"]
+[sub_resource type="Gradient" id="Gradient_cwm5s"]
 offsets = PackedFloat32Array(0, 0.634921, 0.980519)
 colors = PackedColorArray(0, 0, 0, 1, 0.184314, 0.345098, 1, 1, 0.635294, 0.827451, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_klnxt"]
-gradient = SubResource("Gradient_041ea")
+gradient = SubResource("Gradient_cwm5s")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0p58w"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkcb6"]
 diffuse_mode = 2
 albedo_texture = SubResource("GradientTexture1D_klnxt")
 
 [sub_resource type="QuadMesh" id="QuadMesh_aslce"]
-material = SubResource("StandardMaterial3D_0p58w")
+material = SubResource("StandardMaterial3D_lkcb6")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hjesf"]
 
@@ -272,7 +272,7 @@ terminal_velocity = 200.0
 position = Vector2(-160, -743)
 collision_layer = 128
 collision_mask = 128
-background_camera = NodePath("../../World/BackgroundViewport/SubviewportContainer/SubViewport/Camera3D")
+background_camera = NodePath("../../World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground/Camera3D")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Entities/Camera"]
 remote_path = NodePath("../../../World/BackgroundViewport")
@@ -410,7 +410,6 @@ layer_2/tile_data = PackedInt32Array(1441766, 655362, 10, 1441767, 589826, 10, 1
 [node name="Area" type="Node" parent="."]
 
 [node name="WaterBody" parent="Area" instance=ExtResource("3_clwql")]
-visible = false
 position = Vector2(-33, 36)
 
 [node name="CollisionShape2D" parent="Area/WaterBody/Area2D" index="0"]
@@ -494,20 +493,24 @@ handle_input_locally = false
 canvas_item_default_texture_filter = 0
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
+[node name="3DWaterBackground" type="Node3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.80457)
 
-[node name="Water" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
+[node name="Water" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
 transform = Transform3D(11007.3, 0, 0, 0, -4.38092e-06, 100.224, 0, -100.224, -4.38092e-06, 0, -0.25, -53.2826)
 texture = SubResource("GradientTexture2D_04m52")
 
-[node name="Seabed" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
+[node name="Seabed" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
 transform = Transform3D(-6633.79, 0, 0, 0, 1.60816e-05, 0.999995, 0, 367.904, -4.37112e-08, 0, -11, -186)
 mesh = SubResource("QuadMesh_1g2ts")
+skeleton = NodePath("../..")
 
-[node name="Bacgkround" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport"]
+[node name="Bacgkround" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
 transform = Transform3D(-1.03648e-05, -17191.7, 0, 237.119, -0.000751474, 0, 0, 0, 100, 0, -118.809, -101.195)
 mesh = SubResource("QuadMesh_aslce")
+skeleton = NodePath("../..")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_qdleh")

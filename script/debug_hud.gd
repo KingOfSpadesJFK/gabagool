@@ -19,7 +19,7 @@ func _on_player_death():
 	
 
 func _on_level_reload():
-	player = Gabagool.current_scene.get_node("Entities/Player")
+	player = Gabagool.main_scene.get_node("Entities/Player")
 	player.player_died.connect(_on_player_death)
 
 

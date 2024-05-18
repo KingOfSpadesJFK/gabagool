@@ -22,6 +22,9 @@ const JUMP_VELOCITY = -400.0
 # The path to the interactibles tilemap
 @export var collision_tilemap_path: NodePath
 
+# The layer in the collision tilemap for the interactibles
+@export var interactibles_layer: int = 1
+
 # The walking speed of the player
 @export var walking_speed = 50.0
 
@@ -68,8 +71,14 @@ var knockback_dir = Vector2(0,0)
 
 
 func _ready():
-	collision_tilemap = get_node(collision_tilemap_path)
+	retrieve_nodes()
 	#player_died.connect(Gabagool.reload_scene)
+	Gabagool.transition_level_load.connect(_on_transition_level_load)
+
+
+# Reloads any nodes important to the player (like the collision tilemap)
+func retrieve_nodes():
+	collision_tilemap = get_node(collision_tilemap_path)
 
 
 # Handles inputs and player state
@@ -87,7 +96,7 @@ func _process(_delta):
 	#   This part checks for the markers in $TileTest to see if a tile on those 
 	#   markers are climbables
 	var can_climb = false
-	if collision_tilemap:
+	if collision_tilemap and interactibles_layer < collision_tilemap.get_layers_count():
 		for child in $TileTest.get_children():
 			var tilepos = Gabagool.global_position_to_tile(child.global_position, collision_tilemap)
 			var tiledata = collision_tilemap.get_cell_tile_data(1, tilepos)
@@ -267,6 +276,10 @@ func _on_harpoon_death():
 func _on_harpoon_impact():
 	player_state = PlayerState.HARPOON_GLIDE
 	harpoon_projectile.get_node("Timer").stop()
+	
+	
+func _on_transition_level_load():
+	retrieve_nodes()
 
 
 func jump_impulse():

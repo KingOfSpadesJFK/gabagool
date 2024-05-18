@@ -1,22 +1,54 @@
-[gd_scene load_steps=5 format=3 uid="uid://bj2r2u2pi33o6"]
+[gd_scene load_steps=10 format=3 uid="uid://bj2r2u2pi33o6"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_mftx0"]
+[ext_resource type="Texture2D" uid="uid://ctdsgq8yug122" path="res://assets/sprite/sand-texture.png" id="1_pyk47"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7s27g"]
+[sub_resource type="Gradient" id="Gradient_k1jtk"]
+colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.713859, 0.877646, 0.990788, 1)
 
-[sub_resource type="Sky" id="Sky_wym1u"]
-sky_material = SubResource("ProceduralSkyMaterial_7s27g")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o3th7"]
+gradient = SubResource("Gradient_k1jtk")
+width = 100
+height = 100
+fill_from = Vector2(1, 1)
+fill_to = Vector2(1, 0.422018)
 
-[sub_resource type="Environment" id="Environment_qdqjf"]
-background_mode = 2
-background_energy_multiplier = 2.1
-sky = SubResource("Sky_wym1u")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2obli"]
+albedo_texture = ExtResource("1_pyk47")
+uv1_scale = Vector3(200, 10, 10)
+texture_filter = 0
+distance_fade_mode = 1
+distance_fade_min_distance = 82.67
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="QuadMesh" id="QuadMesh_afxxg"]
+material = SubResource("StandardMaterial3D_2obli")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.597004, 0)
-mesh = SubResource("QuadMesh_mftx0")
+[sub_resource type="Gradient" id="Gradient_041ea"]
+offsets = PackedFloat32Array(0, 0.634921, 0.980519)
+colors = PackedColorArray(0, 0, 0, 1, 0.184314, 0.345098, 1, 1, 0.635294, 0.827451, 1, 1)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_qdqjf")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nfm7x"]
+gradient = SubResource("Gradient_041ea")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0p58w"]
+diffuse_mode = 2
+albedo_texture = SubResource("GradientTexture1D_nfm7x")
+
+[sub_resource type="QuadMesh" id="QuadMesh_f3ncl"]
+material = SubResource("StandardMaterial3D_0p58w")
+
+[node name="3DBackgroundRoot" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.80457)
+
+[node name="Water" type="Sprite3D" parent="."]
+transform = Transform3D(11007.3, 0, 0, 0, -4.38092e-06, 100.224, 0, -100.224, -4.38092e-06, 0, -0.25, -53.2826)
+texture = SubResource("GradientTexture2D_o3th7")
+
+[node name="Seabed" type="MeshInstance3D" parent="."]
+transform = Transform3D(-6633.79, 0, 0, 0, 1.60816e-05, 0.999995, 0, 367.904, -4.37112e-08, 0, -11, -186)
+mesh = SubResource("QuadMesh_afxxg")
+
+[node name="Bacgkround" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.03648e-05, -17191.7, 0, 237.119, -0.000751474, 0, 0, 0, 100, 0, -118.809, -101.195)
+mesh = SubResource("QuadMesh_f3ncl")

@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://dp6118bv3cdn1"]
+
+[ext_resource type="PackedScene" uid="uid://cljphvcwvmnpr" path="res://scene/entity/camera.tscn" id="1_35qgu"]
+[ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="2_2yggr"]
+[ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="3_8a6rq"]
+[ext_resource type="Script" path="res://script/transition_area.gd" id="4_3f4tl"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_qsexc"]
+a = Vector2(240, -96)
+b = Vector2(238, 64)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_h6jka"]
+a = Vector2(366, -108)
+b = Vector2(363, 47)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_hx43g"]
+a = Vector2(485, -98)
+b = Vector2(482, 48)
+
+[node name="TransitionTest1" type="Node2D"]
+metadata/background_path = "res://scene/background/3d_water.tscn"
+
+[node name="Entities" type="Node" parent="."]
+
+[node name="Camera" parent="Entities" instance=ExtResource("1_35qgu")]
+background_camera = NodePath("")
+
+[node name="Player" parent="Entities" instance=ExtResource("2_2yggr")]
+collision_tilemap_path = NodePath("../../TileMap")
+walking_speed = 150.0
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_8a6rq")
+format = 2
+layer_0/tile_data = PackedInt32Array(196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 196604, 0, 0, 131068, 0, 0, 65532, 0, 0, -4, 0, 0, -65540, 0, 0, -131076, 0, 0, -196612, 0, 0, -262148, 0, 0, -327684, 0, 0, -393220, 0, 0, -393219, 0, 0, -393218, 0, 0, -393217, 0, 0, -458752, 0, 0, -458751, 0, 0, -458750, 0, 0, -458749, 0, 0, -458748, 0, 0, -458747, 0, 0, -458746, 0, 0, -458745, 0, 0, -458744, 0, 0, -458743, 0, 0, -458742, 0, 0, -458741, 0, 0, -458740, 0, 0, -458739, 0, 0, -458738, 0, 0, -458737, 0, 0, -458736, 0, 0, -458735, 0, 0, -458734, 0, 0, -458733, 0, 0, -458732, 0, 0, -458731, 0, 0, -458730, 0, 0, -458729, 0, 0, -458728, 0, 0, -458727, 0, 0, -458726, 0, 0, -458725, 0, 0, -458724, 0, 0, -458723, 0, 0, 131089, 0, 0, 131090, 0, 0, 131091, 0, 0, 131092, 0, 0, 131093, 0, 0, 131094, 0, 0, 131095, 0, 0, 131096, 0, 0, 131097, 0, 0, 131098, 0, 0, 131099, 0, 0, 131100, 0, 0, 131101, 0, 0, 131102, 0, 0, 131103, 0, 0, 131104, 0, 0, 131105, 0, 0, 131106, 0, 0, 131107, 0, 0, 131108, 0, 0, 131109, 0, 0, 131110, 0, 0, 131111, 0, 0, 131112, 0, 0, -458722, 0, 0, -458721, 0, 0, -458720, 0, 0, -458719, 0, 0, -458718, 0, 0, -458717, 0, 0, -458716, 0, 0, -458715, 0, 0, -458714, 0, 0, -458713, 0, 0, -458712, 0, 0, -458711, 0, 0, -458710, 0, 0, -458709, 0, 0, 131113, 0, 0, 131114, 0, 0, 131115, 0, 0, 131116, 262144, 0, 131117, 262144, 0, 131118, 262144, 0, 131119, 262144, 0, 131120, 262144, 0, 131121, 262144, 0, 131122, 262144, 0, 131123, 262144, 0, 131124, 262144, 0, 131125, 262144, 0, 131126, 262144, 0, 131127, 262144, 0, 131128, 262144, 0, 131129, 262144, 0, 131130, 262144, 0, 65594, 262144, 0, 58, 262144, 0, -65478, 262144, 0, -131014, 262144, 0, -196550, 262144, 0, -262086, 262144, 0, -327622, 262144, 0, -393158, 262144, 0, -458694, 262144, 0, -458695, 262144, 0, -458696, 262144, 0, -458697, 262144, 0, -458698, 262144, 0, -458699, 262144, 0, -458700, 262144, 0, -458701, 262144, 0, -458702, 262144, 0, -458703, 262144, 0, -458704, 262144, 0, -458705, 262144, 0, -458706, 262144, 0, -458707, 262144, 0, -458708, 262144, 0, 262189, 262144, 0, 327725, 262144, 0, 393261, 262144, 0, 458797, 262144, 0, 262190, 262144, 0, 262191, 262144, 0, 393262, 262144, 0, 458801, 262144, 0, 393265, 262144, 0, 327729, 262144, 0, 262194, 262144, 0, 327731, 262144, 0, 393267, 262144, 0, 458803, 262144, 0, 393266, 262144, 0, 262197, 262144, 0, 327733, 262144, 0, 393269, 262144, 0, 458805, 262144, 0, 458807, 262144, 0, 393271, 262144, 0, 327735, 262144, 0, 262199, 262144, 0, 458808, 262144, 0, 458809, 262144, 0, 60, 262144, 0, -65475, 262144, 0, -65474, 262144, 0, 64, 262144, 0, -65473, 262144, 0, -196547, 262144, 0, -196545, 262144, 0, -196615, 262144, 2, -196614, 262144, 2, -131078, 262144, 2, -65542, 262144, 2, -6, 262144, 2)
+
+[node name="TransitionArea" type="Node2D" parent="."]
+script = ExtResource("4_3f4tl")
+new_scene_path = "res://scene/level/transition_test2.tscn"
+
+[node name="BeginTransition" type="Area2D" parent="TransitionArea"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea/BeginTransition"]
+shape = SubResource("SegmentShape2D_qsexc")
+
+[node name="InstantiateTransition" type="Area2D" parent="TransitionArea"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea/InstantiateTransition"]
+position = Vector2(-69, 0)
+shape = SubResource("SegmentShape2D_h6jka")
+
+[node name="EndTransition" type="Area2D" parent="TransitionArea"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea/EndTransition"]
+position = Vector2(-129, -11)
+shape = SubResource("SegmentShape2D_hx43g")
+
+[connection signal="body_entered" from="TransitionArea/BeginTransition" to="TransitionArea" method="_on_begin_transition_body_entered" flags=6]
+[connection signal="body_entered" from="TransitionArea/InstantiateTransition" to="TransitionArea" method="_on_instantiate_transition_body_entered" flags=7]
+[connection signal="body_entered" from="TransitionArea/EndTransition" to="TransitionArea" method="_on_end_transition_body_entered" flags=7]
