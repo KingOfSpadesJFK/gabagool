@@ -457,6 +457,9 @@ layer_7/tile_data = PackedInt32Array()
 [node name="WaterBody" parent="Area" instance=ExtResource("13_wytm0")]
 position = Vector2(-33, 36)
 
+[node name="Area2D" parent="Area/WaterBody" index="0"]
+visible = false
+
 [node name="CollisionShape2D" parent="Area/WaterBody/Area2D" index="0"]
 position = Vector2(1958, 470)
 shape = SubResource("RectangleShape2D_pe60x")
@@ -510,11 +513,11 @@ position = Vector2(0.964355, 61.5979)
 shape = SubResource("SegmentShape2D_mpgm2")
 
 [node name="CollisionShape2D" parent="Area/LevelTransition/InstantiateTransition" index="0"]
-position = Vector2(-65.0356, 126.598)
+position = Vector2(-65.04, 227.598)
 shape = SubResource("SegmentShape2D_abo2m")
 
 [node name="CollisionShape2D" parent="Area/LevelTransition/EndTransition" index="0"]
-position = Vector2(-132.036, 99.5979)
+position = Vector2(-121.04, 208.598)
 shape = SubResource("SegmentShape2D_0pwlk")
 
 [node name="Labels" type="Node" parent="."]
