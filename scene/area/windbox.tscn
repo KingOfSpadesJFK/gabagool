@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://clrj358i3l5ea"]
+
+[ext_resource type="Script" path="res://script/windbox.gd" id="1_d5ja5"]
+
+[node name="Windbox" type="Area2D"]
+collision_layer = 0
+collision_mask = 34
+script = ExtResource("1_d5ja5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

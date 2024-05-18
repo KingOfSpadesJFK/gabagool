@@ -1,0 +1,14 @@
+[gd_resource type="QuadMesh" load_steps=3 format=3 uid="uid://dmrxcgh1008sn"]
+
+[ext_resource type="Texture2D" uid="uid://ctdsgq8yug122" path="res://assets/sprite/sand-texture.png" id="1_inu6x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qe52h"]
+albedo_texture = ExtResource("1_inu6x")
+uv1_scale = Vector3(500, 10, 10)
+texture_filter = 0
+distance_fade_mode = 2
+distance_fade_min_distance = 82.67
+distance_fade_max_distance = 24.6
+
+[resource]
+material = SubResource("StandardMaterial3D_qe52h")

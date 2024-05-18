@@ -1,9 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://bnwpolx7e34g3"]
 
 [ext_resource type="Script" path="res://script/door.gd" id="1_b6uyv"]
+[ext_resource type="Texture2D" uid="uid://bqld4o7sfqlyd" path="res://assets/sprite/wood-door.png" id="2_kchst"]
 
-[sub_resource type="Animation" id="Animation_gn8kn"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_6vqse"]
+resource_name = "180d Rotation"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -11,10 +12,10 @@ tracks/0/path = NodePath("Anchor:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-5, 1),
 "update": 0,
-"values": [0.0]
+"values": [0.0, 3.14159]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -56,33 +57,6 @@ tracks/1/keys = {
 "values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_6vqse"]
-resource_name = "180d Rotation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Anchor:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-5, 1),
-"update": 0,
-"values": [0.0, 3.14159]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_yslje"]
 resource_name = "Move Up"
 tracks/0/type = "value"
@@ -110,6 +84,33 @@ tracks/1/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_gn8kn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p3hup"]
 _data = {
 "180d Rotation": SubResource("Animation_6vqse"),
@@ -117,8 +118,6 @@ _data = {
 "Move Up": SubResource("Animation_yslje"),
 "RESET": SubResource("Animation_gn8kn")
 }
-
-[sub_resource type="QuadMesh" id="QuadMesh_vtiro"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvmy0"]
 size = Vector2(8, 64)
@@ -136,10 +135,9 @@ libraries = {
 [node name="StaticBody2D" type="StaticBody2D" parent="Anchor"]
 position = Vector2(0, 31)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Anchor/StaticBody2D"]
+[node name="Wood-door" type="Sprite2D" parent="Anchor/StaticBody2D"]
 position = Vector2(0, 5)
-scale = Vector2(8, 64)
-mesh = SubResource("QuadMesh_vtiro")
+texture = ExtResource("2_kchst")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Anchor/StaticBody2D"]
 position = Vector2(0, 5)
