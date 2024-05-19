@@ -140,7 +140,6 @@ func _deferred_goto_scene(path):
 
 	# Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
 	#get_tree().main_scene = main_scene
-	level_load.emit()
 	get_main_scene_meta()
 	
 	# Get the new player and camera
@@ -150,3 +149,6 @@ func _deferred_goto_scene(path):
 	# Set checkpoint info to the player and camera
 	if checkpoint_enabled:
 		player.player_info = checkpoint_player_info
+	
+	# Emit the level_load signal
+	level_load.emit()

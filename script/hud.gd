@@ -8,6 +8,12 @@ func _ready():
 	Gabagool.begin_transition_level_load.connect(disconnect_player_signals)
 	Gabagool.transition_level_load.connect(connect_player_signals)
 	Gabagool.level_transition_complete.connect(_show_level_name)
+	Gabagool.level_load.connect(reload_player_signals)
+
+
+func reload_player_signals():
+	#disconnect_player_signals()
+	connect_player_signals()
 
 
 func disconnect_player_signals():
