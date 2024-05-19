@@ -61,6 +61,9 @@ signal player_died
 # Emitted when the player collects money 
 signal player_collected_money
 
+# Emitten when a player crosses a checkpoint
+signal player_checkpoint
+
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")	# Get gravity from project settings
 var player_state = PlayerState.IDLE
@@ -94,6 +97,11 @@ func _process(_delta):
 		direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
 	elif is_shooting():
 		direction = Vector2(0,0)
+		
+	if direction.x < 0.0:
+		$AnimatedSprite2D.flip_h = true
+	elif direction.x > 0.0:
+		$AnimatedSprite2D.flip_h = false
 	
 	# Check for what interactible tiles the player is on
 	#   This part checks for the markers in $TileTest to see if a tile on those 
@@ -139,6 +147,7 @@ func _process(_delta):
 			# Mid-air player state
 			if player_state != PlayerState.JUMP or (player_state == PlayerState.JUMP and velocity.y > 0.0):
 				player_state = PlayerState.FALL
+				$AnimatedSprite2D.play("jump")
 		else:
 			if can_jump():
 				# Jumping
@@ -147,15 +156,18 @@ func _process(_delta):
 					player_state = PlayerState.JUMP_INIT
 					$JumpTimer.start(jump_delay)
 					jump_timer_start = true
+					$AnimatedSprite2D.play("idle")
 				else:
 					# Instant jump
 					jump_impulse()
+			elif can_walk() and direction.x:
+				# Walking
+				$AnimatedSprite2D.play("walk")
+				player_state = PlayerState.WALK
 			elif player_state != PlayerState.JUMP_INIT and !is_shooting():
 				# At leaset idle if not jumping
 				player_state = PlayerState.IDLE
-		if  can_walk() and direction.x:
-			# Walking
-			player_state = PlayerState.WALK
+				$AnimatedSprite2D.play("idle")
 
 
 # Handle shooting things
@@ -170,6 +182,12 @@ func _input(event):
 			player_state = PlayerState.SHOOT
 			velocity.x = 0
 			$ShootTimer.start()
+			
+	if event is InputEventKey and (Input.is_action_just_pressed("player_left") or\
+		Input.is_action_just_pressed("player_right") or\
+		Input.is_action_just_pressed("player_up") or\
+		Input.is_action_just_pressed("player_down")):
+		pass
 
 
 # Handle physics and collision
@@ -231,6 +249,14 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+# Call this when you want to save the player info for a checkpoint
+func checkpoint(respawn_point):
+	player_info.checkpoint_position = respawn_point
+	Gabagool.set_respawn_info(player_info)
+	player_checkpoint.emit()
+	pass
+
+
 # Call this to add money to the player
 func add_money(worth):
 	player_info.money += worth
@@ -290,6 +316,7 @@ func jump_impulse():
 	velocity.y = -jump_velocity * jump_velocity_weight
 	player_state = PlayerState.JUMP
 	jump_timer_start = false
+	$AnimatedSprite2D.play("jump")
 	move_and_slide()
 
 

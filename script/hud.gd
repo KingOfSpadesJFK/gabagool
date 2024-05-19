@@ -4,8 +4,22 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Connect any necessary signals
-	Gabagool.player.player_collected_money.connect(_show_money)
+	connect_player_signals()
+	Gabagool.begin_transition_level_load.connect(disconnect_player_signals)
+	Gabagool.transition_level_load.connect(connect_player_signals)
 	Gabagool.level_transition_complete.connect(_show_level_name)
+
+
+func disconnect_player_signals():
+	Gabagool.player.player_collected_money.disconnect(_show_money)
+	Gabagool.player.player_checkpoint.disconnect(_show_level_name)
+	pass
+
+
+func connect_player_signals():
+	Gabagool.player.player_collected_money.connect(_show_money)
+	Gabagool.player.player_checkpoint.connect(_show_level_name)
+	pass
 
 
 func _show_level_name():

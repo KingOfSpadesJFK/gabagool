@@ -1,8 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfwr2l4r4pref"]
+[gd_scene load_steps=20 format=3 uid="uid://cfwr2l4r4pref"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kgimv"]
 [ext_resource type="Script" path="res://script/resource/player_info.gd" id="2_d210k"]
 [ext_resource type="Texture2D" uid="uid://b8ulkaxw2e7wf" path="res://assets/temp-player.png" id="2_m32qu"]
+[ext_resource type="Texture2D" uid="uid://b3ap0gi5qjgxe" path="res://assets/sprite/player/Jump0003.png" id="4_a08m1"]
+[ext_resource type="Texture2D" uid="uid://shmf5pafyb2s" path="res://assets/sprite/player/Protag.png" id="4_ucmp1"]
+[ext_resource type="Texture2D" uid="uid://biq10a88lk3ip" path="res://assets/sprite/player/Walk0001.png" id="5_mt47y"]
+[ext_resource type="Texture2D" uid="uid://bvda8tc8bxkk6" path="res://assets/sprite/player/Jump0001.png" id="6_p3p4l"]
+[ext_resource type="Texture2D" uid="uid://bk1ishxjr33i5" path="res://assets/sprite/player/Walk0002.png" id="6_y1ghs"]
+[ext_resource type="Texture2D" uid="uid://cqdoclslc38hv" path="res://assets/sprite/player/Jump0002.png" id="7_b3hwg"]
+[ext_resource type="Texture2D" uid="uid://d18j1crrsfnt0" path="res://assets/sprite/player/Walk0003.png" id="7_b5h40"]
+[ext_resource type="Texture2D" uid="uid://deeb0lxyf551j" path="res://assets/sprite/player/Shoot0001.png" id="8_3olup"]
+[ext_resource type="Texture2D" uid="uid://b4ooe5gwqfhe" path="res://assets/sprite/player/Walk0004.png" id="8_85yge"]
+[ext_resource type="Texture2D" uid="uid://blg2wuqj7ochk" path="res://assets/sprite/player/Walk0005.png" id="9_8ljt6"]
+[ext_resource type="Texture2D" uid="uid://impa77i3eoed" path="res://assets/sprite/player/Shoot0002.png" id="9_ws62n"]
+[ext_resource type="Texture2D" uid="uid://ctrxbn2hox3u1" path="res://assets/sprite/player/Shoot0003.png" id="10_5xqps"]
+[ext_resource type="Texture2D" uid="uid://nibtxflxphhe" path="res://assets/sprite/player/Walk0006.png" id="10_ecuo4"]
 
 [sub_resource type="Resource" id="Resource_35cbg"]
 script = ExtResource("2_d210k")
@@ -12,6 +25,84 @@ harpoon_ammo = -1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2fl3"]
 size = Vector2(20, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6y8ki"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_a08m1")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ucmp1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("6_p3p4l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_b3hwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_a08m1")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_3olup")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ws62n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_5xqps")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_3olup")
+}],
+"loop": true,
+"name": &"shoot_init",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_mt47y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_y1ghs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_b5h40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_85yge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8ljt6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ecuo4")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -24,6 +115,7 @@ mass = 10.0
 player_info = SubResource("Resource_35cbg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(2, 0)
 texture = ExtResource("2_m32qu")
 
@@ -67,6 +159,11 @@ one_shot = true
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.213
 one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_6y8ki")
+animation = &"idle"
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timeout"]

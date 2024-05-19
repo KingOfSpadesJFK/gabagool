@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cqmh34c36ur5f"]
+[gd_scene load_steps=42 format=3 uid="uid://cqmh34c36ur5f"]
 
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="1_6pjhq"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="1_cdmto"]
@@ -7,14 +7,21 @@
 [ext_resource type="PackedScene" uid="uid://c6ehnsd6kywbd" path="res://scene/area/water_body.tscn" id="3_clwql"]
 [ext_resource type="PackedScene" uid="uid://cljphvcwvmnpr" path="res://scene/entity/camera.tscn" id="5_1y065"]
 [ext_resource type="Texture2D" uid="uid://l5w0eqofhlap" path="res://assets/test-tilemap.png" id="6_ksufe"]
+[ext_resource type="Texture2D" uid="uid://k0s7tyvbegh" path="res://assets/sprite/seaweed.png" id="8_7q2ps"]
+[ext_resource type="Texture2D" uid="uid://dai8xuwt4144d" path="res://assets/sprite/rock.png" id="9_srpib"]
 [ext_resource type="PackedScene" uid="uid://cmanhsgkvodo" path="res://scene/area/checkpoint.tscn" id="9_w38qd"]
+[ext_resource type="Texture2D" uid="uid://bqbvc7lm1t8" path="res://assets/sprite/rocks.png" id="10_0ax4u"]
 [ext_resource type="PackedScene" uid="uid://cemcrr1cgwxa3" path="res://scene/entity/coin.tscn" id="11_88flk"]
 [ext_resource type="TileSet" uid="uid://dtrr7hpox42rb" path="res://assets/tilemap/sand.tres" id="11_bnm82"]
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="11_ggxem"]
+[ext_resource type="Texture2D" uid="uid://de2dufuf2h2vv" path="res://assets/sprite/seaweed4.png" id="11_x3qug"]
 [ext_resource type="PackedScene" uid="uid://d0j6g8gxjowkc" path="res://scene/entity/big_coin.tscn" id="12_iwm1h"]
 [ext_resource type="Shader" path="res://shader/game.gdshader" id="13_ugl2f"]
 [ext_resource type="PackedScene" uid="uid://b0vkcjxbjlnqp" path="res://scene/area/level_transition.tscn" id="14_ygerf"]
 [ext_resource type="QuadMesh" uid="uid://dmrxcgh1008sn" path="res://assets/mesh/background-sand.tres" id="15_anba0"]
+[ext_resource type="Texture2D" uid="uid://dwbqgrnfbw27s" path="res://assets/sprite/seaweed5.png" id="20_bdmh5"]
+[ext_resource type="Texture2D" uid="uid://dtuywt6oxhak2" path="res://assets/sprite/seaweed3.png" id="21_65o64"]
+[ext_resource type="Texture2D" uid="uid://b88o5ijseq5g5" path="res://assets/sprite/seaweed2.png" id="22_my8g6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mpt4i"]
 size = Vector2(19, 138)
@@ -211,14 +218,14 @@ a = Vector2(25.1896, -94.1841)
 b = Vector2(-14.8104, 1.81595)
 
 [sub_resource type="Gradient" id="Gradient_engyg"]
-colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.713859, 0.877646, 0.990788, 1)
+offsets = PackedFloat32Array(0, 0.688312, 0.954545, 1)
+colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.713859, 0.877646, 0.990788, 1, 0.713726, 0.878431, 0.992157, 1, 0.0862745, 0.203922, 0.603922, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_04m52"]
 gradient = SubResource("Gradient_engyg")
 width = 100
 height = 100
-fill_from = Vector2(1, 1)
-fill_to = Vector2(1, 0.422018)
+fill_from = Vector2(0.995413, 1)
 
 [sub_resource type="Gradient" id="Gradient_cwm5s"]
 offsets = PackedFloat32Array(0, 0.634921, 0.980519)
@@ -306,6 +313,76 @@ position = Vector2(256, 40)
 [node name="UrchinSchool" type="Node2D" parent="Entities"]
 position = Vector2(256, 40)
 
+[node name="Props" type="Node" parent="."]
+
+[node name="Seaweed" type="Sprite2D" parent="Props"]
+z_index = -1
+position = Vector2(-40, 299)
+texture = ExtResource("8_7q2ps")
+
+[node name="Rock" type="Sprite2D" parent="Props"]
+z_index = -1
+position = Vector2(272, 323)
+texture = ExtResource("9_srpib")
+
+[node name="Rocks" type="Sprite2D" parent="Props"]
+position = Vector2(402, 312)
+texture = ExtResource("10_0ax4u")
+
+[node name="Rock2" type="Sprite2D" parent="Props"]
+modulate = Color(0.607843, 0.705882, 0.929412, 1)
+z_index = -1
+position = Vector2(874, 308)
+texture = ExtResource("9_srpib")
+
+[node name="Rocks2" type="Sprite2D" parent="Props"]
+modulate = Color(0.609248, 0.704421, 0.93118, 1)
+position = Vector2(776, 281)
+texture = ExtResource("10_0ax4u")
+
+[node name="Rocks3" type="Sprite2D" parent="Props"]
+modulate = Color(0.607843, 0.705882, 0.929412, 1)
+position = Vector2(1177, 394)
+texture = ExtResource("10_0ax4u")
+
+[node name="Rock3" type="Sprite2D" parent="Props"]
+modulate = Color(0.607843, 0.705882, 0.929412, 1)
+position = Vector2(1365, 372)
+texture = ExtResource("9_srpib")
+
+[node name="Rock4" type="Sprite2D" parent="Props"]
+position = Vector2(1543, 404)
+texture = ExtResource("9_srpib")
+
+[node name="Seaweed4" type="Sprite2D" parent="Props"]
+position = Vector2(118, 305)
+texture = ExtResource("11_x3qug")
+
+[node name="Seaweed5" type="Sprite2D" parent="Props"]
+position = Vector2(-147, 306)
+texture = ExtResource("20_bdmh5")
+
+[node name="Seaweed3" type="Sprite2D" parent="Props"]
+position = Vector2(41, 303)
+texture = ExtResource("21_65o64")
+
+[node name="Seaweed6" type="Sprite2D" parent="Props"]
+position = Vector2(576, 238)
+texture = ExtResource("11_x3qug")
+
+[node name="Seaweed7" type="Sprite2D" parent="Props"]
+position = Vector2(502, 303)
+texture = ExtResource("20_bdmh5")
+
+[node name="Seaweed2" type="Sprite2D" parent="Props"]
+position = Vector2(911, 290)
+texture = ExtResource("22_my8g6")
+
+[node name="Seaweed8" type="Sprite2D" parent="Props"]
+z_index = -2
+position = Vector2(852, 288)
+texture = ExtResource("8_7q2ps")
+
 [node name="CameraBoundaries" type="Node" parent="."]
 
 [node name="TileMap" type="TileMap" parent="CameraBoundaries"]
@@ -360,6 +437,7 @@ layer_6/tile_data = PackedInt32Array(262198, 589825, 4)
 [node name="Area" type="Node" parent="."]
 
 [node name="WaterBody" parent="Area" instance=ExtResource("3_clwql")]
+visible = false
 position = Vector2(-33, 36)
 
 [node name="CollisionShape2D" parent="Area/WaterBody/Area2D" index="0"]
@@ -378,6 +456,7 @@ scale = Vector2(321.5, 62.875)
 position = Vector2(71, 110)
 
 [node name="CollisionShape2D" parent="Area/Checkpoint/Area2D" index="0"]
+visible = false
 position = Vector2(-3, 141)
 shape = SubResource("RectangleShape2D_4swvc")
 
@@ -406,13 +485,6 @@ offset_top = -93.0
 offset_right = 46.0
 offset_bottom = -53.0
 text = "Boat"
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="Labels"]
-offset_left = 32.0
-offset_top = 260.0
-offset_right = 190.0
-offset_bottom = 300.0
-text = "Level 1: Jumps"
 
 [node name="World" type="Node" parent="."]
 
@@ -447,7 +519,7 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.80457)
 
 [node name="Water" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
-transform = Transform3D(11007.3, 0, 0, 0, -4.38092e-06, 100.224, 0, -100.224, -4.38092e-06, 0, -0.25, -53.2826)
+transform = Transform3D(11007.3, 0, 0, 0, -8.19203e-06, 100.224, 0, -187.412, -4.38092e-06, 0, -0.25, -97.2067)
 texture = SubResource("GradientTexture2D_04m52")
 
 [node name="Seabed" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]

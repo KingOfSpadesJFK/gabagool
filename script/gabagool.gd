@@ -20,6 +20,7 @@ var running_actual_game = false
 
 # Emited upon level load
 signal level_load
+signal begin_transition_level_load
 signal transition_level_load
 signal level_transition_complete
 
@@ -60,7 +61,8 @@ func set_respawn_info(player_info: PlayerInfo):
 func load_transition_scene(path):
 	ResourceLoader.load_threaded_request(path)
 	transition_scene_path = path
-	print("Loaded transition scene ", path)
+	begin_transition_level_load.emit()
+	print("Begin transition to scene ", path)
 	
 
 func instantiate_transition_scene():
