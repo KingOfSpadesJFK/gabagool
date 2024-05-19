@@ -95,6 +95,9 @@ position = Vector2(2191, 1136)
 [node name="Path2D" parent="Entities/MovingPlatform" index="0"]
 curve = SubResource("Curve2D_6mvcn")
 
+[node name="PathFollow2D" parent="Entities/MovingPlatform/Path2D" index="0"]
+position = Vector2(-0.00268555, 0.300781)
+
 [node name="ThinWood" parent="Entities/MovingPlatform/Path2D/PathFollow2D/StaticBody2D" index="1"]
 scale = Vector2(0.354223, 1)
 
@@ -104,6 +107,9 @@ position = Vector2(1920, 1024)
 [node name="Path2D" parent="Entities/MovingPlatform5" index="0"]
 curve = SubResource("Curve2D_6mvcn")
 
+[node name="PathFollow2D" parent="Entities/MovingPlatform5/Path2D" index="0"]
+position = Vector2(-0.00268555, 0.300781)
+
 [node name="ThinWood" parent="Entities/MovingPlatform5/Path2D/PathFollow2D/StaticBody2D" index="1"]
 scale = Vector2(0.354223, 1)
 
@@ -112,9 +118,6 @@ position = Vector2(2160, 1024)
 
 [node name="Path2D" parent="Entities/MovingPlatform2" index="0"]
 curve = SubResource("Curve2D_jw0fw")
-
-[node name="PathFollow2D" parent="Entities/MovingPlatform2/Path2D" index="0"]
-position = Vector2(0, 0)
 
 [node name="ThinWood" parent="Entities/MovingPlatform2/Path2D/PathFollow2D/StaticBody2D" index="1"]
 scale = Vector2(0.354223, 1)
@@ -137,9 +140,6 @@ position = Vector2(2608, 1024)
 
 [node name="Path2D" parent="Entities/MovingPlatform4" index="0"]
 curve = SubResource("Curve2D_jw0fw")
-
-[node name="PathFollow2D" parent="Entities/MovingPlatform4/Path2D" index="0"]
-position = Vector2(0, 0)
 
 [node name="ThinWood" parent="Entities/MovingPlatform4/Path2D/PathFollow2D/StaticBody2D" index="1"]
 scale = Vector2(0.354223, 1)
