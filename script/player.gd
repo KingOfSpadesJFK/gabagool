@@ -309,7 +309,6 @@ func _on_harpoon_impact():
 	
 	
 func _on_transition_level_load():
-	checkpoint(position)
 	retrieve_nodes()
 
 
