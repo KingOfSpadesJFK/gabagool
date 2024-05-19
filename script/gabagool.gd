@@ -53,7 +53,10 @@ func global_position_to_tile(position: Vector2, tilemap: TileMap) -> Vector2i:
 	
 	
 func set_respawn_info(player_info: PlayerInfo):
-	checkpoint_player_info = player_info
+	checkpoint_player_info = PlayerInfo.new()
+	checkpoint_player_info.checkpoint_position = player_info.checkpoint_position
+	checkpoint_player_info.harpoon_ammo = player_info.harpoon_ammo
+	checkpoint_player_info.money = player_info.money
 	checkpoint_enabled = true
 
 
@@ -147,7 +150,7 @@ func _deferred_goto_scene(path):
 	camera = main_scene.get_node("Entities/Camera")
 	
 	# Set checkpoint info to the player and camera
-	if checkpoint_enabled:
+	if checkpoint_player_info:
 		player.player_info = checkpoint_player_info
 	
 	# Emit the level_load signal

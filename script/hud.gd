@@ -7,7 +7,6 @@ func _ready():
 	connect_player_signals()
 	Gabagool.begin_transition_level_load.connect(disconnect_player_signals)
 	Gabagool.transition_level_load.connect(connect_player_signals)
-	Gabagool.level_transition_complete.connect(_show_level_name)
 	Gabagool.level_load.connect(reload_player_signals)
 
 
