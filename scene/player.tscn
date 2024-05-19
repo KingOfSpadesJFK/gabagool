@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cfwr2l4r4pref"]
+[gd_scene load_steps=23 format=3 uid="uid://cfwr2l4r4pref"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kgimv"]
 [ext_resource type="Script" path="res://script/resource/player_info.gd" id="2_d210k"]
@@ -65,7 +65,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("9_ws62n")
 }, {
-"duration": 1.0,
+"duration": 5.0,
 "texture": ExtResource("10_5xqps")
 }],
 "loop": true,
@@ -103,6 +103,42 @@ animations = [{
 "name": &"walk",
 "speed": 5.0
 }]
+
+[sub_resource type="Animation" id="Animation_80sob"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pvo1l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b5ita"]
+_data = {
+"RESET": SubResource("Animation_pvo1l"),
+"death": SubResource("Animation_80sob")
+}
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -163,7 +199,13 @@ one_shot = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_6y8ki")
-animation = &"idle"
+animation = &"shoot"
+frame_progress = 0.900221
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b5ita")
+}
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timeout"]

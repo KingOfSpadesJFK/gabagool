@@ -172,7 +172,7 @@ func _process(_delta):
 
 # Handle shooting things
 func _input(event):
-	if player_info.harpoon_ammo > 0 or player_info.harpoon_ammo < 0 and !is_dead() and event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
+	if player_info.harpoon_ammo != 0 and !is_dead() and event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
 		if !harpoon_projectile or harpoon_projectile.is_queued_for_deletion():
 			# Get the shooting direction
 			var event_position = event.position
@@ -182,6 +182,7 @@ func _input(event):
 			player_state = PlayerState.SHOOT
 			velocity.x = 0
 			$ShootTimer.start()
+			$AnimatedSprite2D.play("shoot_init")
 			
 	if event is InputEventKey and (Input.is_action_just_pressed("player_left") or\
 		Input.is_action_just_pressed("player_right") or\
@@ -265,7 +266,7 @@ func add_money(worth):
 
 # Call this to handle player hurting. This reloads the scene, by the way
 func hurt():
-	print("Ouch..")
+	$AnimationPlayer.play("death")
 	knockback_dir = -velocity.normalized()
 	player_died.emit()
 	player_state = PlayerState.DEATH
@@ -296,6 +297,8 @@ func _on_shoot_timeout():
 	instance.impact.connect(_on_harpoon_impact)
 	instance.dead.connect(_on_harpoon_death)
 	harpoon_projectile = instance
+	
+	$AnimatedSprite2D.play("shoot")
 	
 
 func _on_harpoon_death():
