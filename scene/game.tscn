@@ -1,24 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://bl0anfyn67h3h"]
+[gd_scene load_steps=15 format=3 uid="uid://bl0anfyn67h3h"]
 
 [ext_resource type="FontFile" uid="uid://dx3kfat1r5mox" path="res://assets/m3x6.ttf" id="2_yp3lr"]
 [ext_resource type="Script" path="res://script/debug_hud.gd" id="3_6e44m"]
 [ext_resource type="AudioStream" uid="uid://2w8g2bd14rig" path="res://assets/a1-1.wav" id="4_c0fv7"]
-[ext_resource type="FontFile" uid="uid://dc83kvx7ihucc" path="res://assets/Jonkle.otf" id="4_fb3ui"]
+[ext_resource type="Theme" uid="uid://cqhr5xrq3hlw6" path="res://assets/hud-theme.tres" id="4_hno36"]
 [ext_resource type="Script" path="res://script/hud.gd" id="4_yywrm"]
-[ext_resource type="FontFile" uid="uid://dkh2qh2b5h4t1" path="res://assets/Genrik7-Bold.otf" id="5_8mssn"]
 
 [sub_resource type="Theme" id="Theme_sweoh"]
 default_base_scale = 2.0
 default_font = ExtResource("2_yp3lr")
 
-[sub_resource type="Theme" id="Theme_s6c15"]
-default_font = ExtResource("5_8mssn")
-default_font_size = 13
-/fonts/Heading = ExtResource("4_fb3ui")
-/fonts/Paragraph = ExtResource("5_8mssn")
-
-[sub_resource type="Animation" id="Animation_7waco"]
-resource_name = "show_money"
+[sub_resource type="Animation" id="Animation_mb1ms"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -26,10 +19,10 @@ tracks/0/path = NodePath("Money:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-4.28709, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-110, 0), Vector2(0, 0)]
+"values": [Vector2(-110, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_be1pt"]
@@ -47,8 +40,8 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(-110, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_mb1ms"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_7waco"]
+resource_name = "show_money"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -56,10 +49,10 @@ tracks/0/path = NodePath("Money:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-4.28709, 1),
 "update": 0,
-"values": [Vector2(-110, 0)]
+"values": [Vector2(-110, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y5w0l"]
@@ -67,6 +60,58 @@ _data = {
 "RESET": SubResource("Animation_mb1ms"),
 "hide_money": SubResource("Animation_be1pt"),
 "show_money": SubResource("Animation_7waco")
+}
+
+[sub_resource type="Animation" id="Animation_mask6"]
+resource_name = "show_levelname"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-4.14106, 1),
+"update": 0,
+"values": [Vector2(59, -69), Vector2(59, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g3g8w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(59, -69)]
+}
+
+[sub_resource type="Animation" id="Animation_mkeyc"]
+resource_name = "hide_levelname"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-4, 1),
+"update": 0,
+"values": [Vector2(59, 0), Vector2(59, -69)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dhq4t"]
+_data = {
+"RESET": SubResource("Animation_g3g8w"),
+"hide_levelname": SubResource("Animation_mkeyc"),
+"show_levelname": SubResource("Animation_mask6")
 }
 
 [node name="Control" type="Control"]
@@ -138,7 +183,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="HUD" type="Control" parent="MarginContainer"]
 layout_mode = 2
-theme = SubResource("Theme_s6c15")
+theme = ExtResource("4_hno36")
 script = ExtResource("4_yywrm")
 
 [node name="Money" type="Label" parent="MarginContainer/HUD"]
@@ -158,4 +203,51 @@ libraries = {
 wait_time = 7.0
 one_shot = true
 
+[node name="LevelName" type="Label" parent="MarginContainer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 59.0
+offset_top = -69.0
+offset_right = 391.0
+offset_bottom = -51.0
+grow_horizontal = 2
+theme = ExtResource("4_hno36")
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 3
+text = "Oh boy, here I go divin' again"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/HUD/LevelName"]
+libraries = {
+"": SubResource("AnimationLibrary_dhq4t")
+}
+
+[node name="Timer" type="Timer" parent="MarginContainer/HUD/LevelName"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Number" type="Label" parent="MarginContainer/HUD/LevelName"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = 5.0
+offset_right = 24.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Level 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="timeout" from="MarginContainer/HUD/Money/Timer" to="MarginContainer/HUD" method="_hide_money"]
+[connection signal="timeout" from="MarginContainer/HUD/LevelName/Timer" to="MarginContainer/HUD" method="_hide_level_name"]

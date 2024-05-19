@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cqmh34c36ur5f"]
+[gd_scene load_steps=35 format=3 uid="uid://cqmh34c36ur5f"]
 
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="1_6pjhq"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="1_cdmto"]
@@ -198,9 +198,6 @@ shader_parameter/size = Vector2(32, 28)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4swvc"]
 size = Vector2(466, 190)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vm5ok"]
-size = Vector2(91, 116)
-
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_eafvh"]
 a = Vector2(-15.6995, -58.4391)
 b = Vector2(-86.6995, -58.4391)
@@ -251,6 +248,8 @@ glow_enabled = true
 glow_intensity = 3.0
 
 [node name="Level" type="Node2D"]
+metadata/level_name = "Dive in"
+metadata/level_number = 1
 
 [node name="Entities" type="Node" parent="."]
 
@@ -265,7 +264,7 @@ position = Vector2(911, 113)
 position = Vector2(1023, 257)
 
 [node name="Player" parent="Entities" instance=ExtResource("1_ebtro")]
-position = Vector2(903, 113)
+position = Vector2(-170, -24)
 collision_tilemap_path = NodePath("../../Tilemaps/Collision")
 terminal_velocity = 200.0
 
@@ -363,9 +362,6 @@ layer_6/tile_data = PackedInt32Array(262198, 589825, 4)
 [node name="WaterBody" parent="Area" instance=ExtResource("3_clwql")]
 position = Vector2(-33, 36)
 
-[node name="Area2D" parent="Area/WaterBody" index="0"]
-visible = false
-
 [node name="CollisionShape2D" parent="Area/WaterBody/Area2D" index="0"]
 position = Vector2(1958, 470)
 shape = SubResource("RectangleShape2D_pe60x")
@@ -387,17 +383,6 @@ shape = SubResource("RectangleShape2D_4swvc")
 
 [node name="SpawnPoint" parent="Area/Checkpoint" index="1"]
 position = Vector2(-10, 199)
-
-[node name="Checkpoint2" parent="Area" instance=ExtResource("9_w38qd")]
-visible = false
-position = Vector2(1075, 297)
-
-[node name="CollisionShape2D" parent="Area/Checkpoint2/Area2D" index="0"]
-position = Vector2(35.5, 48)
-shape = SubResource("RectangleShape2D_vm5ok")
-
-[node name="SpawnPoint" parent="Area/Checkpoint2" index="1"]
-position = Vector2(103, 75)
 
 [node name="LevelTransition" parent="Area" instance=ExtResource("14_ygerf")]
 position = Vector2(1261.81, 395.184)
@@ -492,5 +477,4 @@ position = Vector2(1178.29, 372.873)
 [editable path="Entities/Camera"]
 [editable path="Area/WaterBody"]
 [editable path="Area/Checkpoint"]
-[editable path="Area/Checkpoint2"]
 [editable path="Area/LevelTransition"]

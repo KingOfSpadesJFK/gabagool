@@ -200,7 +200,7 @@ shader = ExtResource("14_1lpvv")
 shader_parameter/size = Vector2(32, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vm5ok"]
-size = Vector2(91, 116)
+size = Vector2(89, 162)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ofqje"]
 a = Vector2(-25, 35)
@@ -259,6 +259,8 @@ glow_enabled = true
 glow_intensity = 3.0
 
 [node name="Level" type="Node2D"]
+metadata/level_number = 2
+metadata/level_name = "Leaps of Faith"
 
 [node name="Entities" type="Node" parent="."]
 
@@ -474,8 +476,10 @@ scale = Vector2(321.5, 62.875)
 position = Vector2(1075, 297)
 
 [node name="CollisionShape2D" parent="Area/Checkpoint2/Area2D" index="0"]
-position = Vector2(35.5, 48)
+position = Vector2(137.5, 35)
 shape = SubResource("RectangleShape2D_vm5ok")
+metadata/level_name = "Leaps of Faith"
+metadata/level_number = 2
 
 [node name="SpawnPoint" parent="Area/Checkpoint2" index="1"]
 position = Vector2(103, 75)

@@ -6,6 +6,8 @@ const trans_scene_root = "/root/Control/SubViewportContainer/SubViewport/Transit
 const control_path = "res://scene/game.tscn"
 
 var main_scene = null
+var main_scene_name = ""
+var main_scene_number = 0
 var main_scene_path = "res://scene/level/level1.tscn" # Start with this level
 var transition_scene = null
 var transition_scene_path = ""
@@ -19,6 +21,7 @@ var running_actual_game = false
 # Emited upon level load
 signal level_load
 signal transition_level_load
+signal level_transition_complete
 
 
 func _ready():
@@ -33,8 +36,15 @@ func _ready():
 	# Get the player and camera
 	player = main_scene.get_node("Entities/Player")
 	camera = main_scene.get_node("Entities/Camera")
+	get_main_scene_meta()
 
-# 
+
+func get_main_scene_meta():
+	if main_scene.has_meta("level_name") and main_scene.has_meta("level_number"):
+		main_scene_name = main_scene.get_meta("level_name")
+		main_scene_number = main_scene.get_meta("level_number")
+
+
 # A function to get the tilemap position Vector2.
 func global_position_to_tile(position: Vector2, tilemap: TileMap) -> Vector2i:
 	var local_pos = tilemap.to_local(position)
@@ -89,11 +99,15 @@ func instantiate_transition_scene():
 # Function to move the transition scene to the main root
 #  Unloads the previos scene as well
 func transition_scene_to_main():
+	transition_scene.visible = true
 	main_scene.queue_free()
 	transition_scene.reparent(get_node(main_scene_root))
 	main_scene = transition_scene
 	main_scene_path = transition_scene_path
-	transition_scene.visible = true
+	transition_scene = null
+	transition_scene_path = ""
+	get_main_scene_meta()
+	level_transition_complete.emit()
 	print("Old main discarded. Transition to ", transition_scene_path, " completed!")
 
 
@@ -125,6 +139,7 @@ func _deferred_goto_scene(path):
 	# Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
 	#get_tree().main_scene = main_scene
 	level_load.emit()
+	get_main_scene_meta()
 	
 	# Get the new player and camera
 	player = main_scene.get_node("Entities/Player")
