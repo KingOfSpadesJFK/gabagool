@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://brlfb8eorajuf"]
+[gd_scene load_steps=11 format=3 uid="uid://brlfb8eorajuf"]
 
 [ext_resource type="TileSet" uid="uid://dtrr7hpox42rb" path="res://assets/tilemap/sand.tres" id="1_kpanl"]
 [ext_resource type="PackedScene" uid="uid://cemcrr1cgwxa3" path="res://scene/entity/coin.tscn" id="2_fhcqo"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c23q66216a1g7" path="res://scene/entity/crab.tscn" id="7_72qmg"]
 [ext_resource type="PackedScene" uid="uid://tvrxqccgpjcf" path="res://scene/entity/pressure_plate.tscn" id="8_8tvym"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="9_0s243"]
+[ext_resource type="PackedScene" uid="uid://c6ehnsd6kywbd" path="res://scene/area/water_body.tscn" id="10_lmand"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -55,3 +56,7 @@ position = Vector2(960, 144)
 
 [node name="Chest" parent="." instance=ExtResource("9_0s243")]
 position = Vector2(1112, 144)
+
+[node name="WaterBody" parent="." instance=ExtResource("10_lmand")]
+position = Vector2(408, 64)
+scale = Vector2(-219.002, -74.8432)
