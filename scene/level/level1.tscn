@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://de2dufuf2h2vv" path="res://assets/sprite/seaweed4.png" id="11_x3qug"]
 [ext_resource type="PackedScene" uid="uid://d0j6g8gxjowkc" path="res://scene/entity/big_coin.tscn" id="12_iwm1h"]
 [ext_resource type="Shader" path="res://shader/game.gdshader" id="13_ugl2f"]
-[ext_resource type="PackedScene" path="res://scene/area/level_transition.tscn" id="14_ygerf"]
+[ext_resource type="PackedScene" uid="uid://b0vkcjxbjlnqp" path="res://scene/area/level_transition.tscn" id="14_ygerf"]
 [ext_resource type="QuadMesh" uid="uid://dmrxcgh1008sn" path="res://assets/mesh/background-sand.tres" id="15_anba0"]
 [ext_resource type="Texture2D" uid="uid://dwbqgrnfbw27s" path="res://assets/sprite/seaweed5.png" id="20_bdmh5"]
 [ext_resource type="Texture2D" uid="uid://dtuywt6oxhak2" path="res://assets/sprite/seaweed3.png" id="21_65o64"]

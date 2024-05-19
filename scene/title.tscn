@@ -52,9 +52,6 @@ split_offset = 220
 
 [node name="ItemList" type="ItemList" parent="LevelSelectMenu"]
 layout_mode = 2
-item_count = 2
-item_0/text = "Level1"
-item_1/text = "Level2"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="LevelSelectMenu"]
 layout_mode = 2

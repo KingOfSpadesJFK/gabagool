@@ -21,6 +21,9 @@ func _on_new_game_pressed():
 func _on_level_select_pressed():
 	$HomeMenu.visible = false
 	$LevelSelectMenu.visible = true
+	for item in level_array:
+		$LevelSelectMenu/ItemList.add_item(item["name"])
+		print(item["name"])
 
 
 func _on_exit_level_select_pressed():
@@ -28,15 +31,30 @@ func _on_exit_level_select_pressed():
 	$LevelSelectMenu.visible = false
 	
 	
-var another_dict = [
+const level_path = "res://scene/level/"
+const level_array = [
 	{
-		"name": "Dive in",
+		"name": "Dive In",
 		"path": "level1.tscn",
 		"number": 1
+	},
+	{
+		"name": "Leaps of Faith",
+		"path": "level2.tscn",
+		"number": 2
+	},
+	{
+		"name": "On the Move",
+		"path": "level3.tscn",
+		"number": 3
 	},
 ]
 
 
 func _on_play_level_pressed():
-	print($LevelSelectMenu/ItemList.get_selected_items())
-	pass # Replace with function body.
+	if $LevelSelectMenu/ItemList.is_selected(0):
+		_on_new_game_pressed()
+	else:
+		for item in $LevelSelectMenu/ItemList.get_selected_items():
+			Gabagool.goto_scene(level_path + level_array[item]["path"])
+	queue_free()
