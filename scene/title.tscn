@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://drmjfusb7w0ta"]
+
+[ext_resource type="Theme" uid="uid://cqhr5xrq3hlw6" path="res://assets/hud-theme.tres" id="1_mxqc2"]
+[ext_resource type="Script" path="res://script/title.gd" id="1_unkvk"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 67.0
+offset_top = 51.0
+offset_right = -67.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_unkvk")
+
+[node name="HomeMenu" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+split_offset = 168
+
+[node name="NewGame" type="Button" parent="HomeMenu"]
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("1_mxqc2")
+text = "New game"
+
+[node name="LevelSelect" type="Button" parent="HomeMenu"]
+layout_mode = 2
+theme = ExtResource("1_mxqc2")
+text = "Level Select"
+
+[node name="LevelSelectMenu" type="VSplitContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mxqc2")
+split_offset = 220
+
+[node name="ItemList" type="ItemList" parent="LevelSelectMenu"]
+layout_mode = 2
+item_count = 2
+item_0/text = "Level1"
+item_1/text = "Level2"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="LevelSelectMenu"]
+layout_mode = 2
+
+[node name="ExitLevelSelect" type="Button" parent="LevelSelectMenu/HSplitContainer"]
+layout_mode = 2
+text = "X"
+
+[node name="PlayLevel" type="Button" parent="LevelSelectMenu/HSplitContainer"]
+layout_mode = 2
+text = "Play!"
+
+[connection signal="pressed" from="HomeMenu/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="HomeMenu/LevelSelect" to="." method="_on_level_select_pressed"]
+[connection signal="pressed" from="LevelSelectMenu/HSplitContainer/ExitLevelSelect" to="." method="_on_exit_level_select_pressed"]
+[connection signal="pressed" from="LevelSelectMenu/HSplitContainer/PlayLevel" to="." method="_on_play_level_pressed"]

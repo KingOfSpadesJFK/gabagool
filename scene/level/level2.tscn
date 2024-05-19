@@ -464,7 +464,6 @@ layer_8/tile_data = PackedInt32Array(3145838, 131073, 3, 3211374, 524289, 1, 314
 [node name="Area" type="Node" parent="."]
 
 [node name="WaterBody" parent="Area" instance=ExtResource("13_wytm0")]
-visible = false
 position = Vector2(-33, 36)
 
 [node name="CollisionShape2D" parent="Area/WaterBody/Area2D" index="0"]

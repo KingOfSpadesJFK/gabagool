@@ -8,7 +8,7 @@ const control_path = "res://scene/game.tscn"
 var main_scene = null
 var main_scene_name = ""
 var main_scene_number = 0
-var main_scene_path = "res://scene/level/level3.tscn" # Start with this level
+var main_scene_path = "res://scene/level/level1.tscn" # Start with this level
 var transition_scene = null
 var transition_scene_path = ""
 var player = null
@@ -26,7 +26,7 @@ signal level_transition_complete
 
 
 func _ready():
-	if get_node(main_scene_root):
+	if has_node(main_scene_root):
 		main_scene = load(main_scene_path).instantiate()
 		get_node(main_scene_root).add_child(main_scene)
 		running_actual_game = true
