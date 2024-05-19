@@ -58,6 +58,9 @@ const JUMP_VELOCITY = -400.0
 # Emitted when the player dies
 signal player_died
 
+# Emitted when the player collects money 
+signal player_collected_money
+
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")	# Get gravity from project settings
 var player_state = PlayerState.IDLE
@@ -231,6 +234,7 @@ func _physics_process(delta):
 # Call this to add money to the player
 func add_money(worth):
 	player_info.money += worth
+	player_collected_money.emit()
 
 
 # Call this to handle player hurting. This reloads the scene, by the way

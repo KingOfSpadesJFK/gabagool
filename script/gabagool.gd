@@ -126,7 +126,10 @@ func _deferred_goto_scene(path):
 	#get_tree().main_scene = main_scene
 	level_load.emit()
 	
+	# Get the new player and camera
+	player = main_scene.get_node("Entities/Player")
+	camera = main_scene.get_node("Entities/Camera")
+	
 	# Set checkpoint info to the player and camera
 	if checkpoint_enabled:
-		main_scene.get_node("Entities/Player").position = checkpoint_player_info.checkpoint_position
-		main_scene.get_node("Entities/Camera").position = checkpoint_player_info.checkpoint_position
+		player.player_info = checkpoint_player_info
