@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://rda6kr3ktwag"]
+
+[ext_resource type="Script" path="res://script/moving_platform.gd" id="1_ihwxm"]
+[ext_resource type="Texture2D" uid="uid://de2508pjcg7tl" path="res://assets/sprite/thin_wood.png" id="2_ak0hn"]
+
+[sub_resource type="Curve2D" id="Curve2D_3xc75"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -96, 0)
+}
+point_count = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38p4a"]
+size = Vector2(34.0054, 8)
+
+[node name="MovingPlatform" type="Node2D"]
+script = ExtResource("1_ihwxm")
+speed = 40.0
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_3xc75")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotates = false
+
+[node name="StaticBody2D" type="CharacterBody2D" parent="Path2D/PathFollow2D"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/StaticBody2D"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_38p4a")
+one_way_collision = true
+
+[node name="ThinWood" type="Sprite2D" parent="Path2D/PathFollow2D/StaticBody2D"]
+position = Vector2(0, 8)
+texture = ExtResource("2_ak0hn")

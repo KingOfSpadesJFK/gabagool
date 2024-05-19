@@ -177,18 +177,13 @@ func _input(event):
 			# Get the shooting direction
 			var event_position = event.position
 			shoot_dir = (event_position - get_viewport().get_visible_rect().size / 2).normalized()
+			$AnimatedSprite2D.flip_h = true if shoot_dir.x < 0 else false
 			
 			# Set player state
 			player_state = PlayerState.SHOOT
 			velocity.x = 0
 			$ShootTimer.start()
 			$AnimatedSprite2D.play("shoot_init")
-			
-	if event is InputEventKey and (Input.is_action_just_pressed("player_left") or\
-		Input.is_action_just_pressed("player_right") or\
-		Input.is_action_just_pressed("player_up") or\
-		Input.is_action_just_pressed("player_down")):
-		pass
 
 
 # Handle physics and collision
@@ -247,6 +242,8 @@ func _physics_process(delta):
 			force.y *= -1
 			var gravForce = mass * Vector2(0,100)
 			body.apply_force(-(force+gravForce)*col.get_normal())
+		if body is StaticBody2D:
+			pass
 	move_and_slide()
 
 
@@ -285,7 +282,7 @@ func _on_shoot_timeout():
 	var angle = atan2(shoot_dir.y, shoot_dir.x)
 	instance.rotation = angle
 	instance.velocity = speed * shoot_dir
-	instance.global_position = global_position
+	instance.global_position = position
 	
 	# Decrease the harpoon ammo
 	#  For debugging purposes, negative ammo is means infinite ammo

@@ -33,6 +33,10 @@ func _on_body_entered(_body: Node) -> void:
 	if destroy_on_impact:
 		dead.emit()
 		queue_free()
+	if _body is Crab:
+		_body.queue_free()
+		dead.emit()
+		queue_free()
 
 
 func _on_timer_timeout() -> void:
