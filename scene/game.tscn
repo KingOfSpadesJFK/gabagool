@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bl0anfyn67h3h"]
+[gd_scene load_steps=16 format=3 uid="uid://bl0anfyn67h3h"]
 
 [ext_resource type="FontFile" uid="uid://dx3kfat1r5mox" path="res://assets/m3x6.ttf" id="2_yp3lr"]
 [ext_resource type="Script" path="res://script/debug_hud.gd" id="3_6e44m"]
 [ext_resource type="AudioStream" uid="uid://2w8g2bd14rig" path="res://assets/a1-1.wav" id="4_c0fv7"]
 [ext_resource type="Theme" uid="uid://cqhr5xrq3hlw6" path="res://assets/hud-theme.tres" id="4_hno36"]
 [ext_resource type="Script" path="res://script/hud.gd" id="4_yywrm"]
+[ext_resource type="PackedScene" uid="uid://drmjfusb7w0ta" path="res://scene/title.tscn" id="6_plmad"]
 
 [sub_resource type="Theme" id="Theme_sweoh"]
 default_base_scale = 2.0
@@ -248,6 +249,9 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Level 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Title" parent="." instance=ExtResource("6_plmad")]
+layout_mode = 1
 
 [connection signal="timeout" from="MarginContainer/HUD/Money/Timer" to="MarginContainer/HUD" method="_hide_money"]
 [connection signal="timeout" from="MarginContainer/HUD/LevelName/Timer" to="MarginContainer/HUD" method="_hide_level_name"]
