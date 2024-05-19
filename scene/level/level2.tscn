@@ -261,6 +261,7 @@ glow_intensity = 3.0
 [node name="Level" type="Node2D"]
 metadata/level_number = 2
 metadata/level_name = "Leaps of Faith"
+metadata/level_music = 1
 
 [node name="Entities" type="Node" parent="."]
 

@@ -23,6 +23,7 @@ signal level_load
 signal begin_transition_level_load
 signal transition_level_load
 signal level_transition_complete
+signal play_music(music_path: String)
 
 
 func _ready():
@@ -38,6 +39,10 @@ func _ready():
 	player = main_scene.get_node("Entities/Player")
 	camera = main_scene.get_node("Entities/Camera")
 	get_main_scene_meta()
+
+
+func play_new_music(path: String):
+	play_music.emit(path)
 
 
 func get_main_scene_meta():
@@ -93,7 +98,7 @@ func instantiate_transition_scene():
 		var new_parent = transition_scene.get_node("Entities")
 		player.reparent(new_parent)
 		camera.reparent(new_parent)
-		if main_scene.get_node("Entities/Harpoon"):
+		if main_scene.has_node("Entities/Harpoon"):
 			main_scene.get_node("Entities/Harpoon").reparent(new_parent)
 		
 		get_node(trans_scene_root).add_child(transition_scene)
@@ -113,7 +118,15 @@ func transition_scene_to_main():
 	transition_scene_path = ""
 	get_main_scene_meta()
 	level_transition_complete.emit()
+	play_level_music()
 	print("Old main discarded. Transition to ", transition_scene_path, " completed!")
+	
+
+func play_level_music():
+	if main_scene.has_meta("level_music") and main_scene.get_meta("level_music") > 0:
+		var node: AudioStreamPlayer2D = get_node("/root/Control/MusicPlayer").get_child(main_scene.get_meta("level_music") - 1)
+		if not node.playing:
+			node.play()
 
 
 # Reloads the current scene
@@ -155,3 +168,4 @@ func _deferred_goto_scene(path):
 	
 	# Emit the level_load signal
 	level_load.emit()
+	play_level_music()

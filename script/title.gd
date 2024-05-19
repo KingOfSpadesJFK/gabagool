@@ -7,7 +7,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 
@@ -57,4 +57,6 @@ func _on_play_level_pressed():
 	else:
 		for item in $LevelSelectMenu/ItemList.get_selected_items():
 			Gabagool.goto_scene(level_path + level_array[item]["path"])
+			get_node("/root/Control/UnderwaterAmbience").play()
+			get_node("/root/Control/OceanWaves").stop()
 	queue_free()

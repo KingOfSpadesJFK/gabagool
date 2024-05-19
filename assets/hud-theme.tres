@@ -1,10 +1,10 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://cqhr5xrq3hlw6"]
 
-[ext_resource type="FontFile" uid="uid://dc83kvx7ihucc" path="res://assets/Jonkle.otf" id="1_qeubr"]
-[ext_resource type="FontFile" uid="uid://dkh2qh2b5h4t1" path="res://assets/Genrik7-Bold.otf" id="2_8b3k5"]
+[ext_resource type="FontFile" uid="uid://lgmf872qdf1r" path="res://assets/font/antiquity-print.ttf" id="1_w63qg"]
+[ext_resource type="FontFile" uid="uid://ev4x8yxrog12" path="res://assets/font/MinimalPixelFont.ttf" id="2_44rjf"]
 
 [resource]
-default_font = ExtResource("2_8b3k5")
-default_font_size = 13
-HeaderLarge/font_sizes/font_size = 20
-HeaderLarge/fonts/font = ExtResource("1_qeubr")
+default_font = ExtResource("2_44rjf")
+default_font_size = 32
+HeaderLarge/font_sizes/font_size = 26
+HeaderLarge/fonts/font = ExtResource("1_w63qg")

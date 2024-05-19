@@ -130,6 +130,7 @@ func _process(_delta):
 			
 	# Player state things
 	if player_state == PlayerState.CLIMB:
+		$AnimatedSprite2D.play("jump")
 		# Player state when climbing
 		if is_on_floor() and !can_climb:
 			player_state = PlayerState.IDLE
@@ -166,6 +167,8 @@ func _process(_delta):
 				player_state = PlayerState.WALK
 			elif player_state != PlayerState.JUMP_INIT and !is_shooting():
 				# At leaset idle if not jumping
+				if player_state == PlayerState.FALL:
+					$LandSFX.play()
 				player_state = PlayerState.IDLE
 				$AnimatedSprite2D.play("idle")
 
@@ -263,6 +266,7 @@ func add_money(worth):
 
 # Call this to handle player hurting. This reloads the scene, by the way
 func hurt():
+	$HurtSFX.play()
 	$AnimationPlayer.play("death")
 	knockback_dir = -velocity.normalized()
 	player_died.emit()
@@ -317,6 +321,7 @@ func jump_impulse():
 	player_state = PlayerState.JUMP
 	jump_timer_start = false
 	$AnimatedSprite2D.play("jump")
+	$JumpSFX.play()
 	move_and_slide()
 
 

@@ -439,6 +439,7 @@ layer_6/tile_data = PackedInt32Array(262198, 589825, 4)
 
 [node name="WaterBody" parent="Area" instance=ExtResource("3_clwql")]
 position = Vector2(-33, 36)
+play_splash_sfx = true
 
 [node name="CollisionShape2D" parent="Area/WaterBody/Area2D" index="0"]
 position = Vector2(1958, 470)

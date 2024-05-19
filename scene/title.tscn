@@ -14,6 +14,7 @@ offset_right = -67.0
 offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_mxqc2")
 script = ExtResource("1_unkvk")
 
 [node name="HomeMenu" type="HSplitContainer" parent="."]
@@ -27,17 +28,20 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
 split_offset = 168
+dragger_visibility = 1
 
 [node name="NewGame" type="Button" parent="HomeMenu"]
 layout_mode = 2
 size_flags_vertical = 8
 theme = ExtResource("1_mxqc2")
 text = "New game"
+alignment = 0
 
 [node name="LevelSelect" type="Button" parent="HomeMenu"]
 layout_mode = 2
 theme = ExtResource("1_mxqc2")
 text = "Level Select"
+alignment = 2
 
 [node name="LevelSelectMenu" type="VSplitContainer" parent="."]
 visible = false
@@ -49,12 +53,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_mxqc2")
 split_offset = 220
+dragger_visibility = 1
 
 [node name="ItemList" type="ItemList" parent="LevelSelectMenu"]
 layout_mode = 2
 
 [node name="HSplitContainer" type="HSplitContainer" parent="LevelSelectMenu"]
 layout_mode = 2
+collapsed = true
+dragger_visibility = 1
 
 [node name="ExitLevelSelect" type="Button" parent="LevelSelectMenu/HSplitContainer"]
 layout_mode = 2

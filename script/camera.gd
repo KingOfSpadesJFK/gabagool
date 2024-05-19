@@ -26,9 +26,11 @@ func _ready():
 	
 
 func load_exports():
-	target = get_node(target_node)
+	if has_node(target_node):
+		target = get_node(target_node)
 	bgdiv = Vector3(background_scroll_divisor.x, background_scroll_divisor.y, 1.0)
-	bgcam = get_node(background_camera)
+	if has_node(background_camera):
+		bgcam = get_node(background_camera)
 
 
 # Reloads the exports upon level load
@@ -43,7 +45,8 @@ func _on_player_death():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if target:
+	if has_node(target_node):
+		var target = get_node(target_node)
 		var p = lerp(position, target.position, follow_weight * delta)
 		var diff = p - position
 		var direction = diff.normalized()
@@ -51,5 +54,5 @@ func _process(delta):
 		velocity = direction * length
 		move_and_slide()
 
-	if bgcam:
-		bgcam.position = Vector3(position.x, -position.y, 0) / bgdiv
+	if has_node(background_camera):
+		get_node(background_camera).position = Vector3(position.x, -position.y, 0) / bgdiv

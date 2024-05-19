@@ -1,8 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://cfwr2l4r4pref"]
+[gd_scene load_steps=26 format=3 uid="uid://cfwr2l4r4pref"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kgimv"]
 [ext_resource type="Script" path="res://script/resource/player_info.gd" id="2_d210k"]
-[ext_resource type="Texture2D" uid="uid://b8ulkaxw2e7wf" path="res://assets/temp-player.png" id="2_m32qu"]
 [ext_resource type="Texture2D" uid="uid://b3ap0gi5qjgxe" path="res://assets/sprite/player/Jump0003.png" id="4_a08m1"]
 [ext_resource type="Texture2D" uid="uid://shmf5pafyb2s" path="res://assets/sprite/player/Protag.png" id="4_ucmp1"]
 [ext_resource type="Texture2D" uid="uid://biq10a88lk3ip" path="res://assets/sprite/player/Walk0001.png" id="5_mt47y"]
@@ -16,6 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://impa77i3eoed" path="res://assets/sprite/player/Shoot0002.png" id="9_ws62n"]
 [ext_resource type="Texture2D" uid="uid://ctrxbn2hox3u1" path="res://assets/sprite/player/Shoot0003.png" id="10_5xqps"]
 [ext_resource type="Texture2D" uid="uid://nibtxflxphhe" path="res://assets/sprite/player/Walk0006.png" id="10_ecuo4"]
+[ext_resource type="AudioStream" uid="uid://chefcy203yuxy" path="res://assets/sfx/jump.wav" id="17_dr28h"]
+[ext_resource type="AudioStream" uid="uid://d3bm88fyj3o1u" path="res://assets/sfx/land.wav" id="18_0n0mo"]
+[ext_resource type="AudioStream" uid="uid://crmc5qiktukjp" path="res://assets/sfx/hit.wav" id="19_5jgu6"]
+[ext_resource type="AudioStream" uid="uid://vc17nd1b2ojb" path="res://assets/sfx/splash.wav" id="20_g5k3p"]
 
 [sub_resource type="Resource" id="Resource_35cbg"]
 script = ExtResource("2_d210k")
@@ -150,11 +153,6 @@ jump_delay = 0.3
 mass = 10.0
 player_info = SubResource("Resource_35cbg")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(2, 0)
-texture = ExtResource("2_m32qu")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_o2fl3")
@@ -206,6 +204,21 @@ frame_progress = 0.900221
 libraries = {
 "": SubResource("AnimationLibrary_b5ita")
 }
+
+[node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("17_dr28h")
+pitch_scale = 0.4
+
+[node name="LandSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_0n0mo")
+volume_db = -5.5
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_5jgu6")
+
+[node name="SplashSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_g5k3p")
+volume_db = -6.495
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timeout"]

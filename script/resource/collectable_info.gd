@@ -2,5 +2,5 @@ extends Resource
 class_name CollectableInfo
 
 
-func collect(player: Player):
+func collect(_player: Player):
 	pass
