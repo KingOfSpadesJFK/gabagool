@@ -1,5 +1,11 @@
 A joint by Miguel, William, and Eric
 
+Miguel - Programming / Music
+
+Eric - Art
+
+William - Level design and concept
+
 # Fonts
 [MinimalPixel](https://mounirtohami.itch.io/minimalpixel-font) by Mounir Tohami
 Font+ [Antiquity Print](https://ninjikin.itch.io/font-antiquity-script) by SciGho
