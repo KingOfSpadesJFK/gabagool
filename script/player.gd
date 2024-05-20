@@ -85,6 +85,7 @@ func _ready():
 	retrieve_nodes()
 	#player_died.connect(Gabagool.reload_scene)
 	Gabagool.transition_level_load.connect(_on_transition_level_load)
+	print_ammo()
 
 
 # Reloads any nodes important to the player (like the collision tilemap)
@@ -283,7 +284,11 @@ func add_ammo(ammo):
 	$CoinSFX.play()
 	player_info.harpoon_ammo += ammo
 	player_collected_ammo.emit()
+	print_ammo()
 	
+	
+func print_ammo():
+	$HarpoonAmo/Label.text = ''
 	if player_info.harpoon_ammo > 0:
 		for i in range(player_info.harpoon_ammo):
 			$HarpoonAmo/Label.text += '|'
@@ -312,6 +317,7 @@ func _on_shoot_timeout():
 	instance.rotation = angle
 	instance.velocity = speed * shoot_dir
 	instance.global_position = position
+	print_ammo()
 	
 	# Decrease the harpoon ammo
 	#  For debugging purposes, negative ammo is means infinite ammo
