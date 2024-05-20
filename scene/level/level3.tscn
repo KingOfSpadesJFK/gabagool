@@ -625,7 +625,7 @@ texture = ExtResource("17_ufgfh")
 
 [node name="FStone6" type="Sprite2D" parent="Props/Node2D"]
 z_index = -1
-position = Vector2(2124, 841)
+position = Vector2(2129, 794)
 scale = Vector2(3, 3)
 texture = ExtResource("18_503cb")
 
@@ -635,7 +635,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("18_503cb")
 
 [node name="FStone7" type="Sprite2D" parent="Props/Node2D"]
-position = Vector2(2161, 811)
+position = Vector2(2166, 764)
 scale = Vector2(2, 2)
 texture = ExtResource("18_503cb")
 
@@ -645,21 +645,9 @@ scale = Vector2(2, 2)
 texture = ExtResource("18_503cb")
 
 [node name="FStone10" type="Sprite2D" parent="Props/Node2D"]
-position = Vector2(2028, 834)
+position = Vector2(2028, 778)
 scale = Vector2(2, 2)
 texture = ExtResource("17_ufgfh")
-flip_h = true
-
-[node name="FStone11" type="Sprite2D" parent="Props/Node2D"]
-position = Vector2(1961, 908)
-scale = Vector2(3, 3)
-texture = ExtResource("18_503cb")
-flip_h = true
-
-[node name="FStone12" type="Sprite2D" parent="Props/Node2D"]
-position = Vector2(1900, 864)
-scale = Vector2(2, 2)
-texture = ExtResource("18_503cb")
 flip_h = true
 
 [node name="FStone9" type="Sprite2D" parent="Props/Node2D"]
