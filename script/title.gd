@@ -49,6 +49,11 @@ const level_array = [
 		"path": "level3.tscn",
 		"number": 3
 	},
+	{
+		"name": "Hooked",
+		"path": "level4.tscn",
+		"number": 4
+	},
 ]
 
 
