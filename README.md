@@ -1,4 +1,6 @@
-# gabagool
+![Worth diving for](https://github.com/KingOfSpadesJFK/gabagool/blob/master/assets/sprite/title.png)
+
+# Worth Diving For
 
 An entry for the Pixel Game Jam 2024 about underwater exploration, hence the 'aqua' theme
 
@@ -6,7 +8,8 @@ An entry for the Pixel Game Jam 2024 about underwater exploration, hence the 'aq
 
 1. Install Godot 4.2
 2. Import the project
-<!-- Finish this part -->
+3. Project > Export
+4. Export for Windows and Linux
 
 ## Important Info
 
