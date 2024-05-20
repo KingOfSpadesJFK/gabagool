@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="8_xatfn"]
 [ext_resource type="PackedScene" uid="uid://c6ehnsd6kywbd" path="res://scene/area/water_body.tscn" id="10_rbppi"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D3" type="Node2D"]
 
 [node name="Foreground" type="TileMap" parent="."]
 tile_set = ExtResource("1_qbrfo")

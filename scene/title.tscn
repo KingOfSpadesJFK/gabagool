@@ -71,6 +71,19 @@ text = "X"
 layout_mode = 2
 text = "Play!"
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.0
+offset_right = 142.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Worth Diving For"
+
 [connection signal="pressed" from="HomeMenu/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="HomeMenu/LevelSelect" to="." method="_on_level_select_pressed"]
 [connection signal="pressed" from="LevelSelectMenu/HSplitContainer/ExitLevelSelect" to="." method="_on_exit_level_select_pressed"]

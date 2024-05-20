@@ -124,9 +124,8 @@ func transition_scene_to_main():
 
 func play_level_music():
 	if main_scene.has_meta("level_music") and main_scene.get_meta("level_music") > 0:
-		var node: AudioStreamPlayer2D = get_node("/root/Control/MusicPlayer").get_child(main_scene.get_meta("level_music") - 1)
-		if not node.playing:
-			node.play()
+		var node: AudioStreamPlayer = get_node("/root/Control/MusicPlayer").get_child(main_scene.get_meta("level_music") - 1)
+		play_music.emit(node.get_path())
 
 
 # Reloads the current scene

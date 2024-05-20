@@ -26,7 +26,7 @@ float noise(vec2 p){
 
 
 void fragment() {
-		float yOff = sin(TIME*7.0 + SCREEN_UV.y*50.0)/1000.0;
+		float yOff = sin(TIME*7.0 + SCREEN_UV.y*50.0)/700.0;
 		float xOff = sin(TIME*2.0 + SCREEN_UV.x*5.0)/400.0;
 		vec2 uv = SCREEN_UV + vec2(xOff, yOff);
 		

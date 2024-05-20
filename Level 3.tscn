@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="9_0s243"]
 [ext_resource type="PackedScene" uid="uid://c6ehnsd6kywbd" path="res://scene/area/water_body.tscn" id="10_lmand"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 
 [node name="Collision" type="TileMap" parent="."]
 tile_set = ExtResource("1_kpanl")
