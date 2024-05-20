@@ -11,7 +11,6 @@ func _ready():
 
 
 func reload_player_signals():
-	#disconnect_player_signals()
 	connect_player_signals()
 
 
@@ -48,8 +47,3 @@ func _show_money():
 
 func _hide_money():
 	$Money/AnimationPlayer.play("hide_money")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass

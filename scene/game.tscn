@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://bl0anfyn67h3h"]
+[gd_scene load_steps=26 format=3 uid="uid://bl0anfyn67h3h"]
 
 [ext_resource type="FontFile" uid="uid://dx3kfat1r5mox" path="res://assets/m3x6.ttf" id="2_yp3lr"]
 [ext_resource type="Script" path="res://script/debug_hud.gd" id="3_6e44m"]
+[ext_resource type="Script" path="res://script/endfade.gd" id="3_w25kt"]
 [ext_resource type="Theme" uid="uid://cqhr5xrq3hlw6" path="res://assets/hud-theme.tres" id="4_hno36"]
 [ext_resource type="Script" path="res://script/hud.gd" id="4_yywrm"]
 [ext_resource type="Script" path="res://script/music_player.gd" id="6_fbeog"]
@@ -16,6 +17,42 @@
 [sub_resource type="Theme" id="Theme_sweoh"]
 default_base_scale = 2.0
 default_font = ExtResource("2_yp3lr")
+
+[sub_resource type="Animation" id="Animation_vjyc0"]
+resource_name = "fadeout"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorOverlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_eh2k8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorOverlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bniir"]
+_data = {
+"RESET": SubResource("Animation_eh2k8"),
+"fadeout": SubResource("Animation_vjyc0")
+}
 
 [sub_resource type="Animation" id="Animation_mb1ms"]
 length = 0.001
@@ -145,6 +182,26 @@ text = "adgasdgadsghasgd"
 script = ExtResource("3_6e44m")
 
 [node name="Node" type="Node" parent="CanvasLayer"]
+
+[node name="ColorOverlay" type="ColorRect" parent="CanvasLayer"]
+z_index = 100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("3_w25kt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/ColorOverlay"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_bniir")
+}
+
+[node name="EndingTimer" type="Timer" parent="CanvasLayer/ColorOverlay/AnimationPlayer"]
+wait_time = 3.0
+one_shot = true
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
@@ -281,6 +338,7 @@ autoplay = true
 [node name="UnderwaterAmbience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_hlb7u")
 
+[connection signal="timeout" from="CanvasLayer/ColorOverlay/AnimationPlayer/EndingTimer" to="CanvasLayer/ColorOverlay" method="_on_ending_timer_timeout" flags=3]
 [connection signal="timeout" from="CanvasLayer/MarginContainer/HUD/Money/Timer" to="CanvasLayer/MarginContainer/HUD" method="_hide_money"]
 [connection signal="timeout" from="CanvasLayer/MarginContainer/HUD/LevelName/Timer" to="CanvasLayer/MarginContainer/HUD" method="_hide_level_name"]
 [connection signal="timeout" from="MusicPlayer/FadeTimer" to="MusicPlayer" method="_on_fade_timer_timeout"]

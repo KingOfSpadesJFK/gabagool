@@ -24,6 +24,7 @@ signal begin_transition_level_load
 signal transition_level_load
 signal level_transition_complete
 signal play_music(music_path: String)
+signal ending
 
 
 func _ready():
@@ -39,6 +40,9 @@ func _ready():
 	player = main_scene.get_node("Entities/Player")
 	camera = main_scene.get_node("Entities/Camera")
 	get_main_scene_meta()
+	
+func end_game():
+	ending.emit()
 
 
 func play_new_music(path: String):
