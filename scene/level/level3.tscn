@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c4x0eurdhmi7g"]
+[gd_scene load_steps=35 format=3 uid="uid://c4x0eurdhmi7g"]
 
 [ext_resource type="PackedScene" uid="uid://cfwr2l4r4pref" path="res://scene/player.tscn" id="1_xd4ta"]
 [ext_resource type="PackedScene" uid="uid://c23q66216a1g7" path="res://scene/entity/crab.tscn" id="2_dapup"]
@@ -15,8 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://cmanhsgkvodo" path="res://scene/area/checkpoint.tscn" id="12_66xew"]
 [ext_resource type="PackedScene" uid="uid://bv5nsxtir54mq" path="res://scene/area/kill_area.tscn" id="13_v6iyx"]
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="14_5maix"]
+[ext_resource type="Texture2D" uid="uid://cqvyr5ybtjqpi" path="res://assets/sprite/F_Stone1.png" id="15_axvaf"]
 [ext_resource type="Texture2D" uid="uid://bng42bwd34ca0" path="res://assets/tilemap/stone.png" id="15_cse5i"]
+[ext_resource type="Texture2D" uid="uid://di7d3mctwph6u" path="res://assets/sprite/F_Stone4.png" id="16_4xdcd"]
 [ext_resource type="Texture2D" uid="uid://bakdqs1jh1liu" path="res://assets/tilemap/sand.png" id="16_avrcf"]
+[ext_resource type="Texture2D" uid="uid://glux6vr2qenl" path="res://assets/sprite/F_Stone2.png" id="17_ufgfh"]
+[ext_resource type="Texture2D" uid="uid://c67rdh223uvwc" path="res://assets/sprite/F_Stone3.png" id="18_503cb"]
+[ext_resource type="Texture2D" uid="uid://bfc0fmmamw0s6" path="res://assets/sprite/F_Stone5.png" id="19_77wae"]
 
 [sub_resource type="Curve2D" id="Curve2D_6mvcn"]
 _data = {
@@ -566,6 +571,134 @@ texture = ExtResource("10_48hns")
 [node name="Urchin-ground2" type="Sprite2D" parent="Props"]
 position = Vector2(2063, 1179)
 texture = ExtResource("10_48hns")
+
+[node name="Node2D" type="Node2D" parent="Props"]
+z_index = 2
+
+[node name="FStone1" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(3135, 1074)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("15_axvaf")
+
+[node name="FStone4" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(1700, 1230)
+scale = Vector2(3, 3)
+texture = ExtResource("16_4xdcd")
+
+[node name="FStone5" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2099, 804)
+scale = Vector2(3, 3)
+texture = ExtResource("17_ufgfh")
+
+[node name="FStone2" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2274, 865)
+scale = Vector2(4, 4)
+texture = ExtResource("17_ufgfh")
+
+[node name="FStone6" type="Sprite2D" parent="Props/Node2D"]
+z_index = -1
+position = Vector2(2124, 841)
+scale = Vector2(3, 3)
+texture = ExtResource("18_503cb")
+
+[node name="FStone3" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2186, 880)
+scale = Vector2(2, 2)
+texture = ExtResource("18_503cb")
+
+[node name="FStone7" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2161, 811)
+scale = Vector2(2, 2)
+texture = ExtResource("18_503cb")
+
+[node name="FStone8" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2213, 806)
+scale = Vector2(2, 2)
+texture = ExtResource("18_503cb")
+
+[node name="FStone10" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2028, 834)
+scale = Vector2(2, 2)
+texture = ExtResource("17_ufgfh")
+flip_h = true
+
+[node name="FStone11" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(1961, 908)
+scale = Vector2(3, 3)
+texture = ExtResource("18_503cb")
+flip_h = true
+
+[node name="FStone12" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(1900, 864)
+scale = Vector2(2, 2)
+texture = ExtResource("18_503cb")
+flip_h = true
+
+[node name="FStone9" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2006, 1202)
+scale = Vector2(2.4, 2.4)
+texture = ExtResource("19_77wae")
+
+[node name="FStone13" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2529, 808)
+scale = Vector2(3, 3)
+texture = ExtResource("17_ufgfh")
+flip_h = true
+
+[node name="FStone14" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2704, 869)
+scale = Vector2(4, 4)
+texture = ExtResource("17_ufgfh")
+flip_h = true
+
+[node name="FStone15" type="Sprite2D" parent="Props/Node2D"]
+z_index = -1
+position = Vector2(2554, 845)
+scale = Vector2(3, 3)
+texture = ExtResource("18_503cb")
+flip_h = true
+
+[node name="FStone16" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2616, 884)
+scale = Vector2(2, 2)
+texture = ExtResource("18_503cb")
+flip_h = true
+
+[node name="FStone17" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2591, 815)
+scale = Vector2(2, 2)
+texture = ExtResource("18_503cb")
+flip_h = true
+
+[node name="FStone18" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2643, 810)
+scale = Vector2(2, 2)
+texture = ExtResource("18_503cb")
+flip_h = true
+
+[node name="FStone19" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2458, 838)
+scale = Vector2(2, 2)
+texture = ExtResource("17_ufgfh")
+flip_h = true
+
+[node name="FStone20" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2391, 912)
+scale = Vector2(3, 3)
+texture = ExtResource("18_503cb")
+flip_h = true
+
+[node name="FStone21" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(2330, 868)
+scale = Vector2(2, 2)
+texture = ExtResource("18_503cb")
+flip_h = true
+
+[node name="FStone22" type="Sprite2D" parent="Props/Node2D"]
+position = Vector2(3130, 1040)
+scale = Vector2(4, 4)
+texture = ExtResource("15_axvaf")
+flip_h = true
 
 [node name="Tilemaps" type="Node2D" parent="."]
 

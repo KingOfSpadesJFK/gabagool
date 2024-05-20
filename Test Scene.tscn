@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cg5hxcq5rc4bt"]
+[gd_scene load_steps=27 format=3 uid="uid://cg5hxcq5rc4bt"]
 
 [ext_resource type="TileSet" uid="uid://65w033kpjkbs" path="res://assets/test-tilemap.tres" id="1_nh3oh"]
 [ext_resource type="Script" path="res://script/resource/player_info.gd" id="2_guth7"]
@@ -11,11 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="6_ogtyu"]
 [ext_resource type="PackedScene" uid="uid://0vnqwh5bwg6x" path="res://scene/entity/switch.tscn" id="7_s11yi"]
 [ext_resource type="PackedScene" uid="uid://ccytxf3mditks" path="res://scene/entity/urchin.tscn" id="8_roh5t"]
-[ext_resource type="Texture2D" uid="uid://b8ulkaxw2e7wf" path="res://assets/temp-player.png" id="12_j8ct5"]
 [ext_resource type="PackedScene" uid="uid://cemcrr1cgwxa3" path="res://scene/entity/coin.tscn" id="13_8elgn"]
 [ext_resource type="PackedScene" uid="uid://c23q66216a1g7" path="res://scene/entity/crab.tscn" id="14_lkyxk"]
-[ext_resource type="Texture2D" uid="uid://c2cqokg7f11h2" path="res://assets/temp-urchin-noface.png" id="15_xggnh"]
-[ext_resource type="Texture2D" uid="uid://dseal73vfyanu" path="res://assets/treasure-close.png" id="16_vwqnx"]
 
 [sub_resource type="Resource" id="Resource_8bhux"]
 script = ExtResource("2_guth7")
@@ -195,7 +192,6 @@ position = Vector2(2072, 285)
 
 [node name="Temp-player" type="Sprite2D" parent="."]
 position = Vector2(664, 224)
-texture = ExtResource("12_j8ct5")
 
 [node name="Coin" parent="." instance=ExtResource("13_8elgn")]
 position = Vector2(2264, 152)
@@ -208,63 +204,48 @@ position = Vector2(2648, -64)
 
 [node name="Temp-urchin-noface" type="Sprite2D" parent="."]
 position = Vector2(3096, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface2" type="Sprite2D" parent="."]
 position = Vector2(3112, 288)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface3" type="Sprite2D" parent="."]
 position = Vector2(3136, 304)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface4" type="Sprite2D" parent="."]
 position = Vector2(3160, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface5" type="Sprite2D" parent="."]
 position = Vector2(3184, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface6" type="Sprite2D" parent="."]
 position = Vector2(3320, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface7" type="Sprite2D" parent="."]
 position = Vector2(3296, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface8" type="Sprite2D" parent="."]
 position = Vector2(3344, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface9" type="Sprite2D" parent="."]
 position = Vector2(3376, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface10" type="Sprite2D" parent="."]
 position = Vector2(3400, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface12" type="Sprite2D" parent="."]
 position = Vector2(3552, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface13" type="Sprite2D" parent="."]
 position = Vector2(3576, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface14" type="Sprite2D" parent="."]
 position = Vector2(3600, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Temp-urchin-noface15" type="Sprite2D" parent="."]
 position = Vector2(3624, 296)
-texture = ExtResource("15_xggnh")
 
 [node name="Treasure-close2" type="Sprite2D" parent="."]
 position = Vector2(3752, 272)
-texture = ExtResource("16_vwqnx")
 
 [node name="Coin2" parent="." instance=ExtResource("13_8elgn")]
 position = Vector2(3768, 152)
