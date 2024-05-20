@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" path="res://script/collectible.gd" id="1_3efyr"]
 [ext_resource type="Script" path="res://script/resource/collectable_ammo_info.gd" id="2_qutff"]
+[ext_resource type="Texture2D" uid="uid://pghpnbstxwbc" path="res://scene/area/harpoon.png" id="3_acfsw"]
 
 [sub_resource type="Resource" id="Resource_byuqa"]
 script = ExtResource("2_qutff")
 ammo = 3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pq74u"]
-
-[sub_resource type="PrismMesh" id="PrismMesh_iiqqt"]
 
 [node name="HarpoonGun" type="Node2D"]
 script = ExtResource("1_3efyr")
@@ -22,9 +21,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_pq74u")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+[node name="Harpoon" type="Sprite2D" parent="."]
 position = Vector2(0, 1)
-scale = Vector2(6, 15)
-mesh = SubResource("PrismMesh_iiqqt")
+texture = ExtResource("3_acfsw")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

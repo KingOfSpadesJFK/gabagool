@@ -188,7 +188,7 @@ func _process(_delta):
 
 # Handle shooting things
 func _input(event):
-	if allow_input and player_info and player_info.harpoon_ammo != 0 and !is_dead() and event is InputEventMouseButton and input_just_pressed("player_shoot") and !is_midair():
+	if allow_input and player_info.harpoon_ammo != 0 and !is_dead() and event is InputEventMouseButton and input_just_pressed("player_shoot") and !is_midair():
 		if !harpoon_projectile or harpoon_projectile.is_queued_for_deletion():
 			# Get the shooting direction
 			var event_position = event.position
