@@ -10,8 +10,17 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var facing_left = false
 @export var speed = 25.0
 
+var paused = false
+
+
+func _process(_delta):
+	if has_node("../Player"):
+		paused = (get_node("../Player").position - position).length() > 512
+
 
 func _physics_process(delta):
+	if paused:
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta

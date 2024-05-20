@@ -23,6 +23,7 @@ func _on_area_2d_body_entered(body):
 	if body is Player:
 		if play_splash_sfx:
 			body.get_node("SplashSFX").play()
+	if has_node("/root/Control"):
 		get_node("/root/Control/UnderwaterAmbience").play()
 		get_node("/root/Control/OceanWaves").stop()
 
@@ -30,8 +31,9 @@ func _on_area_2d_body_entered(body):
 func _on_area_2d_body_exited(body):
 	change_gravity(body, restore_gravity, false)
 	if body is Player:
-		get_node("/root/Control/OceanWaves").play()
-		get_node("/root/Control/UnderwaterAmbience").stop()
+		if has_node("/root/Control"):
+			get_node("/root/Control/OceanWaves").play()
+			get_node("/root/Control/UnderwaterAmbience").stop()
 		
 		
 func change_gravity(body, gravity, do_bouyancy):

@@ -15,6 +15,7 @@ func _on_new_game_pressed():
 	if Gabagool.main_scene.has_node("Entities/Camera"):
 		Gabagool.main_scene.get_node("Entities/Camera").target_node = "../Player"
 		Gabagool.main_scene.get_node("Entities/Camera").load_exports()
+		Gabagool.player.allow_input = true
 		queue_free()
 
 

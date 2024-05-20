@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cfwr2l4r4pref"]
+[gd_scene load_steps=28 format=3 uid="uid://cfwr2l4r4pref"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kgimv"]
 [ext_resource type="Script" path="res://script/resource/player_info.gd" id="2_d210k"]
@@ -20,12 +20,13 @@
 [ext_resource type="AudioStream" uid="uid://crmc5qiktukjp" path="res://assets/sfx/hit.wav" id="19_5jgu6"]
 [ext_resource type="AudioStream" uid="uid://b67i4mhqqkx2f" path="res://assets/sfx/coin.wav" id="20_3k2pb"]
 [ext_resource type="AudioStream" uid="uid://vc17nd1b2ojb" path="res://assets/sfx/splash.wav" id="20_g5k3p"]
+[ext_resource type="FontFile" uid="uid://dx3kfat1r5mox" path="res://assets/m3x6.ttf" id="21_2laf1"]
 
 [sub_resource type="Resource" id="Resource_35cbg"]
 script = ExtResource("2_d210k")
 money = 0.0
 checkpoint_position = Vector2(0, 0)
-harpoon_ammo = -1
+harpoon_ammo = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2fl3"]
 size = Vector2(20, 50)
@@ -224,6 +225,28 @@ volume_db = -6.495
 [node name="CoinSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("20_3k2pb")
 volume_db = -5.0
+
+[node name="HarpoonAmo" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -19.0
+offset_top = -36.0
+offset_right = 21.0
+offset_bottom = 4.0
+
+[node name="Label" type="Label" parent="HarpoonAmo"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("21_2laf1")
+text = "|||"
+horizontal_alignment = 1
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timeout"]

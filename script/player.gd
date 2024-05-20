@@ -54,12 +54,17 @@ const JUMP_VELOCITY = -400.0
 
 @export var player_info: PlayerInfo
 
+@export var allow_input = true
+
 
 # Emitted when the player dies
 signal player_died
 
 # Emitted when the player collects money 
 signal player_collected_money
+
+# Emitted when the player collects harpoon ammo 
+signal player_collected_ammo
 
 # Emitten when a player crosses a checkpoint
 signal player_checkpoint
@@ -86,6 +91,13 @@ func _ready():
 func retrieve_nodes():
 	collision_tilemap = get_node(collision_tilemap_path)
 
+func input_just_pressed(input):
+	return allow_input and Input.is_action_just_pressed(input)
+
+
+func input_pressed(input):
+	return allow_input and Input.is_action_pressed(input)
+
 
 # Handles inputs and player state
 func _process(_delta):
@@ -93,7 +105,7 @@ func _process(_delta):
 		return
 	
 	# Get the input direction and handle the movement/deceleration.
-	if (!is_jumping() and !is_midair()) or player_state == PlayerState.HARPOON_GLIDE_END:
+	if allow_input and (!is_jumping() and !is_midair()) or player_state == PlayerState.HARPOON_GLIDE_END:
 		direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
 	elif is_shooting():
 		direction = Vector2(0,0)
@@ -117,7 +129,7 @@ func _process(_delta):
 				# Check for climbables
 				can_climb = can_climb or tiledata.get_custom_data("Climbable")
 				if can_climb: 
-					if Input.is_action_pressed("player_up"):
+					if allow_input and input_pressed("player_up"):
 						player_state = PlayerState.CLIMB
 
 	# Check if the player is on the harpoon tile
@@ -137,7 +149,7 @@ func _process(_delta):
 		elif not is_on_floor() and !can_climb:
 			player_state = PlayerState.FALL
 	elif player_state == PlayerState.HARPOON_GLIDE_END:
-		if Input.is_action_just_pressed("player_jump"):
+		if input_just_pressed("player_jump"):
 			# Instant jump at the end of the hookshot
 			jump_impulse()
 			harpoon_projectile.queue_free()
@@ -175,7 +187,7 @@ func _process(_delta):
 
 # Handle shooting things
 func _input(event):
-	if player_info and player_info.harpoon_ammo != 0 and !is_dead() and event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
+	if allow_input and player_info and player_info.harpoon_ammo != 0 and !is_dead() and event is InputEventMouseButton and input_just_pressed("player_shoot") and !is_midair():
 		if !harpoon_projectile or harpoon_projectile.is_queued_for_deletion():
 			# Get the shooting direction
 			var event_position = event.position
@@ -264,6 +276,17 @@ func add_money(worth):
 	$CoinSFX.play()
 	player_info.money += worth
 	player_collected_money.emit()
+	
+	
+func add_ammo(ammo):
+	$CoinSFX.pitch_scale = 1 + randf_range(-0.25, .25)
+	$CoinSFX.play()
+	player_info.harpoon_ammo += ammo
+	player_collected_ammo.emit()
+	
+	if player_info.harpoon_ammo > 0:
+		for i in range(player_info.harpoon_ammo):
+			$HarpoonAmo/Label.text += '|'
 
 
 # Call this to handle player hurting. This reloads the scene, by the way
@@ -337,12 +360,12 @@ func is_midair(): return player_state == PlayerState.JUMP or player_state == Pla
 
 func is_jumping(): return player_state == PlayerState.JUMP or player_state == PlayerState.JUMP_INIT
 
-func is_interacting(): return Input.is_action_just_pressed("player_up")
+func is_interacting(): return input_just_pressed("player_up")
 
 func is_dead(): return player_state == PlayerState.DEATH
 
 func at_harpoon_end(): return player_state == PlayerState.HARPOON_GLIDE_END
 
-func can_jump(): return not is_jumping() and Input.is_action_just_pressed("player_jump") and is_on_floor()
+func can_jump(): return not is_jumping() and input_just_pressed("player_jump") and is_on_floor()
 
 func can_walk(): return (player_state == PlayerState.IDLE or player_state == PlayerState.WALK) and not is_jumping() and not is_shooting()
