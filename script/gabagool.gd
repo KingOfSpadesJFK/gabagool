@@ -163,7 +163,10 @@ func _deferred_goto_scene(path):
 	
 	# Set checkpoint info to the player and camera
 	if checkpoint_player_info:
-		player.player_info = checkpoint_player_info
+		player.player_info = PlayerInfo.new()
+		player.player_info.checkpoint_position = checkpoint_player_info.checkpoint_position
+		player.player_info.harpoon_ammo = checkpoint_player_info.harpoon_ammo
+		player.player_info.money = checkpoint_player_info.money
 	
 	# Emit the level_load signal
 	level_load.emit()

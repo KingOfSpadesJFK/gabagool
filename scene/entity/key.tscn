@@ -1,9 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dubuuvslhiao"]
+[gd_scene load_steps=6 format=3 uid="uid://dubuuvslhiao"]
 
 [ext_resource type="Script" path="res://script/collectible.gd" id="1_60dya"]
 [ext_resource type="Texture2D" uid="uid://cjfv5rdx24seg" path="res://assets/sprite/key.png" id="2_8g8p0"]
+[ext_resource type="Texture2D" uid="uid://bdd7uwams2pfd" path="res://assets/sprite/star-particle.png" id="3_oe7jd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pr85o"]
+
+[sub_resource type="Curve" id="Curve_krhn4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Key" type="Node2D"]
 script = ExtResource("1_60dya")
@@ -17,5 +22,15 @@ shape = SubResource("CircleShape2D_pr85o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_8g8p0")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 5
+lifetime = 1.5
+texture = ExtResource("3_oe7jd")
+emission_shape = 1
+emission_sphere_radius = 8.0
+gravity = Vector2(0, 20)
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_krhn4")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

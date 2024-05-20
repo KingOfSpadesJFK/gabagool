@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ccpty2ffn5xeu"]
+[gd_scene load_steps=43 format=3 uid="uid://ccpty2ffn5xeu"]
 
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="1_8esux"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="3_tdbsj"]
@@ -222,35 +222,53 @@ a = Vector2(164.964, 39.5979)
 b = Vector2(65.9644, 39.5979)
 
 [sub_resource type="Gradient" id="Gradient_engyg"]
+offsets = PackedFloat32Array(0, 0.688312)
 colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.713859, 0.877646, 0.990788, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_04m52"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wd3xu"]
 gradient = SubResource("Gradient_engyg")
 width = 100
 height = 100
-fill_from = Vector2(1, 1)
-fill_to = Vector2(1, 0.422018)
+fill_from = Vector2(0.995413, 1)
+
+[sub_resource type="Gradient" id="Gradient_gclbt"]
+offsets = PackedFloat32Array(0, 0.0563003)
+colors = PackedColorArray(0.635294, 0.827451, 1, 1, 0.25098, 0.458824, 0.635294, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_opqoa"]
+gradient = SubResource("Gradient_gclbt")
+width = 100
+height = 100
+fill_from = Vector2(0.995413, 1)
 
 [sub_resource type="Gradient" id="Gradient_cwm5s"]
-offsets = PackedFloat32Array(0, 0.634921, 0.980519)
-colors = PackedColorArray(0, 0, 0, 1, 0.184314, 0.345098, 1, 1, 0.635294, 0.827451, 1, 1)
+offsets = PackedFloat32Array(0, 0.634921)
+colors = PackedColorArray(0, 0, 0, 1, 0.252278, 0.460491, 0.636382, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_klnxt"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2xxvd"]
 gradient = SubResource("Gradient_cwm5s")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkcb6"]
+shading_mode = 0
 diffuse_mode = 2
-albedo_texture = SubResource("GradientTexture1D_klnxt")
+specular_mode = 2
+disable_fog = true
+albedo_texture = SubResource("GradientTexture1D_2xxvd")
 
-[sub_resource type="QuadMesh" id="QuadMesh_aslce"]
+[sub_resource type="QuadMesh" id="QuadMesh_ey3kd"]
 material = SubResource("StandardMaterial3D_lkcb6")
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hjesf"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dcjfx"]
+sky_top_color = Color(0.218534, 0.463414, 0.694936, 1)
+sky_horizon_color = Color(0.734507, 0.634106, 0.553204, 1)
+sky_curve = 0.0989631
+ground_bottom_color = Color(0.713726, 0.878431, 0.992157, 1)
+ground_horizon_color = Color(0.733333, 0.635294, 0.552941, 1)
 
 [sub_resource type="Sky" id="Sky_yd7rm"]
-sky_material = SubResource("ProceduralSkyMaterial_hjesf")
+sky_material = SubResource("ProceduralSkyMaterial_dcjfx")
 
-[sub_resource type="Environment" id="Environment_qdleh"]
+[sub_resource type="Environment" id="Environment_y5qme"]
 background_mode = 2
 sky = SubResource("Sky_yd7rm")
 ambient_light_source = 3
@@ -565,8 +583,12 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.80457)
 
 [node name="Water" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
-transform = Transform3D(11007.3, 0, 0, 0, -4.38092e-06, 100.224, 0, -100.224, -4.38092e-06, 0, -0.25, -53.2826)
-texture = SubResource("GradientTexture2D_04m52")
+transform = Transform3D(11007.3, 0, 0, 0, -8.19203e-06, 100.224, 0, -187.412, -4.38092e-06, 0, -0.25, -97.2067)
+texture = SubResource("GradientTexture2D_wd3xu")
+
+[node name="Water2" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
+transform = Transform3D(11007.3, 0, 0, 0, -8.19203e-06, 100.224, 0, -187.412, -4.38092e-06, 0, -0.361433, -97.207)
+texture = SubResource("GradientTexture2D_opqoa")
 
 [node name="Seabed" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
 transform = Transform3D(-6633.79, 0, 0, 0, 1.60816e-05, 0.999995, 0, 367.904, -4.37112e-08, 0, -11, -186)
@@ -575,11 +597,11 @@ skeleton = NodePath("../..")
 
 [node name="Bacgkround" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
 transform = Transform3D(-1.03648e-05, -17191.7, 0, 237.119, -0.000751474, 0, 0, 0, 100, 0, -118.809, -101.195)
-mesh = SubResource("QuadMesh_aslce")
+mesh = SubResource("QuadMesh_ey3kd")
 skeleton = NodePath("../..")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
-environment = SubResource("Environment_qdleh")
+environment = SubResource("Environment_y5qme")
 
 [node name="Markers" type="Node" parent="."]
 

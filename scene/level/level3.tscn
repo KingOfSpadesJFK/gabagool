@@ -505,7 +505,6 @@ scale = Vector2(0.354223, 1)
 [node name="Area" type="Node2D" parent="."]
 
 [node name="WaterBody" parent="Area" instance=ExtResource("11_c3jml")]
-visible = false
 position = Vector2(2099, 472)
 
 [node name="CollisionShape2D" parent="Area/WaterBody/Area2D" index="0"]

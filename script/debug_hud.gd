@@ -37,7 +37,8 @@ func _process(_delta):
 		text = Player.PlayerState.keys()[player.player_state] + '\n'
 		text += str(player.velocity) + '\n'
 		text += str(floor(player.global_position / 16.0)) + '\n'
-		text += 'Checkpoint: ' + str(player.player_info.checkpoint_position) + '\n'
-		text += '$' + str(player.player_info.money) + '\n'
+		if player.player_info:
+			text += 'Checkpoint: ' + str(player.player_info.checkpoint_position) + '\n'
+			text += '$' + str(player.player_info.money) + '\n'
 	if camera:
 		text += 'Camera position: ' + str(camera.position) +'\n'

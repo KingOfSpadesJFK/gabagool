@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0j6g8gxjowkc"]
+[gd_scene load_steps=8 format=3 uid="uid://d0j6g8gxjowkc"]
 
 [ext_resource type="Script" path="res://script/collectible.gd" id="1_sf0qn"]
 [ext_resource type="Script" path="res://script/resource/collectable_money_info.gd" id="2_m0wnp"]
+[ext_resource type="Texture2D" uid="uid://bdd7uwams2pfd" path="res://assets/sprite/star-particle.png" id="3_5e2st"]
+[ext_resource type="Texture2D" uid="uid://bgj34idslfnnf" path="res://assets/sprite/big-coin.png" id="4_2ubhs"]
 
 [sub_resource type="Resource" id="Resource_j4ea8"]
 script = ExtResource("2_m0wnp")
@@ -9,7 +11,9 @@ worth = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pr85o"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_evd6h"]
+[sub_resource type="Curve" id="Curve_ggmrq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="BigCoin" type="Node2D"]
 script = ExtResource("1_sf0qn")
@@ -22,10 +26,17 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_pr85o")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-modulate = Color(0.83876, 0.704098, 0.37904, 1)
-position = Vector2(0, 2.74181e-06)
-scale = Vector2(16.0181, 26)
-mesh = SubResource("SphereMesh_evd6h")
+[node name="Big-coin" type="Sprite2D" parent="."]
+texture = ExtResource("4_2ubhs")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 5
+lifetime = 1.5
+texture = ExtResource("3_5e2st")
+emission_shape = 1
+emission_sphere_radius = 8.0
+gravity = Vector2(0, 20)
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_ggmrq")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

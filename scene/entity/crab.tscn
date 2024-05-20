@@ -1,9 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://c23q66216a1g7"]
+[gd_scene load_steps=10 format=3 uid="uid://c23q66216a1g7"]
 
 [ext_resource type="Script" path="res://script/crab.gd" id="1_6vvx1"]
+[ext_resource type="Texture2D" uid="uid://pdc6xnqhc61r" path="res://assets/sprite/crab/Crab0000.png" id="2_pq5fc"]
+[ext_resource type="Texture2D" uid="uid://ba43mnbbwemsa" path="res://assets/sprite/crab/Crab0001.png" id="3_j3vv7"]
+[ext_resource type="Texture2D" uid="uid://ce37uwteqkiqt" path="res://assets/sprite/crab/Crab0002.png" id="4_00h4l"]
+[ext_resource type="Texture2D" uid="uid://dpqjhp87qq8r7" path="res://assets/sprite/crab/Crab0003.png" id="5_n6y66"]
+[ext_resource type="Texture2D" uid="uid://chhg1rpiu0sah" path="res://assets/sprite/crab/Crab0004.png" id="6_e0ntw"]
+[ext_resource type="Texture2D" uid="uid://c36orr43jlffq" path="res://assets/sprite/crab/Crab0005.png" id="7_u412c"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_g4ia3"]
-size = Vector2(32, 32)
+[sub_resource type="SpriteFrames" id="SpriteFrames_5w2vv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pq5fc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_j3vv7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_00h4l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_n6y66")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_e0ntw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_u412c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cihp"]
 size = Vector2(32, 32)
@@ -11,8 +40,10 @@ size = Vector2(32, 32)
 [node name="Crab" type="CharacterBody2D"]
 script = ExtResource("1_6vvx1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("PlaceholderTexture2D_g4ia3")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5w2vv")
+frame = 2
+frame_progress = 0.125413
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2cihp")

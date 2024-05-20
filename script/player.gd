@@ -175,7 +175,7 @@ func _process(_delta):
 
 # Handle shooting things
 func _input(event):
-	if player_info.harpoon_ammo != 0 and !is_dead() and event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
+	if player_info and player_info.harpoon_ammo != 0 and !is_dead() and event is InputEventMouseButton and Input.is_action_just_pressed("player_shoot") and !is_midair():
 		if !harpoon_projectile or harpoon_projectile.is_queued_for_deletion():
 			# Get the shooting direction
 			var event_position = event.position
@@ -260,6 +260,8 @@ func checkpoint(respawn_point):
 
 # Call this to add money to the player
 func add_money(worth):
+	$CoinSFX.pitch_scale = 1 + randf_range(-0.25, .25)
+	$CoinSFX.play()
 	player_info.money += worth
 	player_collected_money.emit()
 

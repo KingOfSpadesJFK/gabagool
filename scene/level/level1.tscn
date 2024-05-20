@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cqmh34c36ur5f"]
+[gd_scene load_steps=44 format=3 uid="uid://cqmh34c36ur5f"]
 
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="1_6pjhq"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="1_cdmto"]
@@ -217,38 +217,56 @@ b = Vector2(-137.81, -87.1841)
 a = Vector2(25.1896, -94.1841)
 b = Vector2(-14.8104, 1.81595)
 
-[sub_resource type="Gradient" id="Gradient_engyg"]
-offsets = PackedFloat32Array(0, 0.688312, 0.954545, 1)
-colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.713859, 0.877646, 0.990788, 1, 0.713726, 0.878431, 0.992157, 1, 0.0862745, 0.203922, 0.603922, 1)
+[sub_resource type="Gradient" id="Gradient_hjdst"]
+offsets = PackedFloat32Array(0, 0.688312)
+colors = PackedColorArray(0.0879139, 0.205311, 0.603506, 1, 0.713859, 0.877646, 0.990788, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_04m52"]
-gradient = SubResource("Gradient_engyg")
+gradient = SubResource("Gradient_hjdst")
 width = 100
 height = 100
 fill_from = Vector2(0.995413, 1)
 
-[sub_resource type="Gradient" id="Gradient_cwm5s"]
-offsets = PackedFloat32Array(0, 0.634921, 0.980519)
-colors = PackedColorArray(0, 0, 0, 1, 0.184314, 0.345098, 1, 1, 0.635294, 0.827451, 1, 1)
+[sub_resource type="Gradient" id="Gradient_eqgnk"]
+offsets = PackedFloat32Array(0, 0.0563003)
+colors = PackedColorArray(0.635294, 0.827451, 1, 1, 0.25098, 0.458824, 0.635294, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0y1d5"]
+gradient = SubResource("Gradient_eqgnk")
+width = 100
+height = 100
+fill_from = Vector2(0.995413, 1)
+
+[sub_resource type="Gradient" id="Gradient_nv061"]
+offsets = PackedFloat32Array(0, 0.634921)
+colors = PackedColorArray(0, 0, 0, 1, 0.252278, 0.460491, 0.636382, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_klnxt"]
-gradient = SubResource("Gradient_cwm5s")
+gradient = SubResource("Gradient_nv061")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkcb6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4o5qe"]
+shading_mode = 0
 diffuse_mode = 2
+specular_mode = 2
+disable_fog = true
 albedo_texture = SubResource("GradientTexture1D_klnxt")
 
 [sub_resource type="QuadMesh" id="QuadMesh_aslce"]
-material = SubResource("StandardMaterial3D_lkcb6")
+material = SubResource("StandardMaterial3D_4o5qe")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hjesf"]
+sky_top_color = Color(0.218534, 0.463414, 0.694936, 1)
+sky_horizon_color = Color(0.734507, 0.634106, 0.553204, 1)
+sky_curve = 0.0989631
+ground_bottom_color = Color(0.713726, 0.878431, 0.992157, 1)
+ground_horizon_color = Color(0.733333, 0.635294, 0.552941, 1)
 
-[sub_resource type="Sky" id="Sky_yd7rm"]
+[sub_resource type="Sky" id="Sky_lnhmh"]
 sky_material = SubResource("ProceduralSkyMaterial_hjesf")
 
 [sub_resource type="Environment" id="Environment_qdleh"]
 background_mode = 2
-sky = SubResource("Sky_yd7rm")
+sky = SubResource("Sky_lnhmh")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 glow_enabled = true
@@ -521,6 +539,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.80457)
 [node name="Water" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
 transform = Transform3D(11007.3, 0, 0, 0, -8.19203e-06, 100.224, 0, -187.412, -4.38092e-06, 0, -0.25, -97.2067)
 texture = SubResource("GradientTexture2D_04m52")
+
+[node name="Water2" type="Sprite3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
+transform = Transform3D(11007.3, 0, 0, 0, -8.19203e-06, 100.224, 0, -187.412, -4.38092e-06, 0, -0.361433, -97.207)
+texture = SubResource("GradientTexture2D_0y1d5")
 
 [node name="Seabed" type="MeshInstance3D" parent="World/BackgroundViewport/SubviewportContainer/SubViewport/3DWaterBackground"]
 transform = Transform3D(-6633.79, 0, 0, 0, 1.60816e-05, 0.999995, 0, 367.904, -4.37112e-08, 0, -11, -186)

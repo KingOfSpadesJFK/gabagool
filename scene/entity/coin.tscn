@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" path="res://script/collectible.gd" id="1_7n3ip"]
 [ext_resource type="Script" path="res://script/resource/collectable_money_info.gd" id="2_b58tw"]
+[ext_resource type="Texture2D" uid="uid://dj6qjj4rbbwjo" path="res://assets/sprite/coin.png" id="3_ck5vc"]
 
 [sub_resource type="Resource" id="Resource_j4ea8"]
 script = ExtResource("2_b58tw")
 worth = 10.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pr85o"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_evd6h"]
 
 [node name="Coin" type="Node2D"]
 script = ExtResource("1_7n3ip")
@@ -22,10 +21,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_pr85o")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-modulate = Color(0.83876, 0.704098, 0.37904, 1)
-position = Vector2(0, 2.74181e-06)
-scale = Vector2(8.21645, 12.8928)
-mesh = SubResource("SphereMesh_evd6h")
+[node name="Coin" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+texture = ExtResource("3_ck5vc")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://crl7k4nium8mn"]
+[gd_scene load_steps=10 format=3 uid="uid://crl7k4nium8mn"]
 
 [ext_resource type="Script" path="res://script/chest.gd" id="1_o3jbk"]
 [ext_resource type="Texture2D" uid="uid://drgmpa6a1rpwk" path="res://assets/sprite/chest-close.png" id="2_25l21"]
 [ext_resource type="Texture2D" uid="uid://x1a7qwm6crc1" path="res://assets/sprite/chest-collected.png" id="3_xslxv"]
 [ext_resource type="Texture2D" uid="uid://hg2fbooj13sa" path="res://assets/sprite/chest-open.png" id="4_fi5eh"]
+[ext_resource type="AudioStream" uid="uid://cuy40cxgumcvi" path="res://assets/sfx/chest.wav" id="5_rdfop"]
+[ext_resource type="AudioStream" uid="uid://3gypi3l11n7c" path="res://assets/sfx/key.wav" id="6_v74b6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_67eua"]
 size = Vector2(28, 19)
@@ -58,5 +60,25 @@ shape = SubResource("RectangleShape2D_7i8ge")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ep404")
 animation = &"close"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_rdfop")
+
+[node name="KeySFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_v74b6")
+pitch_scale = 2.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 0.84
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 44.86
+initial_velocity_max = 70.35
+damping_min = 60.684
+damping_max = 60.684
+color = Color(0.889033, 0.751178, 0.268279, 1)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

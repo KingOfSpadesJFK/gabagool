@@ -14,6 +14,7 @@ var opened = false
 
 func _on_key_collected():
 	$AnimatedSprite2D.play("open")
+	$KeySFX.play()
 	opened = true
 
 
@@ -24,3 +25,6 @@ func _on_area_2d_body_entered(body):
 			treasure_collected.emit()
 			collected = true
 			$AnimatedSprite2D.play("collected")
+			$AudioStreamPlayer2D.pitch_scale = 1 + randf_range(-0.25, .25)
+			$AudioStreamPlayer2D.play()
+			$CPUParticles2D.emitting = true

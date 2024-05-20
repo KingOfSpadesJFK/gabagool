@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cfwr2l4r4pref"]
+[gd_scene load_steps=27 format=3 uid="uid://cfwr2l4r4pref"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kgimv"]
 [ext_resource type="Script" path="res://script/resource/player_info.gd" id="2_d210k"]
@@ -18,6 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://chefcy203yuxy" path="res://assets/sfx/jump.wav" id="17_dr28h"]
 [ext_resource type="AudioStream" uid="uid://d3bm88fyj3o1u" path="res://assets/sfx/land.wav" id="18_0n0mo"]
 [ext_resource type="AudioStream" uid="uid://crmc5qiktukjp" path="res://assets/sfx/hit.wav" id="19_5jgu6"]
+[ext_resource type="AudioStream" uid="uid://b67i4mhqqkx2f" path="res://assets/sfx/coin.wav" id="20_3k2pb"]
 [ext_resource type="AudioStream" uid="uid://vc17nd1b2ojb" path="res://assets/sfx/splash.wav" id="20_g5k3p"]
 
 [sub_resource type="Resource" id="Resource_35cbg"]
@@ -219,6 +220,10 @@ stream = ExtResource("19_5jgu6")
 [node name="SplashSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("20_g5k3p")
 volume_db = -6.495
+
+[node name="CoinSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_3k2pb")
+volume_db = -5.0
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timeout"]
