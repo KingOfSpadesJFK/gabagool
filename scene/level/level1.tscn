@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://cqmh34c36ur5f"]
+[gd_scene load_steps=59 format=3 uid="uid://cqmh34c36ur5f"]
 
 [ext_resource type="PackedScene" uid="uid://bnwpolx7e34g3" path="res://scene/entity/door.tscn" id="1_6pjhq"]
 [ext_resource type="PackedScene" uid="uid://crl7k4nium8mn" path="res://scene/entity/chest.tscn" id="1_cdmto"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://dit4ro3tpk65a" path="res://assets/sprite/SandF1.png" id="27_cyyj4"]
 [ext_resource type="Texture2D" uid="uid://4off7oqpmxps" path="res://assets/sprite/SandF2.png" id="28_sj4w3"]
 [ext_resource type="TileSet" uid="uid://c8bun4didny3j" path="res://assets/deep-sand.tres" id="32_me8cv"]
+[ext_resource type="Theme" uid="uid://cqhr5xrq3hlw6" path="res://assets/hud-theme.tres" id="38_q7law"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xfei2"]
 friction = 0.0
@@ -644,6 +645,29 @@ position = Vector2(-170, -25)
 
 [node name="L1Spawn" type="Marker2D" parent="Markers"]
 position = Vector2(1178.29, 372.873)
+
+[node name="Label" type="Label" parent="."]
+z_index = 100
+offset_left = -217.0
+offset_top = -79.0
+offset_right = -97.0
+offset_bottom = -56.0
+theme = ExtResource("38_q7law")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "WASD: Move
+"
+
+[node name="Label2" type="Label" parent="."]
+z_index = 100
+offset_left = 58.0
+offset_top = 292.0
+offset_right = 178.0
+offset_bottom = 315.0
+theme = ExtResource("38_q7law")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Space: Jump"
 
 [connection signal="collected" from="Entities/Key" to="Entities/Chest" method="_on_key_collected"]
 [connection signal="treasure_collected" from="Entities/Chest" to="Entities/Door" method="_on_door_open"]

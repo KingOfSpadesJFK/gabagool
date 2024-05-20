@@ -3,6 +3,7 @@
 
 # Where finished builds are
 .build/
+.bin/
 
 # Anything you don't want in the git
 .ignore/
